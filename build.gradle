@@ -11,6 +11,6 @@ repositories {
 }
  
  dependencies {
- 	 compile 'nz.ac.waikato.cms.weka:weka-stable:3.8.2'
+ 	 //compile 'nz.ac.waikato.cms.weka:weka-stable:3.8.2'
      testCompile 'junit:junit:4.12'
 }
