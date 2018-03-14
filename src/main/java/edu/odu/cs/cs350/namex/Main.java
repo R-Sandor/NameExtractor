@@ -9,6 +9,6 @@ public class Main {
 		// weka object from weka dependency
 		new SMO();
 		
-		System.out.println("Hello world.");
+		System.out.println("Hello from the other side.");
 	}
 }
