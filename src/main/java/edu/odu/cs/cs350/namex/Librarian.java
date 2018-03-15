@@ -12,7 +12,7 @@ public class Librarian {
 	
 	
 	
-	public  void readInput(String [] inBlock) {
+	public void readInput(String [] inBlock) {
 		
 	}
 	
