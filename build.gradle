@@ -2,6 +2,7 @@ version '1.0'
 
 apply plugin: 'java'
 apply plugin: 'application'
+
 mainClassName = 'edu.odu.cs.cs350.namex.Main'
 
 sourceCompatibility = 1.8
@@ -11,6 +12,6 @@ repositories {
 }
  
  dependencies {
- 	 //compile 'nz.ac.waikato.cms.weka:weka-stable:3.8.2'
+ 	 compile 'nz.ac.waikato.cms.weka:weka-stable:3.8.2'
      testCompile 'junit:junit:4.12'
 }
