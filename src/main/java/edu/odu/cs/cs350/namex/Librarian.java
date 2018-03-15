@@ -12,13 +12,11 @@ public class Librarian {
 	
 	
 	
-	public  void readInput(String [] InBlock)
-	{
+	public  void readInput(String [] inBlock) {
 		
 	}
 	
-	public void readInput(String text)
-	{
+	public void readInput(String text) {
 		
 	}
 	
