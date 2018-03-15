@@ -10,4 +10,16 @@ package edu.odu.cs.cs350.namex;
 
 public class Librarian {
 	
+	
+	
+	public  void readInput(String [] InBlock)
+	{
+		
+	}
+	
+	public void readInput(String text)
+	{
+		
+	}
+	
 }
