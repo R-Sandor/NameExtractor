@@ -17,11 +17,12 @@ public class TestLexical {
 
 	@Test
 	public void testDoesApply() {
+		
 		Lexical lexical = new Lexical();
 		
 		// Read in multiple lines that are to be tested by the lexical class.
 		List<String> lexicalTestLines = new ArrayList<>();
-		File file = new File("src/main/resources/TestSentences.txt");	 
+		File file = new File("src/main/resources/TestLexicalSentences.txt");	 
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
 			bufferedReader.lines().forEach(lexicalTestLines::add);
 		} catch (IOException e) {
