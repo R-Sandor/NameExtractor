@@ -1,5 +1,7 @@
 package edu.odu.cs.cs350.namex.features;
 
+import java.util.List;
+
 public class Gazetteer implements Feature {
 	
 	@Override
@@ -41,4 +43,23 @@ public class Gazetteer implements Feature {
 	private boolean isCountry(String word) {
 		return false;
 	}
+	
+	public List<String> getCommonFirstNamesDTIC() {
+		return null;
+	}
+	
+	public List<String> getCommonLastNamesDTIC() {
+		return null;
+	}
+	
+	public List<String> getCommonFirstNamesCensus() {
+		return null;
+	}
+	
+	public List<String> getCommonLastNamesCensus() {
+		return null;
+	}
+	
+	
+	
 }
