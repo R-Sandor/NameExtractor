@@ -1,5 +1,8 @@
 package edu.odu.cs.cs350.namex;
 
+import java.io.File;
+import java.util.ArrayList;
+
 /**
  * 
  *
@@ -10,9 +13,9 @@ package edu.odu.cs.cs350.namex;
 
 public class Librarian {
 	
+	private ArrayList<String> outBlock; 
 	
-	
-	public void readInput(String [] inBlock) {
+	public void readInput(File file) {
 		
 	}
 	
@@ -20,4 +23,13 @@ public class Librarian {
 		
 	}
 	
+	public ArrayList<String> getBlocks()
+	{
+		return null;
+	}
+	
+	public int numOfBlocks()
+	{
+		return 0;
+	}
 }
