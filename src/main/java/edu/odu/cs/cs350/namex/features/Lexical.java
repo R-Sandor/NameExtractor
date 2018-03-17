@@ -19,7 +19,7 @@ public class Lexical implements Feature {
 		return false;
 	}
 	
-	public String[] seperateText(String blockText) {
+	public String[] separateText(String blockText) {
 		return null;
 	}
 }
