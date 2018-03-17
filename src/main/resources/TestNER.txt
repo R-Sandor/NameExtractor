@@ -1,5 +1,5 @@
-<NER> Hello Zeil <NER>
-<NER> Joseph is the code dungeon  master <NER>
+<NER> Hello Zeil </NER>
+<NER> Joseph is the code dungeon  master </NER>
 <NER>(UUV) master plan. Bluefin Robotics Corporation and</NER>
 <NER>Final Report 
 Prepared for : 
