@@ -19,7 +19,7 @@ public class Lexical implements Feature {
 		return false;
 	}
 	
-	private boolean isWhitespace(String text) {
-		return false;
+	public String[] seperateText(String blockText) {
+		return null;
 	}
 }
