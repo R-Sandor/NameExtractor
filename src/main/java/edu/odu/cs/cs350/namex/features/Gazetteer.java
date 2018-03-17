@@ -5,42 +5,42 @@ import java.util.List;
 public class Gazetteer implements Feature {
 	
 	@Override
-	public String doesApply(String word) {	
+	public String doesApply(String text) {	
 		return "";
 	}
 	
 	public void performDatabaseFetching() {
 	}
 	
-	private boolean isCommonFirstName(String word) {
+	private boolean isCommonFirstName(String text) {
 		return false;
 	}
 	
-	private boolean isCommonLastName(String word) {
+	private boolean isCommonLastName(String text) {
 		return false;
 	}
 	
-	private boolean isDictionaryWord(String word) {
+	private boolean isDictionaryWord(String text) {
 		return false;
 	}
 	
-	private boolean hasSuffixes(String word) {
+	private boolean hasSuffixes(String text) {
 		return false;
 	}
 	
-	private boolean isUsaCity(String word) {
+	private boolean isUsaCity(String text) {
 		return false;
 	}
 	
-	private boolean isUsaState(String word) {
+	private boolean isUsaState(String text) {
 		return false;
 	}
 	
-	private boolean isTerritory(String word) {
+	private boolean isTerritory(String text) {
 		return false;
 	}
 	
-	private boolean isCountry(String word) {
+	private boolean isCountry(String text) {
 		return false;
 	}
 	
