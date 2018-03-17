@@ -24,4 +24,8 @@ public class LearningMachine {
 	public void readFeatureList() {
 		
 	}
+	
+	public void tagWrap(String blockText, int key) {
+		
+	}
 }
