@@ -14,3 +14,4 @@ public interface Feature {
 	//Call order
 		//Lexical, POS, Gazateer
 }
+

@@ -70,7 +70,7 @@ public class TestLexical {
 			
 			if (testSeperation) {
 				String testBlock = blockOfText.substring(0, blockOfText.length() - 7);
-				String[] text = lexical.separateText(testBlock);
+				String[] text = lexical.seperateText(testBlock);
 				
 				// Making sure it separated into the correct number of blocks.
 				assertTrue(numberOfText == text.length);

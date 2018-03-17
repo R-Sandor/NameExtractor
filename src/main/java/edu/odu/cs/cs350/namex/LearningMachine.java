@@ -3,7 +3,7 @@ package edu.odu.cs.cs350.namex;
 public class LearningMachine {
 
 	
-	public char calculateWord(String word) {
+	public char calculateWord(String text) {
 		char test = 0;
 		return test;
 	}
