@@ -44,7 +44,7 @@ public class TestLexical {
 		
 		Lexical lexical = new Lexical();
 		
-		List<String> lexicalTestLines = readLinesFromFile("src/main/resources/TestLexicalSentences.txt");
+		List<String> lexicalTestLines = readLinesFromFile("src/main/resources/TestLexicalSeperate.txt");
 		
 		boolean testSeperation = false;
 		StringBuilder blockOfTextBuilder = new StringBuilder("");
