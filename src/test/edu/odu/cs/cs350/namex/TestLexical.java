@@ -40,7 +40,7 @@ public class TestLexical {
 	}
 
 	@Test
-	public void testSeperateByWhitespace() {
+	public void testSeperateText() {
 		
 		Lexical lexical = new Lexical();
 		
@@ -74,6 +74,31 @@ public class TestLexical {
 				
 				// Making sure it separated into the correct number of blocks.
 				assertTrue(numberOfText == text.length);
+				
+				// Making sure each piece of text does not contain what qualifies
+				// as a new piece of text.
+				for (int j = 0; j < text.length; j++) {
+					assertTrue(!text[j].contains(" "));
+					assertTrue(!text[j].contains("\t"));
+					
+					// If the text is greater than one it should not
+					// contain punctuation.
+					if (text[j].length() > 1) {
+						assertTrue(!text[j].contains("."));
+						assertTrue(!text[j].contains(";"));
+						assertTrue(!text[j].contains(":"));
+						assertTrue(!text[j].contains("!"));
+						assertTrue(!text[j].contains(","));
+						assertTrue(!text[j].contains("\""));
+						assertTrue(!text[j].contains("?"));
+						assertTrue(!text[j].contains("%"));
+						assertTrue(!text[j].contains("$"));
+						assertTrue(!text[j].contains("'"));
+						assertTrue(!text[j].contains("\\"));
+						assertTrue(!text[j].contains("/"));
+					}
+				}
+				
 				testSeperation = false;
 			}
 		}
