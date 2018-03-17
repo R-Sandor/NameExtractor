@@ -10,5 +10,7 @@ public interface Feature {
 	 * @return the string containing information about features that
 	 *         apply to the word passed.
 	 */
-	String doesApply(String word);
+	String doesApply(String text);
+	//Call order
+		//Lexical, POS, Gazateer
 }
