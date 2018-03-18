@@ -20,6 +20,7 @@ public class LearningMachine {
 		
 		// Provide a mapping between the 'splitText' and the 'mappedFeatures' lists
 		for (String text :splitText) {
+			mappedFeatures.add(lexical.doesApply(text));
 			
 		}
 		
