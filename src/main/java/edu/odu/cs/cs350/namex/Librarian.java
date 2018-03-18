@@ -34,9 +34,11 @@ public class Librarian {
 		for (String line : fileLines) {
 			
 			if (line.contains("<NER>") && line.contains("</NER>")) {
-				outBlock.add(line);
+				line= line.replace("</NER>","");
+				outBlock.add(line.replace("<NER>", ""));
 			}
 			else if (line.contains("</NER>")){
+				line= line.replace("</NER>","");
 				addToLine = outBlock.get(outBlock.size()-1)+ line;
 				if (!outBlock.get(outBlock.size()-1).equals(line)){
 					outBlock.set(outBlock.size()-1, addToLine);
@@ -44,14 +46,16 @@ public class Librarian {
 			}
 			else if (line.contains("<NER>"))
 			{
-				outBlock.add(line);
+				line = line.replace("</NER>","");
+				outBlock.add(line.replace("<NER>", ""));
 
 
 			}
 			else
 			{
 				addToLine = outBlock.get(outBlock.size()-1)+ line;
-				outBlock.set(outBlock.size()-1, addToLine);
+				line = line.replace("</NER>", "");
+				outBlock.set(outBlock.size()-1, addToLine.replace("<NER>", ""));
 				
 
 			}
@@ -81,6 +85,7 @@ public class Librarian {
 	 */
 	public void processBlocks(){
 		
+		PersonalNameExtractor PNE = new PersonalNameExtractor();
 		
 		
 	}
