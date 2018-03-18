@@ -59,7 +59,7 @@ public class TestLibrarian {
 		System.out.println(librarian.getBlocks());	
 		assertEquals(openNerCount, librarian.numOfBlocks());
 		
-		assertEquals(textBlocks.get(1), librarian.getBlocks().get(1));
+		assertEquals(textBlocks.get(1).replace("<NER>", "").replace("</NER>", ""), librarian.getBlocks().get(1));
 		
 		
 		
