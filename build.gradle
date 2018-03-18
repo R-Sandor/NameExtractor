@@ -9,10 +9,17 @@ sourceCompatibility = 1.8
 
 repositories {
      mavenCentral()
+     jcenter()
+
+  	ivy {
+  		url 'https://secweb.cs.odu.edu/~zeil/ivyrepo'
+  	}
  
 }
  
  dependencies {
  	 compile 'nz.ac.waikato.cms.weka:weka-stable:3.8.2'
+ 	 compile 'edu.odu.cs.extract:extract-wordlists:4.2'
      testCompile 'junit:junit:4.12'
+   
 }
