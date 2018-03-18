@@ -40,7 +40,7 @@ Punctuation
 Number
 3a3
 Number
-\n
-NewLine
 multi-line
 other
+\n
+NewLine

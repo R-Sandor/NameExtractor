@@ -10,10 +10,10 @@ public class Lexical implements Feature {
 		
 		if(isNewLine(text)) return "NewLine";
 		if(isCapitalLetter(text)) return "CapLetter";
-		if(isAllCaps(text)) return "AllCaps";
-		if(isCapitalized(text)) return "Capitalized";
 		if(isPunctuation(text)) return "Punctuation";
 		if(hasNumber(text)) return "Number";
+		if(isAllCaps(text)) return "AllCaps";
+		if(isCapitalized(text)) return "Capitalized";
 		return "other";
 	}
 	
@@ -25,13 +25,6 @@ public class Lexical implements Feature {
 		return false;
 	}
 	
-	private boolean isCapitalized(String text) {  
-		
-		if (Character.isUpperCase(text.charAt(0))) return true;
-		
-		return false;
-	}
-	
 	private boolean isNewLine(String text) {
 		if(text.length()==1) {
 		String newLine = "\n";
@@ -39,14 +32,22 @@ public class Lexical implements Feature {
 		}
 		return false;
 	}
-	
-	private boolean isAllCaps(String text) {
-		for(int i=text.length()-1; i>=0; i--) {
-			if(Character.isUpperCase(text.charAt(i))) {
-	            return true;
-			}
-		}
+	private boolean isCapitalized(String text) {  
+		
+		if (Character.isUpperCase(text.charAt(0))) return true;
+		
 		return false;
+	}
+	
+	private boolean  isAllCaps(String text) {
+	    for (int i=0; i<text.length(); i++)
+	    {
+	        if (Character.isLowerCase(text.charAt(i)))
+	        {
+	            return false;
+	        }
+	    }
+	    return true;
 	}
 	
 	private boolean isCapitalLetter(String text) {

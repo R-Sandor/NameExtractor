@@ -1,5 +1,7 @@
 package edu.odu.cs.cs350.namex;
 
+import edu.odu.cs.cs350.namex.features.Lexical;
+
 public class LearningMachine {
 
 	
@@ -8,6 +10,7 @@ public class LearningMachine {
 		return test;
 	}
 	public void learn(char blockText) {
+		Lexical lexical = new Lexical();
 		
 	}
 	

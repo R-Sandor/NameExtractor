@@ -26,10 +26,10 @@ public class TestLexical {
 		boolean testLexical = false;
 		String text = "", testFeatureText = "";
 		for (String line : lexicalTestLines) {
-
 			if (!testLexical) {
-				if(line == "\\n") {
+				if(line.equals("\\n")) {
 					text = "\n";
+
 				}
 			else	text = line;
 			}
@@ -38,7 +38,7 @@ public class TestLexical {
 			// It will now make sure the output of the 'doesApply' method
 			// matches that of the 'testFeatureText'.
 			if (testLexical) {
-				assertTrue(lexical.doesApply(text).equals(testFeatureText));
+				assertEquals(testFeatureText, lexical.doesApply(text));
 			}
 			
 			testLexical = !testLexical;
