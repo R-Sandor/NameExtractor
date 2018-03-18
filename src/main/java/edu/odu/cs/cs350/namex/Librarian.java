@@ -87,6 +87,11 @@ public class Librarian {
 		
 		PersonalNameExtractor PNE = new PersonalNameExtractor();
 		
+		for(String line: outBlock ) {
+			PNE.addToCollection(line);
+		}
+		
+		outBlock.clear();
 		
 	}
 }
