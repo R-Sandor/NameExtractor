@@ -1,5 +1,7 @@
 package edu.odu.cs.cs350.namex;
 
+import java.util.List;
+
 import edu.odu.cs.cs350.namex.features.Lexical;
 
 public class LearningMachine {
@@ -9,8 +11,12 @@ public class LearningMachine {
 		char test = 0;
 		return test;
 	}
-	public void learn(char blockText) {
+	public void learn(String blockText) {
 		Lexical lexical = new Lexical();
+		List<String> splitText = lexical.separateText(blockText);
+		for (String s : splitText) {
+			//mappedStrings.put(s," ");
+		}
 		
 	}
 	
