@@ -21,9 +21,10 @@ public class TestLibrarian {
 		String exampleInput = "Name Extraction -- Requirements Definition\nSteven J Zeil\nJan 20, 2016";
 		librarian.readInput(exampleInput);
 		ArrayList<String> block = librarian.getBlocks();
+		System.out.println(block);
 		assertTrue(block.contains(exampleInput));
-		
-		assertEquals(1, librarian.getBlocks());
+		assertTrue(true);
+		assertEquals(1, librarian.numOfBlocks());
 		
 		
 	}
@@ -55,10 +56,8 @@ public class TestLibrarian {
 			if (line.contains("</NER>"))
 				nerCloseCount++;
 		}
-		
-		assertEquals(openNerCount, nerCloseCount);
-		
-		assertEquals(openNerCount, librarian.getBlocks());
+		System.out.println(librarian.getBlocks());	
+		assertEquals(openNerCount, librarian.numOfBlocks());
 		
 		assertEquals(textBlocks.get(1), librarian.getBlocks().get(1));
 		

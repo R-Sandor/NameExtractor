@@ -1,7 +1,11 @@
 package edu.odu.cs.cs350.namex;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -13,29 +17,62 @@ import java.util.ArrayList;
 
 public class Librarian {
 	
-	private ArrayList<String> outBlock;
+	private ArrayList<String> outBlock = new ArrayList<String>();
 	
 	/*
 	 * Read text files from the CLI interface.
 	 */
 	public void readInput(File file) {
-		
+		List<String> fileLines = new ArrayList<>();
+
+		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+			bufferedReader.lines().forEach(fileLines::add);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String addToLine;
+		for (String line : fileLines) {
+			
+			if (line.contains("<NER>") && line.contains("</NER>")) {
+				outBlock.add(line);
+			}
+			else if (line.contains("</NER>")){
+				addToLine = outBlock.get(outBlock.size()-1)+ line;
+				if (!outBlock.get(outBlock.size()-1).equals(line)){
+					outBlock.set(outBlock.size()-1, addToLine);
+				}
+			}
+			else if (line.contains("<NER>"))
+			{
+				outBlock.add(line);
+
+
+			}
+			else
+			{
+				addToLine = outBlock.get(outBlock.size()-1)+ line;
+				outBlock.set(outBlock.size()-1, addToLine);
+				
+
+			}
+		}
 	}
 	
 	/*
 	 * Read text from the API.
 	 */
 	public void readInput(String text){
-		
+		outBlock.add(text);
+		processBlocks();
 	}
 	
 	public ArrayList<String> getBlocks(){
-		return null;
+		return outBlock;
 	}
 	
 	
 	public int numOfBlocks(){
-		return 0;
+		return outBlock.size();
 	}
 	
 	/*
@@ -43,6 +80,8 @@ public class Librarian {
 	 * to the PNE system.
 	 */
 	public void processBlocks(){
+		
+		
 		
 	}
 }
