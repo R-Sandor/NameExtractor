@@ -27,7 +27,12 @@ public class TestLexical {
 		String text = "", testFeatureText = "";
 		for (String line : lexicalTestLines) {
 
-			if (!testLexical) text = line;
+			if (!testLexical) {
+				if(line == "\\n") {
+					text = "\n";
+				}
+			else	text = line;
+			}
 			if (testLexical) testFeatureText = line;
 			
 			// It will now make sure the output of the 'doesApply' method

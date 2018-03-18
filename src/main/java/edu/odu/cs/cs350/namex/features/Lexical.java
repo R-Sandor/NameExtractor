@@ -8,21 +8,27 @@ public class Lexical implements Feature {
 	@Override
 	public String doesApply(String text) {
 		
-		if(isNewLine(text)) return "newLine";
-		
-		
-		
+		if(isNewLine(text)) return "NewLine";
+		if(isCapitalLetter(text)) return "CapLetter";
+		if(isAllCaps(text)) return "AllCaps";
+		if(isCapitalized(text)) return "Capitalized";
+		if(isPunctuation(text)) return "Punctuation";
+		if(hasNumber(text)) return "Number";
 		return "other";
 	}
 	
 	private boolean hasNumber(String text) {
+		for(int i=text.length()-1; i>=0; i--) {
+			if(Character.isDigit(text.charAt(i)))
+				return true;
+		}
 		return false;
 	}
 	
 	private boolean isCapitalized(String text) {  
 		
-		   if (Character.isUpperCase(text.charAt(0)))
-		    return true;
+		if (Character.isUpperCase(text.charAt(0))) return true;
+		
 		return false;
 	}
 	
@@ -35,6 +41,11 @@ public class Lexical implements Feature {
 	}
 	
 	private boolean isAllCaps(String text) {
+		for(int i=text.length()-1; i>=0; i--) {
+			if(Character.isUpperCase(text.charAt(i))) {
+	            return true;
+			}
+		}
 		return false;
 	}
 	
@@ -45,7 +56,7 @@ public class Lexical implements Feature {
 	return false;
 	}
 	
-	private boolean isPuncutation(String text) {
+	private boolean isPunctuation(String text) {
 		if(text.length()==1) {
 		String punctutations = ".,;:?!$%()/\\'\"" ;
 		return punctutations.contains(String.valueOf(text.charAt(0)));
@@ -68,7 +79,7 @@ public class Lexical implements Feature {
 				continue;
 			}
 			String charAsString = String.valueOf(currentChar);
-			if (isPuncutation(charAsString) || charAsString.equals("\n")) {
+			if (isPunctuation(charAsString) || charAsString.equals("\n")) {
 				if (currentTextBuilder.length() > 0) {
 					text.add(currentTextBuilder.toString());
 					currentTextBuilder = new StringBuilder("");
