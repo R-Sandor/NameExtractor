@@ -81,7 +81,13 @@ public class Librarian {
 	 */
 	public void processBlocks(){
 		
+		PersonalNameExtractor PNE = new PersonalNameExtractor();
 		
+		for(String line: outBlock ) {
+			PNE.addToCollection(line);
+		}
+		
+		outBlock.clear();
 		
 	}
 }
