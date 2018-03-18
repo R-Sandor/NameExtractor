@@ -39,10 +39,9 @@ public class Lexical implements Feature {
 }
 	
 	private boolean isPuncutation(String text) {
-		String letter[] = {"a", "b", "."};
-		String punctutations = ".,;:?!$%'" ;
-		if (punctutations.contains(letter[a])) {
-			return true;
+		if(text.length()==1) {
+		String punctutations = ".,;:?!$%'\"" ;
+		return punctutations.contains(String.valueOf(text.charAt(0)));
 		}
 		return false;
 	}
