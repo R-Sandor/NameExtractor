@@ -7,24 +7,30 @@ public class Lexical implements Feature {
     
 	@Override
 	public String doesApply(String text) {
-		isPuncutation(text);//needs more
-		return "";
+		
+		if(isNewLine(text)) return "newLine";
+		
+		
+		
+		return "other";
 	}
 	
 	private boolean hasNumber(String text) {
 		return false;
 	}
 	
-	private boolean isCapitalized(String text) {        
-		    for(int i=text.length()-1; i>=0; i--) {
-		        if(Character.isUpperCase(text.charAt(i))) {
-		            return true;
-		        }
-		    }
+	private boolean isCapitalized(String text) {  
+		
+		   if (Character.isUpperCase(text.charAt(0)))
+		    return true;
 		return false;
 	}
 	
 	private boolean isNewLine(String text) {
+		if(text.length()==1) {
+		String newLine = "\n";
+		return newLine.contains(String.valueOf(text.charAt(0)));
+		}
 		return false;
 	}
 	
@@ -33,13 +39,11 @@ public class Lexical implements Feature {
 	}
 	
 	private boolean isCapitalLetter(String text) {
-	    for(int i=text.length()-1; i>=0; i--) {
-	        if(Character.isUpperCase(text.charAt(i))) {
-	            return true;
-	        }
-	    }
+		if(text.length()==1) {
+	        return Character.isUpperCase(text.charAt(0)); 
+		}
 	return false;
-}
+	}
 	
 	private boolean isPuncutation(String text) {
 		if(text.length()==1) {
