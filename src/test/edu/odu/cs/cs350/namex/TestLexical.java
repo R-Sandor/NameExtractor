@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -70,10 +71,35 @@ public class TestLexical {
 			
 			if (testSeperation) {
 				String testBlock = blockOfText.substring(0, blockOfText.length() - 7);
-				String[] text = lexical.separateText(testBlock);
+				List<String> text = lexical.separateText(testBlock);
 				
 				// Making sure it separated into the correct number of blocks.
-				assertTrue(numberOfText == text.length);
+				assertEquals(numberOfText, text.size());
+				
+				// Making sure each piece of text does not contain what qualifies
+				// as a new piece of text.
+				for (String currentText : text) {
+					assertTrue(!currentText.contains(" "));
+					assertTrue(!currentText.contains("\t"));
+					
+					// If the text is greater than one it should not
+					// contain punctuation.
+					if (currentText.length() > 1) {
+						assertTrue(!currentText.contains("."));
+						assertTrue(!currentText.contains(";"));
+						assertTrue(!currentText.contains(":"));
+						assertTrue(!currentText.contains("!"));
+						assertTrue(!currentText.contains(","));
+						assertTrue(!currentText.contains("\""));
+						assertTrue(!currentText.contains("?"));
+						assertTrue(!currentText.contains("%"));
+						assertTrue(!currentText.contains("$"));
+						assertTrue(!currentText.contains("'"));
+						assertTrue(!currentText.contains("\\"));
+						assertTrue(!currentText.contains("/"));
+					}
+				}
+				
 				testSeperation = false;
 			}
 		}
