@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import edu.odu.cs.cs350.namex.features.LearningMachine;
+import edu.odu.cs.cs350.namex.LearningMachine;
 
 public class TestLearningMachine {
 
