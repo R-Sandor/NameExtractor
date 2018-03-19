@@ -1,6 +1,7 @@
 package edu.odu.cs.cs350.namex;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -12,7 +13,19 @@ public class Main {
 			File file = new File(args[0]);
 			if (file.exists()){
 				librarian.readInput(file);
-				librarian.processBlocks();
+				ArrayList<String> processedBlocks=librarian.processBlocks();
+				for(String extractedLine:processedBlocks)
+				{
+					System.out.println(extractedLine);
+				}
+			}
+			else {
+				librarian.readInput(args[0]);
+				ArrayList<String> processedBlocks=librarian.processBlocks();
+				for(String extractedLine:processedBlocks)
+				{
+					System.out.println(extractedLine);
+				}
 			}
 		}
 	}
