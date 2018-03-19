@@ -32,6 +32,7 @@ public class TestPartsOfSpeech {
 			// It will now make sure the output of the 'doesApply' method
 			// matches that of the 'testFeatureText'.
 			if (testpos) {
+				System.out.println(text);
 				assertEquals(testFeatureText, pos.doesApply(text));
 			}
 			
