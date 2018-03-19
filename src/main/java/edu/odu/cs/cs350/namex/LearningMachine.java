@@ -60,18 +60,18 @@ public class LearningMachine {
 	public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
 		
-        String inputedBlock2 = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
-        System.out.println(inputedBlock2);
+        //String inputedBlock2 = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
+        //System.out.println(inputedBlock2);
         //int beginName = 0;
         //int continueName = 1;
         //int singleName = 6;
         
-        String words[] = inputedBlock2.split("\\s+");
+        String words[] = inputedBlock.split("\\s+");
 
         for(int i = 0; i < words.length; i++)
         {
+        	String word = words[i];
         	if(i==key) {
-            String word = words[i];
             if(type==1){
                 word = "<PER>" + word;
             }
@@ -81,12 +81,11 @@ public class LearningMachine {
             else if(type==3) {
             	word = "<PER>" + word + "<PER>";
             }
-            
+        	}
             outputBlock += word;
             outputBlock += " ";
-        	}
         }
-        System.out.println(outputBlock);
+        //System.out.println(outputBlock);
 		return outputBlock;
 		
 	}
