@@ -23,7 +23,6 @@ public class TestLibrarian {
 		ArrayList<String> block = librarian.getBlocks();
 		System.out.println(block);
 		assertTrue(block.contains(exampleInput));
-		assertTrue(true);
 		assertEquals(1, librarian.numOfBlocks());
 		
 		

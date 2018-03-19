@@ -3,7 +3,9 @@ package edu.odu.cs.cs350.namex;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.odu.cs.cs350.namex.features.Gazetteer;
 import edu.odu.cs.cs350.namex.features.Lexical;
+import edu.odu.cs.cs350.namex.features.PartsOfSpeech;
 
 public class LearningMachine {
 
@@ -12,18 +14,47 @@ public class LearningMachine {
 		return test;
 	}
 	
-	public void learn(String blockText) {
+	public String learn(String blockText) {
+		
+		System.out.println("NEW LEARN TEST");
 		
 		Lexical lexical = new Lexical();
+		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
+		Gazetteer gazetteer = new Gazetteer();
 		List<String> splitText = lexical.separateText(blockText);
 		List<String> mappedFeatures = new ArrayList<>();
 		
-		// Provide a mapping between the 'splitText' and the 'mappedFeatures' lists
 		for (String text :splitText) {
-			mappedFeatures.add(lexical.doesApply(text));
+			System.out.println("test: " + text);
+			String currentText = lexical.doesApply(text);
+			currentText = currentText + ", " + partsOfSpeech.doesApply(currentText);
+			currentText = currentText + ", " + gazetteer.doesApply(currentText);
+			System.out.println("features: " + currentText);
+			mappedFeatures.add(currentText);
+		}
+
+		/*for (int i = 0; i < mappedFeatures.size(); i++) {
+			String[] featureData = mappedFeatures.get(i).split(", ");
+			String isFirstName = featureData[2];
+			String isLastName = featureData[3];
 			
+			if (isFirstName.equals("1") || isLastName.equals("1")) {
+				blockText = tagWrap(blockText, i);
+			}
+		}*/
+		
+		String allFeatures = "";
+		boolean first = true;
+		for (String feature : mappedFeatures) {
+			if (first) {
+				allFeatures = feature;
+				first = false;
+				continue;
+			}
+			allFeatures += ", " + feature;
 		}
 		
+		return allFeatures;
 	}
 	
 	public char judgeBlock(char inputedBlock) {
@@ -45,23 +76,30 @@ public class LearningMachine {
 		
         String inputedBlock2 = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
         System.out.println(inputedBlock2);
-        int key2 = 2;
+        int beginName = 0;
+        int continueName = 1;
+        int singleName = 6;
         
-        String words[] = inputedBlock2.split(" ");
+        String words[] = inputedBlock2.split("\\s+");
 
         for(int i = 0; i < words.length; i++)
         {
             String word = words[i];
-            if(i==key2)
-            {
-                word = "<PER>" + word + "<PER>";
+            if(i==beginName){
+                word = "<PER>" + word;
             }
+            else if(i==continueName) {
+            	word = word + "<PER>";
+            }
+            else if(i==singleName) {
+            	word = "<PER>" + word + "<PER>";
+            }
+            
             outputBlock += word;
             outputBlock += " ";
         }
         System.out.println(outputBlock);
 		return outputBlock;
-		// TODO Auto-generated method stub
 		
 	}
 }

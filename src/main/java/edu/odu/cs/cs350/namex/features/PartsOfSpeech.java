@@ -14,8 +14,8 @@ public class PartsOfSpeech implements Feature {
 	}
 	
 	private boolean isArticle(String text) {
-		for (int i=0; i<text.length(); i++)
-	    {
+		for (int i=0; i<text.length(); i++) {
+
 	        if (text.charAt(i) == 'a' || text.charAt(i) == 'A')
 	        {
 	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 1)) 
@@ -24,8 +24,11 @@ public class PartsOfSpeech implements Feature {
 	        		{
 	        			return true;
 	        		}
+	        		return true;
 	        	}
 	        }
+	        
+
 	        else if (text.charAt(i) == 'a' || text.charAt(i) == 'A')
 	        {
 	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 2)) 
@@ -37,6 +40,8 @@ public class PartsOfSpeech implements Feature {
 	        		}
 	        	}
 	        }
+	    
+
 	        else if (text.charAt(i) == 't' || text.charAt(i) == 'T')
 	        {
 	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 3)) 
@@ -50,7 +55,7 @@ public class PartsOfSpeech implements Feature {
 	        	}
 	        }
 	    }
-		
+	    
 		return false;
 	}
 	
