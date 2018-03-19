@@ -1,0 +1,4 @@
+This is a block.--END--
+Capitalized, other, 0, 0, other, other, 0, 0, other, Article, 0, 0, other, other, 0, 0, Punctuation, Period, 0, 0
+My name is Joseph.--END--
+Capitalized, other, 0, 0, other, other, 0, 0, other, other, 0, 0, Capitalized, other, 1, 1, Punctuation, Period, 0, 0

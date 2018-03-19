@@ -4,19 +4,36 @@ import java.util.List;
 
 public class Gazetteer implements Feature {
 	
+	private String[] commonFirstNames = {
+		"Joseph"
+	};
+	
+	private String[] commonLastNames = {
+		"Joseph"	
+	};
+	
 	@Override
-	public String doesApply(String text) {	
-		return "";
+	public String doesApply(String text) {
+		String binaryString = "";
+		binaryString = isCommonFirstName(text) ? "1" : "0";
+		binaryString += isCommonLastName(text) ? ", 1" : ", 0";
+		return binaryString;
 	}
 	
 	public void performDatabaseFetching() {
 	}
 	
 	private boolean isCommonFirstName(String text) {
+		for (String name : commonFirstNames) {
+			if (name.equals(text)) return true;
+		}
 		return false;
 	}
 	
 	private boolean isCommonLastName(String text) {
+		for (String name : commonLastNames) {
+			if (name.equals(text)) return true;
+		}
 		return false;
 	}
 	

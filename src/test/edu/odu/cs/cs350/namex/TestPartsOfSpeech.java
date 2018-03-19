@@ -1,18 +1,11 @@
 package edu.odu.cs.cs350.namex;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import edu.odu.cs.cs350.namex.features.Lexical;
 import edu.odu.cs.cs350.namex.features.PartsOfSpeech;
 
 public class TestPartsOfSpeech {
@@ -22,7 +15,7 @@ public class TestPartsOfSpeech {
 		
 		PartsOfSpeech pos = new PartsOfSpeech();
 		
-		List<String> posTestLines = readLinesFromFile("src/main/resources/TestPartsOfSpeechText.txt");
+		List<String> posTestLines = TestUtil.readLinesFromFile("src/main/resources/TestPartsOfSpeechText.txt");
 		
 		boolean testpos = false;
 		String text = "", testFeatureText = "";
@@ -44,20 +37,5 @@ public class TestPartsOfSpeech {
 			
 			testpos = !testpos;
 		}
-	}
-	
-	
-	private List<String> readLinesFromFile(String fileName) {
-		
-		// Read in multiple lines that are to be tested by the lexical class.
-		List<String> lexicalTestLines = new ArrayList<>();
-		File file = new File(fileName);	 
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-			bufferedReader.lines().forEach(lexicalTestLines::add);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return lexicalTestLines;
 	}
 }
