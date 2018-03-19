@@ -5,7 +5,7 @@ import java.util.ArrayList;
 //The interface for the extracting name. 
 
 public class PersonalNameExtractor {
-	ArrayList<String> extractedBlock = new ArrayList();
+	ArrayList<String> extractedBlock = new ArrayList<String>();
 	public void trainLearningMachine(String text) {
 		
 	}
