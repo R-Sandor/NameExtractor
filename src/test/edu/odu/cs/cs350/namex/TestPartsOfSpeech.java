@@ -45,6 +45,7 @@ public class TestPartsOfSpeech {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private List<String> readLinesFromFile(String fileName) {
 		
 		// Read in multiple lines that are to be tested by the lexical class.

@@ -34,7 +34,6 @@ public class TestLibrarian {
 	@Test
 	public void testReadCLI() {
 		int openNerCount = 0;
-		int nerCloseCount = 0;
 		List<String> textBlocks = new ArrayList<>();
 		List<String> nerTestLines = new ArrayList<>();
 
@@ -52,8 +51,8 @@ public class TestLibrarian {
 				openNerCount++;
 				textBlocks.add(line);
 			}
-			if (line.contains("</NER>"))
-				nerCloseCount++;
+			if (line.contains("</NER>")) {
+			}
 		}
 		System.out.println(librarian.getBlocks());	
 		assertEquals(openNerCount, librarian.numOfBlocks());
