@@ -50,3 +50,5 @@ multi-line
 other
 \n
 NewLine
+is
+other
