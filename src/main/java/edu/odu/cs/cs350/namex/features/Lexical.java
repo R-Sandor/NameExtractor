@@ -3,6 +3,13 @@ package edu.odu.cs.cs350.namex.features;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Determines whether a given piece of text is a New Line, Capital Letter, Punctuation mark, Number,
+ * completely capitalized, or initially capitalized
+ * @param text: a single String of text containing a single word or piece of punctuation without any white space
+ * @return String: indicates whether the given text is one of the common parts of speech which may be near or 
+ * 				    not near a personal name  
+ */
 public class Lexical implements Feature {
     
 	@Override
