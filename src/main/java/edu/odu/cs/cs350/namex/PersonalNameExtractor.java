@@ -5,7 +5,7 @@ import java.util.ArrayList;
 //The interface for the extracting name. 
 
 public class PersonalNameExtractor {
-	ArrayList<String> extractedBlock = new ArrayList();
+	ArrayList<String> extractedBlock = new ArrayList<String>();
 	public void trainLearningMachine(String text) {
 		
 	}
@@ -15,10 +15,15 @@ public class PersonalNameExtractor {
 		return test;
 	}
 	
+	/*
+	 * Will return a string with <PER> tags
+	 */
 	public String extract(String text) {
 		return text;
 	}
 	
+	// Data that is being added by Librarian are being extracted 
+	// before being stored in the extractedBlock
 	public void addToCollection(String text) {
 		
 		extractedBlock.add(extract(text));
