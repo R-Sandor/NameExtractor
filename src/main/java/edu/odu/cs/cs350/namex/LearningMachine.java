@@ -57,32 +57,34 @@ public class LearningMachine {
 		
 	}
 	
-	public String tagWrap(String inputedBlock, int key) {
+	public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
 		
         String inputedBlock2 = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
         System.out.println(inputedBlock2);
-        int beginName = 0;
-        int continueName = 1;
-        int singleName = 6;
+        //int beginName = 0;
+        //int continueName = 1;
+        //int singleName = 6;
         
         String words[] = inputedBlock2.split("\\s+");
 
         for(int i = 0; i < words.length; i++)
         {
+        	if(i==key) {
             String word = words[i];
-            if(i==beginName){
+            if(type==1){
                 word = "<PER>" + word;
             }
-            else if(i==continueName) {
+            else if(type==2) {
             	word = word + "<PER>";
             }
-            else if(i==singleName) {
+            else if(type==3) {
             	word = "<PER>" + word + "<PER>";
             }
             
             outputBlock += word;
             outputBlock += " ";
+        	}
         }
         System.out.println(outputBlock);
 		return outputBlock;
