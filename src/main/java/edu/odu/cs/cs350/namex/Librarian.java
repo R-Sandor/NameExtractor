@@ -18,7 +18,13 @@ import java.util.List;
 public class Librarian {
 	
 	
+	
 	private ArrayList<String> outBlock = new ArrayList<String>();
+	private PersonalNameExtractor PNE = new PersonalNameExtractor();
+
+	public Librarian(){
+		PNE.trainLearningMachine("TEXT/FILES WILL GO HERE");
+	}
 	
 	/*
 	 * Read text files from the CLI interface.
@@ -86,11 +92,12 @@ public class Librarian {
 	 */
 	public ArrayList<String> processBlocks(){
 		
-		PersonalNameExtractor PNE = new PersonalNameExtractor();
 		
 		for(String line: outBlock ) {
 		 PNE.addToCollection(line);
 		}
 		return PNE.getExtractedBlocks();
 	}
+	
+
 }
