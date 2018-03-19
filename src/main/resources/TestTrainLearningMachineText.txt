@@ -1,0 +1,6 @@
+My name is Joseph.--END--
+My name is <PER>Joseph</PER>.
+Test work like this.--END--
+Test work like this.
+I am testing for the name John. Hope it works.--END--
+I am testing for the name <PER>John</PER>. Hope it works.

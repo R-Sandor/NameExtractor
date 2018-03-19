@@ -37,26 +37,32 @@ public class Gazetteer implements Feature {
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean isDictionaryWord(String text) {
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean hasSuffixes(String text) {
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean isUsaCity(String text) {
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean isUsaState(String text) {
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean isTerritory(String text) {
 		return false;
 	}
 	
+	@SuppressWarnings("unused")
 	private boolean isCountry(String text) {
 		return false;
 	}
