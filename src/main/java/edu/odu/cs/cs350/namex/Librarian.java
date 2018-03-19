@@ -17,6 +17,7 @@ import java.util.List;
 
 public class Librarian {
 	
+	
 	private ArrayList<String> outBlock = new ArrayList<String>();
 	
 	/*
@@ -83,15 +84,16 @@ public class Librarian {
 	 * The processing of the blocks is calling each block 
 	 * to the PNE system.
 	 */
-	public void processBlocks(){
+	public ArrayList<String> processBlocks(){
 		
 		PersonalNameExtractor PNE = new PersonalNameExtractor();
 		
 		for(String line: outBlock ) {
-			PNE.addToCollection(line);
+		 PNE.addToCollection(line);
 		}
+		//PNE.
 		
-		outBlock.clear();
+		return outBlock;
 		
 	}
 }
