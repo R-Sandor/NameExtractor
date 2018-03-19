@@ -10,9 +10,9 @@ the
 Article
 An
 Article
-an
+AN
 Article
- the
+an
 Article
 For
 Conjunction
@@ -31,6 +31,7 @@ Conjunction
 NOR
 Conjunction
 nor
+Conjunction
 But
 Conjunction
 BUT
@@ -55,10 +56,9 @@ SO
 Conjunction
 so
 Conjunction
-caddy-corner
-A.
+.
 Period
-John,
+,
 Comma
-Latter-day
+-
 Hyphen

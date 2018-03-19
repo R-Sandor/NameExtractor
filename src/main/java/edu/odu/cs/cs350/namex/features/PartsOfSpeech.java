@@ -18,41 +18,29 @@ public class PartsOfSpeech implements Feature {
 
 	        if (text.charAt(i) == 'a' || text.charAt(i) == 'A')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 1)) 
+	        	if((i == 0) && (text.length() == 1)) 
 	        	{
-	        		if(text.charAt(i+1) == ' ')
-	        		{
-	        			return true;
-	        		}
 	        		return true;
 	        	}
 	        }
 	        
 
-	        else if (text.charAt(i) == 'a' || text.charAt(i) == 'A')
+	        else if (text.charAt(0) == 'a' || text.charAt(0) == 'A')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 2)) 
-	        	{
-	        		if((text.charAt(i+1) == 'n' || text.charAt(i+1) == 'N') &&
-        				(text.charAt(i+1) == ' '))
+	        		if(text.length() == 2 && (text.charAt(1) == 'n' || text.charAt(1) == 'N'))
 	        		{
 	        			return true;
 	        		}
-	        	}
 	        }
 	    
 
-	        else if (text.charAt(i) == 't' || text.charAt(i) == 'T')
+	        else if (text.charAt(0) == 't' || text.charAt(0) == 'T')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 3)) 
-	        	{
-	        		if((text.charAt(i+1) == 'h' || text.charAt(i+1) == 'H') &&
-        				(text.charAt(i+2) == 'e' || text.charAt(i+1) == 'E') &&
-        				(text.charAt(i+1) == ' '))
-	        		{
-	        			return true;
-	        		}
-	        	}
+        		if(text.length() == 3 && (text.charAt(1) == 'h' || text.charAt(1) == 'H') &&
+    				(text.charAt(2) == 'e' || text.charAt(2) == 'E'))
+        		{
+        			return true;
+        		}
 	        }
 	    }
 	    
@@ -62,87 +50,59 @@ public class PartsOfSpeech implements Feature {
 	private boolean isConjunction(String text) {
 		for (int i=0; i<text.length(); i++)
 	    {
-	        if (text.charAt(i) == 'f' || text.charAt(i) == 'F')
+			if (text.charAt(0) == 'f' || text.charAt(0) == 'F')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 3)) 
-	        	{
-	        		if((text.charAt(i+1) == 'o' || text.charAt(i+1) == 'O') &&
-        				(text.charAt(i+2) == 'r' || text.charAt(i+1) == 'R') &&
-        				(text.charAt(i+1) == ' '))
-	        		{
-	        			return true;
-	        		}
-	        	}
+        		if(text.length() == 3 && (text.charAt(1) == 'o' || text.charAt(1) == 'O') &&
+    				(text.charAt(2) == 'r' || text.charAt(2) == 'R'))
+        		{
+        			return true;
+        		}
 	        }
-	        else if (text.charAt(i) == 'a' || text.charAt(i) == 'A')
+			else if (text.charAt(0) == 'a' || text.charAt(0) == 'A')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 3)) 
-	        	{
-	        		if((text.charAt(i+1) == 'n' || text.charAt(i+1) == 'N') &&
-        				(text.charAt(i+2) == 'd' || text.charAt(i+1) == 'D') &&
-        				(text.charAt(i+1) == ' '))
-	        		{
-	        			return true;
-	        		}
-	        	}
+        		if(text.length() == 3 && (text.charAt(1) == 'n' || text.charAt(1) == 'N') &&
+    				(text.charAt(2) == 'd' || text.charAt(2) == 'D'))
+        		{
+        			return true;
+        		}
 	        }
-	        else if (text.charAt(i) == 'n' || text.charAt(i) == 'N')
+			else if (text.charAt(0) == 'n' || text.charAt(0) == 'N')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 3)) 
-	        	{
-	        		if((text.charAt(i+1) == 'o' || text.charAt(i+1) == 'O') &&
-        				(text.charAt(i+2) == 'r' || text.charAt(i+1) == 'R') &&
-        				(text.charAt(i+1) == ' '))
-	        		{
-	        			return true;
-	        		}
-	        	}
+        		if(text.length() == 3 && (text.charAt(1) == 'o' || text.charAt(1) == 'O') &&
+    				(text.charAt(2) == 'r' || text.charAt(2) == 'R'))
+        		{
+        			return true;
+        		}
 	        }
-	        else if (text.charAt(i) == 'b' || text.charAt(i) == 'B')
+			else if (text.charAt(0) == 'b' || text.charAt(0) == 'B')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 3)) 
-	        	{
-	        		if((text.charAt(i+1) == 'u' || text.charAt(i+1) == 'U') &&
-        				(text.charAt(i+2) == 't' || text.charAt(i+1) == 'T') &&
-        				(text.charAt(i+1) == ' '))
-	        		{
-	        			return true;
-	        		}
-	        	}
+        		if(text.length() == 3 && (text.charAt(1) == 'u' || text.charAt(1) == 'U') &&
+    				(text.charAt(2) == 't' || text.charAt(2) == 'T'))
+        		{
+        			return true;
+        		}
 	        }
-	        else if (text.charAt(i) == 'o' || text.charAt(i) == 'O')
+			else if (text.charAt(0) == 'o' || text.charAt(0) == 'O')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 2)) 
-	        	{
-	        		if((text.charAt(i+2) == 'r' || text.charAt(i+1) == 'R') &&
-        				(text.charAt(i+1) == ' '))
-	        		{
-	        			return true;
-	        		}
-	        	}
+        		if(text.length() == 2 && (text.charAt(1) == 'r' || text.charAt(1) == 'R'))
+        		{
+        			return true;
+        		}
 	        }
-	        else if (text.charAt(i) == 'y' || text.charAt(i) == 'Y')
+	        else if (text.charAt(0) == 'y' || text.charAt(0) == 'Y')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 3)) 
-	        	{
-	        		if((text.charAt(i+1) == 'e' || text.charAt(i+1) == 'E') &&
-        				(text.charAt(i+2) == 't' || text.charAt(i+1) == 'T') &&
-        				(text.charAt(i+1) == ' '))
-	        		{
-	        			return true;
-	        		}
-	        	}
+        		if(text.length() == 3 && (text.charAt(1) == 'e' || text.charAt(1) == 'E') &&
+    				(text.charAt(2) == 't' || text.charAt(2) == 'T'))
+        		{
+        			return true;
+        		}
 	        }
 	        else if (text.charAt(i) == 's' || text.charAt(i) == 'S')
 	        {
-	        	if((i == 0 || text.charAt(i-1) == ' ') && i < (text.length() - 3)) 
-	        	{
-	        		if((text.charAt(i+1) == 'o' || text.charAt(i+1) == 'O') &&
-        				(text.charAt(i+1) == ' '))
-	        		{
-	        			return true;
-	        		}
-	        	}
+        		if(text.length() == 2 && (text.charAt(1) == 'o' || text.charAt(1) == 'O'))
+        		{
+        			return true;
+        		}
 	        }
 	    }
 		return false;
