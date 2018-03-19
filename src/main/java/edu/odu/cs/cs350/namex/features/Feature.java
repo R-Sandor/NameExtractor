@@ -12,6 +12,6 @@ public interface Feature {
 	 */
 	String doesApply(String text);
 	//Call order
-		//Lexical, POS, Gazateer
+		//Lexical, POS, Gazetteer
 }
 

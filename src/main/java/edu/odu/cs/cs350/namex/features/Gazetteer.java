@@ -2,6 +2,11 @@ package edu.odu.cs.cs350.namex.features;
 
 import java.util.List;
 
+/*
+ * Determines whether a given piece of text is a common first name or last name based on a reference list
+ * @param text: a single String of text containing a single word or piece of punctuation without any white space
+ * @return String: indicates whether the given text is a common first name or last name
+ */
 public class Gazetteer implements Feature {
 	
 	private String[] commonFirstNames = {
