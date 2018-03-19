@@ -13,6 +13,17 @@ import org.junit.Test;
 
 import edu.odu.cs.cs350.namex.features.PartsOfSpeech;
 
+
+/*
+ * Tests the PartsofSpeech class using the File TestPartsOfSpeechText.txt
+ * This file contains a series of words meant to be checked to determine whether or not they are
+ * parts of speech such as Articles, Conjunctions, and certain pieces of punctuation, each of 
+ * which may aid in identifying personal names.  Each line of the file has only one word or piece
+ * of punctuation, with no excess white space.  Lines are taken in pairs, the first line gives the
+ * input for the PartsOfSpeech class, the second to indicate what the expected output is for such
+ * an input.
+ * It is expected that PartsOfSpeech pass all of these tests.
+ */
 public class TestPartsOfSpeech {
 
 	@Test
@@ -45,17 +56,18 @@ public class TestPartsOfSpeech {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private List<String> readLinesFromFile(String fileName) {
 		
-		// Read in multiple lines that are to be tested by the lexical class.
-		List<String> lexicalTestLines = new ArrayList<>();
+		// Read in multiple lines that are to be tested by the Parts of Speech class.
+		List<String> posTestLines = new ArrayList<>();
 		File file = new File(fileName);	 
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-			bufferedReader.lines().forEach(lexicalTestLines::add);
+			bufferedReader.lines().forEach(posTestLines::add);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		return lexicalTestLines;
+		return posTestLines;
 	}
 }

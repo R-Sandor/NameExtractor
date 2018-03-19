@@ -1,5 +1,12 @@
 package edu.odu.cs.cs350.namex.features;
 
+
+/*
+ * Determines whether a given piece of text is an Article, Conjunction, or specific piece of punctuation
+ * @param text: a single String of text containing a single word or piece of punctuation without any white space
+ * @return String: indicates whether the given text is one of the common parts of speech which may be near or 
+ * 				    not near a personal name  
+ */
 public class PartsOfSpeech implements Feature {
     
 	@Override
@@ -13,6 +20,7 @@ public class PartsOfSpeech implements Feature {
 		return "other";
 	}
 	
+	//Determines whether the text is an Article ( "A", "an", or "the" ) which do not commonly precede personal names
 	private boolean isArticle(String text) {
 		for (int i=0; i<text.length(); i++) {
 
@@ -47,6 +55,8 @@ public class PartsOfSpeech implements Feature {
 		return false;
 	}
 	
+	//Determines whether the text is a Conjunction ( "for", "and", "nor", "but", "or", "yet", "so" ) 
+	//which do not commonly precede personal names
 	private boolean isConjunction(String text) {
 		for (int i=0; i<text.length(); i++)
 	    {
@@ -108,6 +118,7 @@ public class PartsOfSpeech implements Feature {
 		return false;
 	}
 	
+	//Determines whether the text is a period ( "." ) which may indicate an initial in a name
 	private boolean hasPeriod(String text) {
 		for (int i=0; i<text.length(); i++)
 	    {
@@ -119,6 +130,7 @@ public class PartsOfSpeech implements Feature {
 	    return false;
 	}
 	
+	//Determines whether the text is a comma ( "," ) which may indicate a list of names
 	private boolean hasComma(String text) {
 		for (int i=0; i<text.length(); i++)
 	    {
@@ -130,6 +142,7 @@ public class PartsOfSpeech implements Feature {
 	    return false;
 	}
 	
+	//Determines whether the text is a hyphen ( "-" ) which may indicate a compound name
 	private boolean hasHyphen(String text) {
 		for (int i=0; i<text.length(); i++)
 	    {
