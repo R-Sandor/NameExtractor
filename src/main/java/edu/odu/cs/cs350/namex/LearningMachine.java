@@ -16,8 +16,6 @@ public class LearningMachine {
 	
 	public String learn(String blockText) {
 		
-		System.out.println("NEW LEARN TEST");
-		
 		Lexical lexical = new Lexical();
 		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
 		Gazetteer gazetteer = new Gazetteer();
@@ -25,23 +23,11 @@ public class LearningMachine {
 		List<String> mappedFeatures = new ArrayList<>();
 		
 		for (String text :splitText) {
-			System.out.println("test: " + text);
 			String currentText = lexical.doesApply(text);
-			currentText = currentText + ", " + partsOfSpeech.doesApply(currentText);
-			currentText = currentText + ", " + gazetteer.doesApply(currentText);
-			System.out.println("features: " + currentText);
+			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
+			currentText = currentText + ", " + gazetteer.doesApply(text);
 			mappedFeatures.add(currentText);
 		}
-
-		/*for (int i = 0; i < mappedFeatures.size(); i++) {
-			String[] featureData = mappedFeatures.get(i).split(", ");
-			String isFirstName = featureData[2];
-			String isLastName = featureData[3];
-			
-			if (isFirstName.equals("1") || isLastName.equals("1")) {
-				blockText = tagWrap(blockText, i);
-			}
-		}*/
 		
 		String allFeatures = "";
 		boolean first = true;
