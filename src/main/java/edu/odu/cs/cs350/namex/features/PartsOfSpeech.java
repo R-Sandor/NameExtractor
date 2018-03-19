@@ -176,4 +176,3 @@ public class PartsOfSpeech implements Feature {
 	    return false;
 	}
 }
-
