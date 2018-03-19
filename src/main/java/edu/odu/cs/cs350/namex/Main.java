@@ -20,7 +20,12 @@ public class Main {
 				}
 			}
 			else {
-				
+				librarian.readInput(args[0]);
+				ArrayList<String> processedBlocks=librarian.processBlocks();
+				for(String extractedLine:processedBlocks)
+				{
+					System.out.println(extractedLine);
+				}
 			}
 		}
 	}
