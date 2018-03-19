@@ -91,9 +91,6 @@ public class Librarian {
 		for(String line: outBlock ) {
 		 PNE.addToCollection(line);
 		}
-		//PNE.
-		
-		return outBlock;
-		
+		return PNE.getExtractedBlocks();
 	}
 }
