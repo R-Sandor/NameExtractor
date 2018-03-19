@@ -16,13 +16,14 @@ public class PersonalNameExtractor {
 		
 		// TODO: Re-adjust the i offset value to reflect changes in the binary
 		// format for the gazetteer later on.
+		final int nameOffsetIndex = 4;
 		String newTextBlock = textBlock;
-		for (int i = 2; i < allFeatureValues.length; i += 4) {
+		for (int i = 2; i < allFeatureValues.length; i += nameOffsetIndex) {
 			String isFirstName = allFeatureValues[i];
 			String isLastName = allFeatureValues[i + 1];
 			
 			if (isFirstName.equals("1") || isLastName.equals("1")) {
-				newTextBlock = learningMachine.tagWrap(newTextBlock, i);
+				newTextBlock = learningMachine.tagWrap(newTextBlock, i / nameOffsetIndex, 3);
 			}
 		}
 		

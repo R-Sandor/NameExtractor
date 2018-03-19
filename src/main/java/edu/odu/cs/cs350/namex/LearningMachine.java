@@ -66,6 +66,8 @@ public class LearningMachine {
         //int continueName = 1;
         //int singleName = 6;
         
+		System.out.println("KEY: " + key);
+		
         String words[] = inputedBlock.split("\\s+");
 
         for(int i = 0; i < words.length; i++)
@@ -73,6 +75,7 @@ public class LearningMachine {
         	String word = words[i];
         	if(i==key) {
             if(type==1){
+            	System.out.println("inserting");
                 word = "<PER>" + word;
             }
             else if(type==2) {
