@@ -1,5 +1,6 @@
 package edu.odu.cs.cs350.namex;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import edu.odu.cs.cs350.namex.features.Lexical;
 import edu.odu.cs.cs350.namex.features.PartsOfSpeech;
 
 public class TestPartsOfSpeech {
@@ -18,47 +20,44 @@ public class TestPartsOfSpeech {
 	@Test
 	public void testDoesApply() {
 		
-		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
+		PartsOfSpeech pos = new PartsOfSpeech();
 		
-		// Read in multiple lines that are to be tested by the parts of speech class.
-		List<String> partsOfSpeechTestLines = new ArrayList<>();
-		File file = new File("src/main/resources/TestPartsOfSpeechSentences.txt");	 
+		List<String> posTestLines = readLinesFromFile("src/main/resources/TestPartsOfSpeechText.txt");
+		
+		boolean testpos = false;
+		String text = "", testFeatureText = "";
+		for (String line : posTestLines) {
+			if (!testpos) {
+				if(line.equals("\\n")) {
+					text = "\n";
+
+				}
+			else	text = line;
+			}
+			if (testpos) testFeatureText = line;
+			
+			// It will now make sure the output of the 'doesApply' method
+			// matches that of the 'testFeatureText'.
+			if (testpos) {
+				assertEquals(testFeatureText, pos.doesApply(text));
+			}
+			
+			testpos = !testpos;
+		}
+	}
+	
+	
+	private List<String> readLinesFromFile(String fileName) {
+		
+		// Read in multiple lines that are to be tested by the lexical class.
+		List<String> lexicalTestLines = new ArrayList<>();
+		File file = new File(fileName);	 
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-			bufferedReader.lines().forEach(partsOfSpeechTestLines::add);
+			bufferedReader.lines().forEach(lexicalTestLines::add);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		boolean testBinary = false, ignoreOnce = false;
-		StringBuilder blockOfTextBuilder = new StringBuilder("");
-		String blockOfText = "", binaryFeatureText = "";
-		for (String line : partsOfSpeechTestLines) {
-			
-			// It will now read in the line that contains the binary information
-			// for specifying what the output should be when testing for parts of speech features.
-			if (testBinary) binaryFeatureText = line;
-			
-			// It will now make sure the binary output of the 'doesApply' method
-			// matches that of the 'binaryFeatureText'.
-			if (testBinary) {
-				assertTrue(partsOfSpeech.doesApply(blockOfText).equals(binaryFeatureText));
-				testBinary = false; 
-				ignoreOnce = true;
-			}
-			
-			// It will now append the line onto the block of text.
-			if (!testBinary && !ignoreOnce) {
-				blockOfTextBuilder.append(line);
-				if (line.contains("--END--")) {
-					blockOfText = blockOfTextBuilder.toString();
-					blockOfTextBuilder = new StringBuilder("");
-					testBinary = true;
-				} else {
-					blockOfTextBuilder.append("\n");
-				}
-			}
-			ignoreOnce = false;
-		}
+		return lexicalTestLines;
 	}
-
 }
