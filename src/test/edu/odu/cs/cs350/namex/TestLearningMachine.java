@@ -12,12 +12,13 @@ public class TestLearningMachine {
 	public void testTagWrap() {
 		
 		LearningMachine learning = new LearningMachine();
-		int a=1,b=2,c=7;
+		int a=1,b=2,c=6;
+		int x=1,y=2,z=3;
 		String exampleString = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
-		String exampleString2 = "<PER>Thorin Oakenshield<PER> is a character in <PER>Tolkein<PER>'s book, The Hobbit.";
-		learning.tagWrap(exampleString,a);
-		learning.tagWrap(exampleString,b);
-		learning.tagWrap(exampleString,c);
+		String exampleString2 = "<PER>Thorin Oakenshield<PER> is a character in <PER>Tolkein's<PER> book, The Hobbit.";
+		learning.tagWrap(exampleString,a,x);
+		learning.tagWrap(exampleString,b,y);
+		learning.tagWrap(exampleString,c,z);
 		
 		assertEquals(exampleString,exampleString2);
 		
