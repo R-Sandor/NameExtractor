@@ -76,23 +76,30 @@ public class LearningMachine {
 		
         String inputedBlock2 = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
         System.out.println(inputedBlock2);
-        int key2 = 2;
+        int beginName = 0;
+        int continueName = 1;
+        int singleName = 6;
         
-        String words[] = inputedBlock2.split(" ");
+        String words[] = inputedBlock2.split("\\s+");
 
         for(int i = 0; i < words.length; i++)
         {
             String word = words[i];
-            if(i==key2)
-            {
-                word = "<PER>" + word + "<PER>";
+            if(i==beginName){
+                word = "<PER>" + word;
             }
+            else if(i==continueName) {
+            	word = word + "<PER>";
+            }
+            else if(i==singleName) {
+            	word = "<PER>" + word + "<PER>";
+            }
+            
             outputBlock += word;
             outputBlock += " ";
         }
         System.out.println(outputBlock);
 		return outputBlock;
-		// TODO Auto-generated method stub
 		
 	}
 }
