@@ -16,13 +16,14 @@ public class PersonalNameExtractor {
 		
 		// TODO: Re-adjust the i offset value to reflect changes in the binary
 		// format for the gazetteer later on.
+		final int nameOffsetIndex = 4;
 		String newTextBlock = textBlock;
-		for (int i = 2; i < allFeatureValues.length; i += 4) {
+		for (int i = 2; i < allFeatureValues.length; i += nameOffsetIndex) {
 			String isFirstName = allFeatureValues[i];
 			String isLastName = allFeatureValues[i + 1];
 			
 			if (isFirstName.equals("1") || isLastName.equals("1")) {
-				newTextBlock = learningMachine.tagWrap(newTextBlock, i);
+				newTextBlock = learningMachine.tagWrap(newTextBlock, i / nameOffsetIndex, 3);
 			}
 		}
 		
@@ -38,14 +39,19 @@ public class PersonalNameExtractor {
 	 * Will return a string with <PER> tags
 	 */
 	public String extract(String text) {
-		return text;
+		LearningMachine learningMac = new LearningMachine();
+		return null;
 	}
 	
 	// Data that is being added by Librarian are being extracted 
 	// before being stored in the extractedBlock
 	public void addToCollection(String text) {
-		
-		extractedBlock.add(extract(text));
+		String tempString = extract(text);
+		String ner ="<NER>";
+		String close = "</NER>";
+		tempString = ner.concat(tempString);
+		tempString = tempString.concat(close);
+		extractedBlock.add(tempString);
 	}
 	
 	public ArrayList<String>  getExtractedBlocks(){

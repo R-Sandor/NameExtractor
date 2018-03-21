@@ -13,7 +13,7 @@ public class Main {
 			File file = new File(args[0]);
 			if (file.exists()){
 				librarian.readInput(file);
-				ArrayList<String> processedBlocks=librarian.processBlocks();
+				ArrayList<String> processedBlocks=librarian.getBlocks();
 				for(String extractedLine:processedBlocks)
 				{
 					System.out.println(extractedLine);
