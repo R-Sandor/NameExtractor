@@ -14,8 +14,8 @@ public class TestLearningMachine {
 		LearningMachine learning = new LearningMachine();
 		int a=0,b=1,c=6;
 		int x=1,y=2,z=3;
-		String exampleString = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
-		String exampleString2 = "<PER>Thorin Oakenshield<PER> is a character in <PER>Tolkein's<PER> book, The Hobbit. ";
+		String exampleString = "Thorin Oakenshield is a. character in Tolkein's book, The Hobbit.";
+		String exampleString2 = "<PER>Thorin Oakenshield<PER/> is a character in <PER>Tolkein's<PER/> book, The Hobbit. ";
 		String testString = "";
 		testString = learning.tagWrap(exampleString,a,x);
 		testString = learning.tagWrap(testString,b,y);
