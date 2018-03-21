@@ -79,10 +79,10 @@ public class LearningMachine {
                 word = "<PER>" + word;
             }
             else if(type==2) {
-            	word = word + "<PER>";
+            	word = word + "<PER/>";
             }
             else if(type==3) {
-            	word = "<PER>" + word + "<PER>";
+            	word = "<PER>" + word + "<PER/>";
             }
         	}
             outputBlock += word;
