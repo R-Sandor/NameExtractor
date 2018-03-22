@@ -12,6 +12,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import java.util.Scanner;
+
 public class TestLibrarian {
 	
 	
@@ -59,8 +61,22 @@ public class TestLibrarian {
 		
 		assertEquals(textBlocks.get(1).replace("<NER>", "").replace("</NER>", ""), librarian.getBlocks().get(1));
 		
+	}
+	
+	
+	@Test
+	public void testProcessBlocks() {
+		PersonalNameExtractor PNE = new PersonalNameExtractor();
+		Librarian librarian = new Librarian();
+		assertEquals(0, PNE.getExtractedBlocks());
+
+		Scanner tempText = new Scanner(System.in);  
+		System.out.println("Enter text: ");
+		String temp = tempText.toString();
+		PNE.addToCollection(temp);
 		
-		
+		tempText.close();
+
 		
 	}
 
