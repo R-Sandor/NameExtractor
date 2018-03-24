@@ -39,6 +39,7 @@ public class PersonalNameExtractor {
 	 * Will return a string with <PER> tags
 	 */
 	public String extract(String text) {
+		@SuppressWarnings("unused")
 		LearningMachine learningMac = new LearningMachine();
 		return null;
 	}
