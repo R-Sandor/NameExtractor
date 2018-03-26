@@ -1,11 +1,7 @@
 package edu.odu.cs.cs350.namex;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 
@@ -27,32 +23,28 @@ public class Librarian {
 	}
 	
 	/*
-	 * Read text files from the CLI interface.
+	 * Read text files from the CLI one line at a time.
+	 * Note this used to take files. This 
 	 */
-	public void readInput(File file) {
-		List<String> fileLines = new ArrayList<>();
-
-		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-			bufferedReader.lines().forEach(fileLines::add);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void readInput(String line ) throws Exception {
 		String addToLine;
-		for (String line : fileLines) {
-			
-			if (line.contains("<NER>") && line.contains("</NER>")) {
-				line= line.replace("</NER>","");
-				outBlock.add(line.replace("<NER>", ""));
-			}
-			else if (line.contains("</NER>")){
-				line= line.replace("</NER>","");
-				addToLine = outBlock.get(outBlock.size()-1)+ line;
-				if (!outBlock.get(outBlock.size()-1).equals(line)){
-					outBlock.set(outBlock.size()-1, addToLine);
+		System.out.println("So far so good.");
+		if (line.contains("<NER>") && line.contains("</NER>")) {
+			line= line.replace("</NER>","");
+			outBlock.add(line.replace("<NER>", ""));
+		}
+		else if (line.contains("</NER>")){
+			line= line.replace("</NER>","");
+			addToLine = outBlock.get(outBlock.size()-1)+ line;
+			// If last line in list is not the same as the current line
+			// set the last index to the concatenation of the two lines.
+			if (!outBlock.get(outBlock.size()-1).equals(line) && !(outBlock.isEmpty())){
+				outBlock.set(outBlock.size()-1, addToLine);
 				}
 			}
 			else if (line.contains("<NER>"))
 			{
+				// Might as well guard against one liners with <NER>s
 				line = line.replace("</NER>","");
 				outBlock.add(line.replace("<NER>", ""));
 
@@ -60,22 +52,22 @@ public class Librarian {
 			}
 			else
 			{
-				addToLine = outBlock.get(outBlock.size()-1)+ line;
-				line = line.replace("</NER>", "");
-				outBlock.set(outBlock.size()-1, addToLine.replace("<NER>", ""));
+				if (outBlock.isEmpty())
+				{
+					throw new Exception("Inputed string must be marked in <NER>... </NER> tags");
+				}
+				else
+				{
+					addToLine = outBlock.get(outBlock.size()-1)+ line;
+					line = line.replace("</NER>", "");
+					outBlock.set(outBlock.size()-1, addToLine.replace("<NER>", ""));
+				}
 				
 
 			}
 		}
-	}
 	
-	/*
-	 * Read text from the API.
-	 */
-	public void readInput(String text){
-		outBlock.add(text);
-		processBlocks();
-	}
+	
 	
 	public ArrayList<String> getBlocks(){
 		return outBlock;

@@ -41,7 +41,11 @@ public class PersonalNameExtractor {
 	public String extract(String text) {
 		@SuppressWarnings("unused")
 		LearningMachine learningMac = new LearningMachine();
-		return null;
+		/*
+		 * TODO 
+		 * 	This should return a string that has been processed by the learning machine.
+		 */
+		return text;
 	}
 	
 	// Data that is being added by Librarian are being extracted 
