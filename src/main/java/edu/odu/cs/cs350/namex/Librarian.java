@@ -28,7 +28,6 @@ public class Librarian {
 	 */
 	public void readInput(String line ) throws Exception {
 		String addToLine;
-		System.out.println("So far so good.");
 		if (line.contains("<NER>") && line.contains("</NER>")) {
 			line= line.replace("</NER>","");
 			outBlock.add(line.replace("<NER>", ""));
