@@ -34,15 +34,17 @@ public class TestLibrarian {
 	 * Test the CLI input to the program. This should break
 	 */
 	@Test
-	public void testReadAPI() throws Exception {
+	public void testReadInput() throws Exception {
 		int openNerCount = 0;
+		int closeNerCount =0;
 		List<String> textBlocks = new ArrayList<>();
+		// Lines gather from using the actual Librarian class.
 		List<String> nerTestLines = new ArrayList<>();
 
 		File file = new File("src/main/resources/TestNER.txt");
 		Librarian librarian = new Librarian();
-		//librarian.readInput(file);
-		// TODO read strings that aren't from a file but just regular input
+
+
 		try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
 			bufferedReader.lines().forEach(nerTestLines::add);
 		} catch (IOException e) {
@@ -55,9 +57,15 @@ public class TestLibrarian {
 				openNerCount++;
 				textBlocks.add(line);
 			}
+			if (line.contains("</NER>")) {
+				closeNerCount++;
+			}
+			
+			
 			
 		}
-		System.out.println(librarian.getBlocks());	
+		assert(openNerCount == closeNerCount);
+
 		assertEquals(openNerCount, librarian.numOfBlocks());
 		
 		assertEquals(textBlocks.get(1).replace("<NER>", "").replace("</NER>", ""), librarian.getBlocks().get(1));
