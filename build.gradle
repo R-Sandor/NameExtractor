@@ -1,5 +1,6 @@
 version '1.0'
 
+apply plugin: 'project-report'
 apply plugin: 'java'
 apply plugin: 'application'
 
@@ -14,6 +15,19 @@ sourceCompatibility = 1.8
 task wrapper(type: Wrapper) {
    gradleVersion = '4.6' //version required
 }
+
+htmlDependencyReport {
+    projects = project.allprojects
+    reports.html.destination = file("build/reports/project/dependencies")
+}
+
+
+
+ext.myCustomMethod = { ->
+ 	        println 'Hello, World!'
+ 
+}
+
 
 repositories {
      mavenCentral()
@@ -31,6 +45,8 @@ repositories {
      testCompile 'junit:junit:4.12'
    
 }
+
+
 
 test {
 	ignoreFailures = true
