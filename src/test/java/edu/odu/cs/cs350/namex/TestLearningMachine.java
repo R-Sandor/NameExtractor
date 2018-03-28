@@ -21,7 +21,7 @@ public class TestLearningMachine {
 		testString = learning.tagWrap(testString,b,y);
 		testString = learning.tagWrap(testString,c,z);
 		
-		assertEquals(testString,exampleString2);
+		assertEquals(exampleString2,testString);
 		
 	}
 	

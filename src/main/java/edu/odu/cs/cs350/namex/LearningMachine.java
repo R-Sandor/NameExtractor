@@ -59,35 +59,43 @@ public class LearningMachine {
 	
 	public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
+		int keylength = 0;
 		
+		
+		if(type==1){
+		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-keylength, "<PER>").toString();
+		}
+		if(type==2) {
+		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-keylength, "<PER/>").toString();	
+		}
         //String inputedBlock2 = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
         //System.out.println(inputedBlock2);
         //int beginName = 0;
         //int continueName = 1;
         //int singleName = 6;
         
-		System.out.println("KEY: " + key);
-		
-        String words[] = inputedBlock.split("\\s+");
-
-        for(int i = 0; i < words.length; i++)
-        {
-        	String word = words[i];
-        	if(i==key) {
-            if(type==1){
-            	System.out.println("inserting");
-                word = "<PER>" + word;
-            }
-            else if(type==2) {
-            	word = word + "<PER/>";
-            }
-            else if(type==3) {
-            	word = "<PER>" + word + "<PER/>";
-            }
-        	}
-            outputBlock += word;
-            outputBlock += " ";
-        }
+//		System.out.println("KEY: " + key);
+//		
+//        String words[] = inputedBlock.split("\\s+");
+//
+//        for(int i = 0; i < words.length; i++)
+//        {
+//        	String word = words[i];
+//        	if(i==key) {
+//            if(type==1){
+//            	System.out.println("inserting");
+//                word = "<PER>" + word;
+//            }
+//            else if(type==2) {
+//            	word = word + "<PER/>";
+//            }
+//            else if(type==3) {
+//            	word = "<PER>" + word + "<PER/>";
+//            }
+//        	}
+//            outputBlock += word;
+//            outputBlock += " ";
+//        }
         //System.out.println(outputBlock);
 		return outputBlock;
 		
