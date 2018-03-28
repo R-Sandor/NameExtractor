@@ -19,16 +19,16 @@ task wrapper(type: Wrapper) {
 htmlDependencyReport {
     projects = project.allprojects
     reports.html.destination = file("build/reports/project/dependencies")
+  
+    
 }
 
 
 
-ext.myCustomMethod = { ->
- 	        println 'Hello, World!'
- 
+
+task hello {
+   
 }
-
-
 repositories {
      mavenCentral()
      jcenter()
@@ -38,7 +38,13 @@ repositories {
   	}
  
 }
+
+
+task myJavadocs(type: Javadoc) {
+  source = sourceSets.main.allJava
+}
  
+
  dependencies {
  	 compile 'nz.ac.waikato.cms.weka:weka-stable:3.8.2'
  	 compile 'edu.odu.cs.extract:extract-wordlists:4.2'
@@ -46,6 +52,9 @@ repositories {
    
 }
 
+task reports(dependsOn:myJavadocs) { 
+  dependsOn 'test'	
+}
 
 
 test {
