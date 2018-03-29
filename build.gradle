@@ -3,12 +3,13 @@ version '1.0'
 apply plugin: 'project-report'
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'java-library-distribution'
 
 mainClassName = "edu.odu.cs.cs350.namex.Main"
 
 run {
-  	args += '<NER>first_arg</NER>'  	
-  	args += '<NER>Rascal Flats</NER>'
+  	  	
+  	args += ''
   	
 }
 
@@ -62,4 +63,13 @@ task reports(dependsOn:myJavadocs) {
 
 test {
 	ignoreFailures = true
+}
+
+
+jar {
+	baseName = 'PNE'
+	version = ''
+    manifest {
+        attributes 'Main-Class': 'edu.odu.cs.cs350.namex.Main'
+    }
 }
