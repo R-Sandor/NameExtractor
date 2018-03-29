@@ -9,7 +9,7 @@ mainClassName = "edu.odu.cs.cs350.namex.Main"
 
 run {
   	  	
-  	args += ''
+  	args += '< /src/main/resources/TestNER.txt'
   	
 }
 
