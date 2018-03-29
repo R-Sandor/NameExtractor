@@ -11,57 +11,62 @@ public class TestGazetteer {
 	@Test
 	public void testDoesApply() {
 		
+		// Format of output
+		// Dict., Cities, Countries, Places, DTIC first, DTIC last, Common 1st, Common last, Honorific, 
+		// Prefix, Suffix, Kill
+		
 		Gazetteer gazetteer = new Gazetteer();
-		// DTIC first, DTIC last, Common 1st, Common last
 		
 		// First name tests
-		assertEquals("0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0", gazetteer.doesApply("krista"));
-		assertEquals("0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("mari"));
-		assertEquals("0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0", gazetteer.doesApply("amelie"));
+		assertEquals("krista", "0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0", gazetteer.doesApply("krista"));
+		assertEquals("amelie", "0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("amelie"));
 		
 		// Last name tests
-		assertEquals("0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0", gazetteer.doesApply("schreiber"));
-		assertEquals("0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0", gazetteer.doesApply("shapiro"));
-		assertEquals("0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0", gazetteer.doesApply("chacon"));
+		assertEquals("schreiber", "0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0", gazetteer.doesApply("schreiber"));
+		assertEquals("shapiro", "0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0", gazetteer.doesApply("shapiro"));
+		assertEquals("chacon", "0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0", gazetteer.doesApply("chacon"));
 		
 		// Last and first name tests
-		assertEquals("0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0", gazetteer.doesApply("deaton"));
-		assertEquals("0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0", gazetteer.doesApply("michell"));
-		assertEquals("0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0", gazetteer.doesApply("wilda"));
+		assertEquals("deaton", "0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0", gazetteer.doesApply("deaton"));
+		assertEquals("michell", "0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0", gazetteer.doesApply("michell"));
+		assertEquals("wilda", "0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0", gazetteer.doesApply("wilda"));
+		assertEquals("mari", "0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0", gazetteer.doesApply("mari"));
 		
 		// Dictionary words (English)
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("linguistic"));
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("backhand"));
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("ballyhooed"));
+		assertEquals("linguistic", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("linguistic"));
+		assertEquals("backhand", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("backhand"));
+		assertEquals("ballyhooed", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("ballyhooed"));
 	
 		// Cities
-		assertEquals("0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Pinedale"));
-		assertEquals("0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Sistersville"));
-		assertEquals("0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Reedsville"));
 		
 		// Countries
-		assertEquals("0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Dominica"));
-		assertEquals("0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Vanuatu"));
-		assertEquals("0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Egypt"));
+		assertEquals("Dominica", "1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Dominica"));
+		assertEquals("Vanuatu", "1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Vanuatu"));
+		assertEquals("Egypt", "1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("Egypt"));
+		
+		// Placenames
+		assertEquals("pinedale", "0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("pinedale"));
+		assertEquals("sistersville", "0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("sistersville"));
+		assertEquals("reedsville", "0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("reedsville"));
 		
 		// Honorifics
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0", gazetteer.doesApply("Dominica"));
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0", gazetteer.doesApply("Sergeant"));
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0", gazetteer.doesApply("Recruit"));
+		assertEquals("General", "0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0", gazetteer.doesApply("General"));
+		assertEquals("Sergeant", "0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0", gazetteer.doesApply("Sergeant"));
+		assertEquals("Recruit", "0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0", gazetteer.doesApply("Recruit"));
 		
 		// Prefixes
-		assertEquals("0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0", gazetteer.doesApply("las"));
-		assertEquals("0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0", gazetteer.doesApply("du"));
-		assertEquals("0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0", gazetteer.doesApply("popa"));
+		assertEquals("las", "0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0", gazetteer.doesApply("las"));
+		assertEquals("du", "0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0", gazetteer.doesApply("du"));
+		assertEquals("popa", "0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0", gazetteer.doesApply("popa"));
 		
 		// Suffixs
-		assertEquals("0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0", gazetteer.doesApply("III"));
-		assertEquals("0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0", gazetteer.doesApply("IV"));
+		assertEquals("III", "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0", gazetteer.doesApply("III"));
+		assertEquals("IV", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0", gazetteer.doesApply("IV"));
 		
 		// Kill words
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1", gazetteer.doesApply("navy"));
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1", gazetteer.doesApply("sciences"));
-		assertEquals("1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1", gazetteer.doesApply("base"));
+		assertEquals("navy", "1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1", gazetteer.doesApply("navy"));
+		assertEquals("sciences", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1", gazetteer.doesApply("sciences"));
+		assertEquals("base", "1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1", gazetteer.doesApply("base"));
 		
 	}
 

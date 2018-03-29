@@ -1,6 +1,6 @@
 package edu.odu.cs.cs350.namex.features;
 
-import java.util.List;
+import edu.odu.cs.extract.wordlists.WordLists;
 
 /*
  * Determines whether a given piece of text is a common first name or last name based on a reference list
@@ -12,83 +12,74 @@ public class Gazetteer implements Feature {
 	
 	@Override
 	public String doesApply(String text) {
-		return "";
+		StringBuilder binaryStringBuilder = new StringBuilder("");
+		binaryStringBuilder.append(isDictionaryWord(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isUsaCitiesAndStates(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isCountry(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isPlace(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isDTICFirstName(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isDTICLastName(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isCommonFirstName(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isCommonLastName(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isHonorific(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isPrefix(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isSuffix(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isKillText(text) ? "1" : "0");
+		return binaryStringBuilder.toString();
 	}
 	
-	@SuppressWarnings("unused")
 	private boolean isCommonFirstName(String text) {
-		return false;
+		return contains(WordLists.commonFirstNames(), text);
 	}
 	
-	@SuppressWarnings("unused")
 	private boolean isCommonLastName(String text) {
-		return false;
+		return contains(WordLists.commonLastNames(), text);
 	}
 	
-	@SuppressWarnings("unused")
+	private boolean isDTICFirstName(String text) {
+		return contains(WordLists.firstNames(), text);
+	}
+	
+	private boolean isDTICLastName(String text) {
+		return contains(WordLists.lastNames(), text);
+	}
+	
 	private boolean isDictionaryWord(String text) {
-		return false;
+		return contains(WordLists.englishDictionary(), text);
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean hasSuffixes(String text) {
-		return false;
+	private boolean isUsaCitiesAndStates(String text) {
+		return contains(WordLists.citiesAndStatesUS(), text);
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean isUsaCity(String text) {
-		return false;
+	private boolean isPlace(String text) {
+		return contains(WordLists.places(), text);
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean isUsaState(String text) {
-		return false;
-	}
-	
-	@SuppressWarnings("unused")
-	private boolean isTerritory(String text) {
-		return false;
-	}
-	
-	@SuppressWarnings("unused")
 	private boolean isCountry(String text) {
+		return contains(WordLists.countriesAndTerritories(), text);
+	}
+	
+	private boolean isHonorific(String text) {
+		return contains(WordLists.honorifics(), text);
+	}
+	
+	private boolean isPrefix(String text) {
+		return contains(WordLists.lastNamePrefixes(), text);
+	}
+	
+	private boolean isSuffix(String text) {
+		return contains(WordLists.lastNameSuffixes(), text);
+	}
+	
+	private boolean isKillText(String text) {
+		return contains(WordLists.nonPersonalIdentifierCues(), text);
+	}
+	
+	private boolean contains(Iterable<String> list, String text) {
+		for (String word : list) {
+			if (word.equals(text)) return true;
+		}
 		return false;
 	}
-
-	
-	public List<String> getCommonFirstNamesDTIC() {
-		return null;
-	}
-	
-	public List<String> getCommonLastNamesDTIC() {
-		return null;
-	}
-	
-	public List<String> getCommonFirstNamesCensus() {
-		return null;
-	}
-	
-	public List<String> getCommonLastNamesCensus() {
-		return null;
-	}
-	
-	/*
-	 * @param text 
-	 * Determines if the provided text is one of the kill words
-	*/
-	public boolean isOrganization(String text){
-		/* TODO call is killWord
-		 * TODO write killWord
-		*/
-		return false;
-	}
-	/*
-	 * @param text
-	 * The text is searched against a list of words that
-	 * are seldom a name.
-	 */
-	public boolean isKillWord(String text) {
-		return true;
-	}
-	
 }
