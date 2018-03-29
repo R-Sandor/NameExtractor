@@ -24,9 +24,9 @@ public class Librarian {
 	
 	/*
 	 * Read text files from the CLI one line at a time.
-	 * Note this used to take files. This 
+	 * Note this used to take files.  
 	 */
-	public void readInput(String line )  {
+	public void readCLIInput(String line )  {
 		String addToLine;
 		if (line.contains("<NER>") && line.contains("</NER>")) {
 			line= line.replace("</NER>","");
@@ -63,10 +63,8 @@ public class Librarian {
 						line = line.replace("</NER>", "");
 						outBlock.add(line.replace("<NER>", ""));
 					}
-				
-
 			}
-		}
+}
 	
 	
 	
@@ -83,13 +81,13 @@ public class Librarian {
 	 * The processing of the blocks is calling each block 
 	 * to the PNE system.
 	 */
-	public ArrayList<String> processBlocks(){
+	public void processCLIBlocks(){
 		
 		
 		for(String line: outBlock ) {
-		 PNE.addToCollection(line);
+		 PNE.CLIextract(line);
 		}
-		return PNE.getExtractedBlocks();
+		outBlock = PNE.getExtractedCLIBlocks();
 	}
 	
 

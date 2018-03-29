@@ -21,9 +21,8 @@ public class TestLibrarian {
 	public void testReadApi() throws Exception{
 		Librarian librarian = new Librarian();
 		String exampleInput = "Name Extraction -- Requirements Definition\nSteven J Zeil\nJan 20, 2016";
-		librarian.readInput(exampleInput);
+		librarian.readCLIInput(exampleInput);
 		ArrayList<String> block = librarian.getBlocks();
-		System.out.println(block);
 		assertTrue(block.contains(exampleInput));
 		assertEquals(1, librarian.numOfBlocks());
 		
@@ -34,11 +33,11 @@ public class TestLibrarian {
 	 * Test the CLI input to the program. This should break
 	 */
 	@Test
-	public void testReadInput() throws Exception {
+	public void testReadCLIInput() throws Exception {
 		int openNerCount = 0;
 		int closeNerCount =0;
 		List<String> textBlocks = new ArrayList<>();
-		// Lines gather from using the actual Librarian class.
+		// Lines gathered from using the actual Librarian class.
 		List<String> nerTestLines = new ArrayList<>();
 
 		File file = new File("src/main/resources/TestNER.txt");
@@ -51,7 +50,7 @@ public class TestLibrarian {
 			e.printStackTrace();
 		}
 		for (String line : nerTestLines) {
-			librarian.readInput(line);
+			librarian.readCLIInput(line);
 
 			if (line.contains("<NER>")) {
 				openNerCount++;
@@ -64,31 +63,32 @@ public class TestLibrarian {
 			
 			
 		}
+		librarian.processCLIBlocks();
 		assert(openNerCount == closeNerCount);
-
+		System.out.println(librarian.getBlocks());
 		assertEquals(openNerCount, librarian.numOfBlocks());
 		
-		assertEquals(textBlocks.get(1).replace("<NER>", "").replace("</NER>", ""), librarian.getBlocks().get(1));
+		assertEquals(textBlocks.get(1), librarian.getBlocks().get(1));
 		
 	}
 	
 	
-	@Test
-	public void testProcessBlocks() {
-		PersonalNameExtractor PNE = new PersonalNameExtractor();
-		@SuppressWarnings("unused")
-		Librarian librarian = new Librarian();
-		assertEquals(0, PNE.getExtractedBlocks().size());
+//	@Test
+//	public void testProcessBlocks() {
+//		PersonalNameExtractor PNE = new PersonalNameExtractor();
+//		@SuppressWarnings("unused")
+//		Librarian librarian = new Librarian();
+//		assertEquals(0, PNE.getExtractedCLIBlocks().size());
+//
+//		Scanner tempText = new Scanner(System.in);  
+//		System.out.println("Enter text: ");
+//		String temp = tempText.toString();
+//		PNE.CLIextract(temp);
+//		
+//		tempText.close();
 
-		Scanner tempText = new Scanner(System.in);  
-		System.out.println("Enter text: ");
-		String temp = tempText.toString();
-		PNE.addToCollection(temp);
 		
-		tempText.close();
-
-		
-	}
+	//}
 
 	
 	

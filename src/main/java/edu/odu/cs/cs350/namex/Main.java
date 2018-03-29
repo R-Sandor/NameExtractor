@@ -1,7 +1,5 @@
 package edu.odu.cs.cs350.namex;
 
-import java.util.ArrayList;
-
 public class Main {
 
 	// Used to interface with the CLI.
@@ -10,10 +8,9 @@ public class Main {
 		
 		if (args.length > 0)
 		{
-			System.out.println(args[0]);
-			librarian.readInput(args[0]);
-			ArrayList<String> processedBlocks=librarian.processBlocks();
-			for(String extractedLine:processedBlocks)
+		//	while ()
+			librarian.readCLIInput(args[0]);
+			for(String extractedLine:librarian.getBlocks())
 			{
 				System.out.println(extractedLine);
 			}

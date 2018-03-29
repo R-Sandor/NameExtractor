@@ -50,16 +50,17 @@ public class PersonalNameExtractor {
 	
 	// Data that is being added by Librarian are being extracted 
 	// before being stored in the extractedBlock
-	public void addToCollection(String text) {
+	public void CLIextract(String text) {
 		String tempString = extract(text);
 		String ner ="<NER>";
 		String close = "</NER>";
 		tempString = ner.concat(tempString);
 		tempString = tempString.concat(close);
 		extractedBlock.add(tempString);
+
 	}
 	
-	public ArrayList<String>  getExtractedBlocks(){
+	public ArrayList<String>  getExtractedCLIBlocks(){
 		//
 		return extractedBlock;
 	}

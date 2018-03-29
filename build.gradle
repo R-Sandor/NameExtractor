@@ -7,7 +7,9 @@ apply plugin: 'application'
 mainClassName = "edu.odu.cs.cs350.namex.Main"
 
 run {
-  	args += '<NER>first_arg</NER>'
+  	args += '<NER>first_arg</NER>'  	
+  	args += '<NER>Rascal Flats</NER>'
+  	
 }
 
 sourceCompatibility = 1.8
