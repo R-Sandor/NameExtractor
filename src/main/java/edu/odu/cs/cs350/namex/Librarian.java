@@ -26,7 +26,7 @@ public class Librarian {
 	 * Read text files from the CLI one line at a time.
 	 * Note this used to take files. This 
 	 */
-	public void readInput(String line ) throws Exception {
+	public void readInput(String line )  {
 		String addToLine;
 		if (line.contains("<NER>") && line.contains("</NER>")) {
 			line= line.replace("</NER>","");
@@ -51,16 +51,18 @@ public class Librarian {
 			}
 			else
 			{
-				if (outBlock.isEmpty())
-				{
-					throw new Exception("Inputed string must be marked in <NER>... </NER> tags");
-				}
-				else
-				{
+					if(outBlock.size()>0)
+					{
 					addToLine = outBlock.get(outBlock.size()-1)+ line;
 					line = line.replace("</NER>", "");
 					outBlock.set(outBlock.size()-1, addToLine.replace("<NER>", ""));
-				}
+					}
+					else
+					{
+						;
+						line = line.replace("</NER>", "");
+						outBlock.add(line.replace("<NER>", ""));
+					}
 				
 
 			}

@@ -23,12 +23,12 @@ htmlDependencyReport {
     
 }
 
-
-
-
-task hello {
-   
+task deployReports(type:Exec) {
+	  workingDir '/home/raphael/cs350/Blue2'
+	  commandLine './deploy.sh'
 }
+
+
 repositories {
      mavenCentral()
      jcenter()
@@ -55,6 +55,7 @@ task myJavadocs(type: Javadoc) {
 task reports(dependsOn:myJavadocs) { 
   dependsOn 'test'	
 }
+
 
 
 test {

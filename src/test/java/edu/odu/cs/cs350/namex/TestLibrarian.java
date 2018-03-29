@@ -78,7 +78,7 @@ public class TestLibrarian {
 		PersonalNameExtractor PNE = new PersonalNameExtractor();
 		@SuppressWarnings("unused")
 		Librarian librarian = new Librarian();
-		assertEquals(0, PNE.getExtractedBlocks());
+		assertEquals(0, PNE.getExtractedBlocks().size());
 
 		Scanner tempText = new Scanner(System.in);  
 		System.out.println("Enter text: ");

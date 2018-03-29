@@ -1,7 +1,5 @@
 package edu.odu.cs.cs350.namex.features;
 
-import java.util.List;
-
 /*
  * Determines whether a given piece of text is a common first name or last name based on a reference list
  * @param text: a single String of text containing a single word or piece of punctuation without any white space
@@ -9,36 +7,17 @@ import java.util.List;
  */
 public class Gazetteer implements Feature {
 	
-	private String[] commonFirstNames = {
-		"Joseph"
-	};
-	
-	private String[] commonLastNames = {
-		"Joseph"	
-	};
 	
 	@Override
 	public String doesApply(String text) {
-		String binaryString = "";
-		binaryString = isCommonFirstName(text) ? "1" : "0";
-		binaryString += isCommonLastName(text) ? ", 1" : ", 0";
-		return binaryString;
-	}
-	
-	public void performDatabaseFetching() {
+		return "";
 	}
 	
 	private boolean isCommonFirstName(String text) {
-		for (String name : commonFirstNames) {
-			if (name.equals(text)) return true;
-		}
 		return false;
 	}
 	
 	private boolean isCommonLastName(String text) {
-		for (String name : commonLastNames) {
-			if (name.equals(text)) return true;
-		}
 		return false;
 	}
 	
@@ -88,6 +67,24 @@ public class Gazetteer implements Feature {
 		return null;
 	}
 	
+	/*
+	 * @param text 
+	 * Determines if the provided text is one of the kill words
+	*/
+	public boolean isOrganization(String text){
+		/* TODO call is killWord
+		 * TODO write killWord
+		*/
+		return false;
+	}
+	/*
+	 * @param text
+	 * The text is searched against a list of words that
+	 * are seldom a name.
+	 */
+	public boolean isKillWord(String text) {
+		return true;
+	}
 	
 	
 }
