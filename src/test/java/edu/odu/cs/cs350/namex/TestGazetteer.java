@@ -1,7 +1,6 @@
 package edu.odu.cs.cs350.namex;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -11,22 +10,18 @@ public class TestGazetteer {
 
 	@Test
 	public void testDoesApply() {
-		fail("Not yet implemented");
 		
-	}
-
-	@Test
-	public void testPerformDatabaseFetching() {
+		Gazetteer gazetteer = new Gazetteer();
 		
-		Gazetteer gazetter = new Gazetteer();
-		
-		// Making sure all list are empty to begin with.
-		assertTrue(gazetter.getCommonFirstNamesDTIC().isEmpty());
-		assertTrue(gazetter.getCommonFirstNamesCensus().isEmpty());
-		assertTrue(gazetter.getCommonLastNamesDTIC().isEmpty());
-		assertTrue(gazetter.getCommonLastNamesCensus().isEmpty());
-		
-		gazetter.performDatabaseFetching();
+		assertEquals("1, 0", gazetteer.doesApply("krista"));
+		assertEquals("1, 0", gazetteer.doesApply("mari"));
+		assertEquals("1, 0", gazetteer.doesApply("amelie"));
+		assertEquals("0, 1", gazetteer.doesApply("shapiro"));
+		assertEquals("0, 1", gazetteer.doesApply("chacon"));
+		assertEquals("0, 1", gazetteer.doesApply("schreiber"));
+		assertEquals("1, 1", gazetteer.doesApply("deaton"));
+		assertEquals("1, 1", gazetteer.doesApply("michell"));
+		assertEquals("1, 1", gazetteer.doesApply("wilda"));
 		
 	}
 

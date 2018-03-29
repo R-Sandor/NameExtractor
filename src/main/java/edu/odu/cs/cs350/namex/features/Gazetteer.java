@@ -50,6 +50,7 @@ public class Gazetteer implements Feature {
 	private boolean isCountry(String text) {
 		return false;
 	}
+
 	
 	public List<String> getCommonFirstNamesDTIC() {
 		return null;
@@ -85,6 +86,5 @@ public class Gazetteer implements Feature {
 	public boolean isKillWord(String text) {
 		return true;
 	}
-	
 	
 }
