@@ -9,7 +9,6 @@ build-job:
     - echo cool
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$WEBSITE_KEY")
-
     - rsync -auvz -e "ssh" build/reports/tests/ raphaelsandor@atria.cs.odu.edu
     - ssh-agent -k
     - # rsync -auvz -e "ssh" build/reports/ rsandor@atria.cs.odu.edu:./
