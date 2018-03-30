@@ -10,6 +10,8 @@ build-job:
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$WEBSITE_KEY")
     - ls
+    - ./gradlew build 
+    - ls
     
     
     
