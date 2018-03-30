@@ -9,8 +9,8 @@ build-job:
     - echo cool
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$WEBSITE_KEY")
-	- cd src/resources/
-	- chmod +x deploy.sh
-	- ./deploy.sh
+    - cd src/resources/
+    - chmod +x deploy.sh
+    - ./deploy.sh
   only:
     - master
