@@ -8,6 +8,6 @@ build-job:
   script:
     - echo cool
     - eval $(ssh-agent -s)
-    - ssh-add <(echo "$WEB_KEY")
+    - ssh-add <(echo "$WEBSITE_KEY")
   only:
     - master
