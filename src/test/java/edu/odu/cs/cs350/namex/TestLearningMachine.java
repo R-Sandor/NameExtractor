@@ -9,7 +9,7 @@ import org.junit.Test;
 public class TestLearningMachine {
 
 	@Test
-	public void testTagWrap() {
+	public void testTagWrap() { 
 		
 		LearningMachine learning = new LearningMachine();
 		int a=7,b=2,c=1; //higher done first

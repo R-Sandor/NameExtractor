@@ -9,6 +9,9 @@ import edu.odu.cs.cs350.namex.features.PartsOfSpeech;
 
 public class LearningMachine {
 
+	
+	
+	
 	public char calculateWord(String text) {
 		char test = 0;
 		return test;
@@ -43,10 +46,50 @@ public class LearningMachine {
 		return allFeatures;
 	}
 	
-	public char judgeBlock(char inputedBlock) {
-		return inputedBlock; 
+	public String judgeBlock(String inputedBlock) {
+		String parsedBlock =parse(inputedBlock);
+		//TODO use the pre-trainned input to make a judgement.
+		return null;
 	}
 	
+	
+	/*
+	 * @param inputedBlock
+	 * Creates the tokens for each word in the line of the 
+	 * of the block. 
+	 */
+	private String parse(String inputedBlock) {
+		// TODO Return a String analysis of the block such as CAP, Other, 1, 0, 1, etc.
+		Lexical lexical = new Lexical();
+		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
+		Gazetteer gazetteer = new Gazetteer();
+		List<String> splitText = lexical.separateText(inputedBlock);
+		List<String> mappedFeatures = new ArrayList<>();
+		
+		for (String text :splitText) {
+			String currentText = lexical.doesApply(text);
+			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
+			currentText = currentText + ", " + gazetteer.doesApply(text);
+			// Testing whether line is returning what it should
+			mappedFeatures.add(currentText);
+		}
+		
+		String allFeatures = "";
+		boolean first = true;
+		for (String feature : mappedFeatures) {
+			if (first) {
+				allFeatures = feature;
+				first = false;
+				continue;
+			}
+			allFeatures += ", " + feature;
+		}
+		
+		return allFeatures;
+		//return null;
+		
+	}
+
 	public void addCharToList(char resultOfCalc) {
 		
 	}
