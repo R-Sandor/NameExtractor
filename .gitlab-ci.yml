@@ -11,7 +11,7 @@ build-job:
     - ssh-add <(echo "$WEBSITE_KEY")
     - ls
     - ./gradlew build
-    - ./gradlew javdoc
+    - ./gradlew javadoc
     - ls
     
     
