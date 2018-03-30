@@ -94,7 +94,6 @@ public class TestLexical {
 						assertTrue(!currentText.contains("?"));
 						assertTrue(!currentText.contains("%"));
 						assertTrue(!currentText.contains("$"));
-						assertTrue(!currentText.contains("'"));
 						assertTrue(!currentText.contains("\\"));
 						assertTrue(!currentText.contains("/"));
 					}

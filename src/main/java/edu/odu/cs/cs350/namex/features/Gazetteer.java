@@ -1,6 +1,7 @@
 package edu.odu.cs.cs350.namex.features;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import edu.odu.cs.extract.wordlists.WordLists;
@@ -11,7 +12,7 @@ import edu.odu.cs.extract.wordlists.WordLists;
  * @return String: indicates whether the given text is a common first name or last name
  */
 public class Gazetteer implements Feature {
-	
+		
 	private Set<String> dictionaryWords = new HashSet<>();
 	private Set<String> citiesAndStates = new HashSet<>();
 	private Set<String> countries = new HashSet<>();
@@ -23,8 +24,6 @@ public class Gazetteer implements Feature {
 	private Set<String> honorifics = new HashSet<>();
 	private Set<String> prefixes = new HashSet<>();
 	private Set<String> suffixes = new HashSet<>();
-	// We might need to create a list of phrases for this one.
-	private Set<String> organizations = new HashSet<>();
 	private Set<String> killWords = new HashSet<>();
 	
 	public Gazetteer() {	
@@ -47,74 +46,65 @@ public class Gazetteer implements Feature {
 	public String doesApply(String text) {
 		StringBuilder binaryStringBuilder = new StringBuilder("");
 		binaryStringBuilder.append(isDictionaryWord(text) ? "1" : "0").append(", ");
-		binaryStringBuilder.append(isUsaCitiesAndStates(text) ? "1" : "0").append(", ");
-		binaryStringBuilder.append(isCountry(text) ? "1" : "0").append(", ");
-		binaryStringBuilder.append(isPlace(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append("0, ");
+		binaryStringBuilder.append("0, ");
+		binaryStringBuilder.append("0, ");
 		binaryStringBuilder.append(isDTICFirstName(text) ? "1" : "0").append(", ");
 		binaryStringBuilder.append(isDTICLastName(text) ? "1" : "0").append(", ");
 		binaryStringBuilder.append(isCommonFirstName(text) ? "1" : "0").append(", ");
 		binaryStringBuilder.append(isCommonLastName(text) ? "1" : "0").append(", ");
-		binaryStringBuilder.append(isHonorific(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append("0, ");
 		binaryStringBuilder.append(isPrefix(text) ? "1" : "0").append(", ");
-		binaryStringBuilder.append(isSuffix(text) ? "1" : "0").append(", ");
-		binaryStringBuilder.append(isKillText(text) ? "1" : "0");
+		binaryStringBuilder.append("0, ");
+		binaryStringBuilder.append("0");
 		return binaryStringBuilder.toString();
 	}
 	
 	private boolean isCommonFirstName(String text) {
-		return commonFirstNames.contains(text);
+		return commonFirstNames.contains(text.toLowerCase());
 	}
 	
 	private boolean isCommonLastName(String text) {
-		return commonLastNames.contains(text);
+		return commonLastNames.contains(text.toLowerCase());
 	}
 	
 	private boolean isDTICFirstName(String text) {
-		return dticFirstNames.contains(text);
+		return dticFirstNames.contains(text.toLowerCase());
 	}
 	
 	private boolean isDTICLastName(String text) {
-		return dticLastNames.contains(text);
+		return dticLastNames.contains(text.toLowerCase());
 	}
 	
 	private boolean isDictionaryWord(String text) {
-		return dictionaryWords.contains(text);
+		return dictionaryWords.contains(text.toLowerCase());
 	}
 	
-	private boolean isUsaCitiesAndStates(String text) {
-		return citiesAndStates.contains(text);
+	private String isUsaCitiesAndStates(List<String> blockText, int textIndex, String currentBinary) {
+		return "";
 	}
 	
-	private boolean isPlace(String text) {
-		return places.contains(text);
+	private String isPlace(List<String> blockText, int textIndex, String currentBinary) {
+		return "";
 	}
 	
-	private boolean isCountry(String text) {
-		return countries.contains(text);
+	private String isCountry(List<String> blockText, int textIndex, String currentBinary) {
+		return "";
 	}
 	
-	private boolean isHonorific(String text) {
-		return honorifics.contains(text);
+	private String isHonorific(List<String> blockText, int textIndex, String currentBinary) {
+		return "";
+	}
+	
+	private String isSuffix(List<String> blockText, int textIndex, String currentBinary) {
+		return "";
+	}
+	
+	private String isKillText(List<String> blockText, int textIndex, String currentBinary) {
+		return "";
 	}
 	
 	private boolean isPrefix(String text) {
 		return prefixes.contains(text);
-	}
-	
-	private boolean isSuffix(String text) {
-		return suffixes.contains(text);
-	}
-	
-	private boolean isKillText(String text) {
-		if (killWords.contains(text)|| organizations.contains(text)) {
-			return true;
-		}
-		return false;
-		
-	}
-	
-	@SuppressWarnings("unused")
-	private boolean isOrganization(String text) {
-		return organizations.contains(text);
 	}
 }

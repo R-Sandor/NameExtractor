@@ -36,6 +36,7 @@ public class TestGazetteer {
 		assertEquals("linguistic", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("linguistic"));
 		assertEquals("backhand", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("backhand"));
 		assertEquals("ballyhooed", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("ballyhooed"));
+		assertEquals("absinthe's", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0", gazetteer.doesApply("absinthe's"));
 	
 		// Cities
 		
@@ -58,6 +59,7 @@ public class TestGazetteer {
 		assertEquals("las", "0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0", gazetteer.doesApply("las"));
 		assertEquals("du", "0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0", gazetteer.doesApply("du"));
 		assertEquals("popa", "0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0", gazetteer.doesApply("popa"));
+		assertEquals("popa", "0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0", gazetteer.doesApply("fitz-"));
 		
 		// Suffixs
 		assertEquals("III", "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0", gazetteer.doesApply("III"));
@@ -72,4 +74,33 @@ public class TestGazetteer {
 
 	}
 
+	@Test
+	public void testIsUsaCitiesAndStates() {
+		
+	}
+	
+	@Test
+	public void testIsPlace() {
+		
+	}
+	
+	@Test
+	public void testIsCountry() {
+		
+	}
+	
+	@Test
+	public void testIsHonorific() {
+		
+	}
+	
+	@Test
+	public void testIsSuffix() {
+		
+	}
+	
+	@Test
+	public void testIsKillText() {
+		
+	}
 }
