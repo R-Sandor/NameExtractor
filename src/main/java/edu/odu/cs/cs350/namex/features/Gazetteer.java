@@ -80,31 +80,31 @@ public class Gazetteer implements Feature {
 		return dictionaryWords.contains(text.toLowerCase());
 	}
 	
-	private String isUsaCitiesAndStates(List<String> blockText, int textIndex, String currentBinary) {
-		return "";
-	}
-	
-	private String isPlace(List<String> blockText, int textIndex, String currentBinary) {
-		return "";
-	}
-	
-	private String isCountry(List<String> blockText, int textIndex, String currentBinary) {
-		return "";
-	}
-	
-	private String isHonorific(List<String> blockText, int textIndex, String currentBinary) {
-		return "";
-	}
-	
-	private String isSuffix(List<String> blockText, int textIndex, String currentBinary) {
-		return "";
-	}
-	
-	private String isKillText(List<String> blockText, int textIndex, String currentBinary) {
-		return "";
-	}
-	
 	private boolean isPrefix(String text) {
 		return prefixes.contains(text);
+	}
+	
+	public int isUsaCitiesAndStates(List<String> blockText, int startIndex) {
+		return -1;
+	}
+	
+	public int isPlace(List<String> blockText, int startIndex) {
+		return -1;
+	}
+	
+	public int isCountryOrTerritory(List<String> blockText, int startIndex) {
+		return -1;
+	}
+	
+	public int isHonorific(List<String> blockText, int startIndex) {
+		return -1;
+	}
+	
+	public int isSuffix(List<String> blockText, int startIndex) {
+		return -1;
+	}
+	
+	public int isKillText(List<String> blockText, int startIndex) {
+		return -1;
 	}
 }
