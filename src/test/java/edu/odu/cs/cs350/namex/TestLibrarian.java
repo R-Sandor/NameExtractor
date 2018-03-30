@@ -120,7 +120,12 @@ public class TestLibrarian {
 		assertEquals(openNerCount, librarian.numOfBlocks());
 		// Test if there are still the same number of blocks after processing Through PNE.
 		assertEquals(orginalNumberOfBlocksIn, librarian.getBlocks().size());
-		
+		for (String block: librarian.getBlocks())
+		{
+			assertTrue(block.contains("<NER>"));
+			assertTrue(block.contains("</NER>"));
+
+		}
 	}
 
 	
