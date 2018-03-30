@@ -9,6 +9,9 @@ import edu.odu.cs.cs350.namex.features.PartsOfSpeech;
 
 public class LearningMachine {
 
+	
+	
+	
 	public char calculateWord(String text) {
 		char test = 0;
 		return test;
@@ -43,10 +46,23 @@ public class LearningMachine {
 		return allFeatures;
 	}
 	
-	public char judgeBlock(char inputedBlock) {
-		return inputedBlock; 
+	public String judgeBlock(String inputedBlock) {
+		parse(inputedBlock);
+		return null;
 	}
 	
+	
+	/*
+	 * @param inputedBlock
+	 * Creates the tokens for each word in the line of the 
+	 * of the block. 
+	 */
+	private String parse(String inputedBlock) {
+		// TODO Auto-generated method stub
+		return null;
+		
+	}
+
 	public void addCharToList(char resultOfCalc) {
 		
 	}

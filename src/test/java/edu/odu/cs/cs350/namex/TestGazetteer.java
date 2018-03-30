@@ -67,7 +67,9 @@ public class TestGazetteer {
 		assertEquals("navy", "1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1", gazetteer.doesApply("navy"));
 		assertEquals("sciences", "1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1", gazetteer.doesApply("sciences"));
 		assertEquals("base", "1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1", gazetteer.doesApply("base"));
-		
+		// I need to double check if street is a common last name, not sure how -Raphael
+		assertEquals("Street", "1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1", gazetteer.doesApply("Street"));
+
 	}
 
 }

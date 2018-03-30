@@ -23,9 +23,11 @@ public class Gazetteer implements Feature {
 	private Set<String> honorifics = new HashSet<>();
 	private Set<String> prefixes = new HashSet<>();
 	private Set<String> suffixes = new HashSet<>();
+	// We might need to create a list of phrases for this one.
+	private Set<String> organizations = new HashSet<>();
 	private Set<String> killWords = new HashSet<>();
 	
-	public Gazetteer() {
+	public Gazetteer() {	
 //		WordLists.englishDictionary().forEach(dictionaryWords::add);
 //		WordLists.citiesAndStatesUS().forEach(citiesAndStates::add);
 //		WordLists.countriesAndTerritories().forEach(countries::add);
@@ -104,6 +106,15 @@ public class Gazetteer implements Feature {
 	}
 	
 	private boolean isKillText(String text) {
-		return killWords.contains(text);
+		if (killWords.contains(text)|| organizations.contains(text)) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	@SuppressWarnings("unused")
+	private boolean isOrganization(String text) {
+		return organizations.contains(text);
 	}
 }
