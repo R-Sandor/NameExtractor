@@ -1,5 +1,8 @@
 package edu.odu.cs.cs350.namex.features;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.odu.cs.extract.wordlists.WordLists;
 
 /*
@@ -8,6 +11,34 @@ import edu.odu.cs.extract.wordlists.WordLists;
  * @return String: indicates whether the given text is a common first name or last name
  */
 public class Gazetteer implements Feature {
+	
+	private Set<String> dictionaryWords = new HashSet<>();
+	private Set<String> citiesAndStates = new HashSet<>();
+	private Set<String> countries = new HashSet<>();
+	private Set<String> places = new HashSet<>();
+	private Set<String> dticFirstNames = new HashSet<>();
+	private Set<String> dticLastNames = new HashSet<>();
+	private Set<String> commonFirstNames = new HashSet<>();
+	private Set<String> commonLastNames = new HashSet<>();
+	private Set<String> honorifics = new HashSet<>();
+	private Set<String> prefixes = new HashSet<>();
+	private Set<String> suffixes = new HashSet<>();
+	private Set<String> killWords = new HashSet<>();
+	
+	public Gazetteer() {
+		WordLists.englishDictionary().forEach(dictionaryWords::add);
+		WordLists.citiesAndStatesUS().forEach(citiesAndStates::add);
+		WordLists.countriesAndTerritories().forEach(countries::add);
+		WordLists.places().forEach(places::add);
+		WordLists.firstNames().forEach(dticFirstNames::add);
+		WordLists.lastNames().forEach(dticLastNames::add);
+		WordLists.commonFirstNames().forEach(commonFirstNames::add);
+		WordLists.commonLastNames().forEach(commonLastNames::add);
+		WordLists.honorifics().forEach(honorifics::add);
+		WordLists.lastNamePrefixes().forEach(prefixes::add);
+		WordLists.lastNameSuffixes().forEach(suffixes::add);
+		WordLists.nonPersonalIdentifierCues().forEach(killWords::add);
+	}
 	
 	
 	@Override
@@ -29,57 +60,50 @@ public class Gazetteer implements Feature {
 	}
 	
 	private boolean isCommonFirstName(String text) {
-		return contains(WordLists.commonFirstNames(), text);
+		return commonFirstNames.contains(text);
 	}
 	
 	private boolean isCommonLastName(String text) {
-		return contains(WordLists.commonLastNames(), text);
+		return commonLastNames.contains(text);
 	}
 	
 	private boolean isDTICFirstName(String text) {
-		return contains(WordLists.firstNames(), text);
+		return dticFirstNames.contains(text);
 	}
 	
 	private boolean isDTICLastName(String text) {
-		return contains(WordLists.lastNames(), text);
+		return dticLastNames.contains(text);
 	}
 	
 	private boolean isDictionaryWord(String text) {
-		return contains(WordLists.englishDictionary(), text);
+		return dictionaryWords.contains(text);
 	}
 	
 	private boolean isUsaCitiesAndStates(String text) {
-		return contains(WordLists.citiesAndStatesUS(), text);
+		return citiesAndStates.contains(text);
 	}
 	
 	private boolean isPlace(String text) {
-		return contains(WordLists.places(), text);
+		return places.contains(text);
 	}
 	
 	private boolean isCountry(String text) {
-		return contains(WordLists.countriesAndTerritories(), text);
+		return countries.contains(text);
 	}
 	
 	private boolean isHonorific(String text) {
-		return contains(WordLists.honorifics(), text);
+		return honorifics.contains(text);
 	}
 	
 	private boolean isPrefix(String text) {
-		return contains(WordLists.lastNamePrefixes(), text);
+		return prefixes.contains(text);
 	}
 	
 	private boolean isSuffix(String text) {
-		return contains(WordLists.lastNameSuffixes(), text);
+		return suffixes.contains(text);
 	}
 	
 	private boolean isKillText(String text) {
-		return contains(WordLists.nonPersonalIdentifierCues(), text);
-	}
-	
-	private boolean contains(Iterable<String> list, String text) {
-		for (String word : list) {
-			if (word.equals(text)) return true;
-		}
-		return false;
+		return killWords.contains(text);
 	}
 }
