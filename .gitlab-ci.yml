@@ -6,6 +6,9 @@ build-job:
     - blue2
   stage: build
   script:
-    - echo hello
-only:
+    - echo cool
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$REPORTS_SSH_KEY")
+
+  only:
     - master
