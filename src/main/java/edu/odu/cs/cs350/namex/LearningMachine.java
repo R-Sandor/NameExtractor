@@ -47,7 +47,8 @@ public class LearningMachine {
 	}
 	
 	public String judgeBlock(String inputedBlock) {
-		parse(inputedBlock);
+		String parsedBlock =parse(inputedBlock);
+		//TODO use the pre-trainned input to make a judgement.
 		return null;
 	}
 	
@@ -58,8 +59,34 @@ public class LearningMachine {
 	 * of the block. 
 	 */
 	private String parse(String inputedBlock) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Return a String analysis of the block such as CAP, Other, 1, 0, 1, etc.
+		Lexical lexical = new Lexical();
+		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
+		Gazetteer gazetteer = new Gazetteer();
+		List<String> splitText = lexical.separateText(inputedBlock);
+		List<String> mappedFeatures = new ArrayList<>();
+		
+		for (String text :splitText) {
+			String currentText = lexical.doesApply(text);
+			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
+			currentText = currentText + ", " + gazetteer.doesApply(text);
+			// Testing whether line is returning what it should
+			mappedFeatures.add(currentText);
+		}
+		
+		String allFeatures = "";
+		boolean first = true;
+		for (String feature : mappedFeatures) {
+			if (first) {
+				allFeatures = feature;
+				first = false;
+				continue;
+			}
+			allFeatures += ", " + feature;
+		}
+		
+		return allFeatures;
+		//return null;
 		
 	}
 
