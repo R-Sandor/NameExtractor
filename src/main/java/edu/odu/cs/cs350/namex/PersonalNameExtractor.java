@@ -1,5 +1,10 @@
 package edu.odu.cs.cs350.namex;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 //The interface for the extracting name. 
@@ -15,46 +20,45 @@ public class PersonalNameExtractor {
 	 *  	String [] parsedBlocks = { "CapLetter, other ,1,0,1,...," ,.... etc}
 	 *  2.Organize the blocks
 	 *  	String[] Lexical = {"CapLetter", "other", "Capitalized,..., etc"};
-			String [] PoS = ("Other", "period")); 
-			String dict [] = {0,1}
-			String countries [] = {0,1}
-			String dticFirstName [] = {0,1}
-			String dticLastName [] = {0,1}
-			String commonmLastName [] = {0,1}
-			String honorific [] = {0,1}
-			String prefix [] = {0,1}
-			String suffix [] = {0,1}
-			String kill[] = {0,1}
-		
+	 *		String [] PoS = ("Other", "period")); 
+	 *		String dict [] = {0,1}
+	 *		String countries [] = {0,1}
+	 *		String dticFirstName [] = {0,1}
+	 *		String dticLastName [] = {0,1}
+	 *		String commonmLastName [] = {0,1}
+	 *		String honorific [] = {0,1}
+	 *		String prefix [] = {0,1}
+	 *		String suffix [] = {0,1}
+	 *		String kill[] = {0,1}
+	 *	
 	 *  3.Create Atributes for each of these
 	 *  	Attribute LexicalAtt = new Attribute("lexicalAtt", fastV(Lexical)); 
 	 *  	Attribure PoSAtt = new Attribute("PoSAtt", fastV(PoS));
 	 *  	......
 	 *  	FastVector attrInfo = new FastVector();
-			attrInfo.addElement(LexicalAtt);
-			attrInfo.addElement(PoSAtt);
-			...
-			
+	 *		attrInfo.addElement(LexicalAtt);
+	 *		attrInfo.addElement(PoSAtt);
+	 *		...
+     *		
 	 *  4. Train from the input
 	 *  	Instances training = new Instances( "TrainingData", attrInfo, parsedData);
 	 *  5. M
 	 */
-	public String trainLearningMachine(String textBlock) {
-		LearningMachine learningMachine = new LearningMachine();
-		String allFeatures = learningMachine.learn(textBlock);
-		String[] allFeatureValues = allFeatures.split(", ");
-		// TODO: Re-adjust the i offset value to reflect changes in the binary
-		// format for the gazetteer later on.
-		final int nameOffsetIndex = 4;
-		String newTextBlock = textBlock;
-		for (int i = 2; i < allFeatureValues.length; i += nameOffsetIndex) {
-			String isFirstName = allFeatureValues[i];
-			String isLastName = allFeatureValues[i + 1];
-			if (isFirstName.equals("1") || isLastName.equals("1")) {
-				newTextBlock = learningMachine.tagWrap(newTextBlock, i / nameOffsetIndex, 3);
-			}
+	
+	/**
+	 *  @param trainingData
+	 *  Receives training data in a file and parse the data and provides this 
+	 *  to a WEKA learning machine.
+	 */
+	public void trainLearningMachine(File trainingData) throws FileNotFoundException, IOException {
+		ArrayList<String> trainingLines = new ArrayList<String>();
+		try (BufferedReader br = new BufferedReader(new FileReader(trainingData))) {
+		    String line;
+		    while ((line = br.readLine()) != null) {
+		    	trainingLines.add(line);
+		    }
 		}
-		return newTextBlock;
+	
 	}
 	
 	public double accuracyTest(String text, String text1) {

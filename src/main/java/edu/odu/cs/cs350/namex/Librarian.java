@@ -1,6 +1,9 @@
 package edu.odu.cs.cs350.namex;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,9 +20,24 @@ public class Librarian {
 	private PersonalNameExtractor PNE = new PersonalNameExtractor();
 
 	public Librarian(){
-		PNE.trainLearningMachine("TEXT/FILES WILL GO HERE");
+		File file = new File("src/main/resources/TrainingData.txt");
+		if(file.exists())
+			try {
+				PNE.trainLearningMachine(file);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		else
+			try {
+				throw new Exception("File not found");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
-	
 	/*
 	 * Read text files from the CLI one line at a time.
 	 * Note this used to take files.  
