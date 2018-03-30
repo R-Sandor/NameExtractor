@@ -9,8 +9,8 @@ build-job:
     - echo cool
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$WEBSITE_KEY")
-    - cd src/main/resources/
-    - chmod +x deploy.sh
-    - ./deploy.sh
+
+    - rsync -auvz -e "ssh" build/docs/ rsandor@atria.cs.odu.edu:./
+    - rsync -auvz -e "ssh" build/reports/ rsandor@atria.cs.odu.edu:./
   only:
     - master
