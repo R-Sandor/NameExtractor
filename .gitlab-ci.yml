@@ -11,6 +11,7 @@ build-job:
     - ssh-add <(echo "$WEBSITE_KEY")
     - cd src/main/resources/
     - chmod +x deploy.sh
+    - cd 
     - ./deploy.sh
   only:
     - master
