@@ -9,7 +9,7 @@ mainClassName = "edu.odu.cs.cs350.namex.Main"
 
 run {
   	  	
-  	args += '< /src/main/resources/TestNER.txt'
+standardInput = System.in
   	
 }
 
@@ -64,6 +64,8 @@ task reports(dependsOn:myJavadocs) {
 test {
 	ignoreFailures = true
 }
+
+
 
 
 jar {

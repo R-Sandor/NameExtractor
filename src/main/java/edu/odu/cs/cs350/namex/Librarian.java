@@ -66,7 +66,10 @@ public class Librarian {
 			}
 }
 	
-	
+	public void readAPIInput(String text)
+	{
+		outBlock.add(text);
+	}
 	
 	public ArrayList<String> getBlocks(){
 		return outBlock;
@@ -90,5 +93,13 @@ public class Librarian {
 		outBlock = PNE.getExtractedCLIBlocks();
 	}
 	
+public void processAPIBlocks(){
+		
+		
+		for(String line: outBlock ) {
+		 PNE.APIextract(line);
+		}
+		outBlock = PNE.getExtractedCLIBlocks();
+	}
 
 }

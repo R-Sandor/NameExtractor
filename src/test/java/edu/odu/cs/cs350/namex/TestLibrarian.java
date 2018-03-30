@@ -30,7 +30,7 @@ public class TestLibrarian {
 	}
 	
 	/*
-	 * Test the CLI input to the program. This should break
+	 * Test the CLI input to the program. This should break blocks up by <NER> ... </NER> Tags
 	 */
 	@Test
 	public void testReadCLIInput() throws Exception {

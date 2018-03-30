@@ -60,6 +60,13 @@ public class PersonalNameExtractor {
 
 	}
 	
+	public void APIextract(String text)
+	{
+		System.out.println(text);
+		extractedBlock.add(extract(text));
+
+	}
+	
 	public ArrayList<String>  getExtractedCLIBlocks(){
 		//
 		return extractedBlock;
