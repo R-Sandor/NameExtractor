@@ -3,7 +3,7 @@ package edu.odu.cs.cs350.namex.features;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.odu.cs.extract.wordlists.WordLists;
+//import edu.odu.cs.extract.wordlists.WordLists;
 
 /*
  * Determines whether a given piece of text is a common first name or last name based on a reference list
@@ -26,18 +26,18 @@ public class Gazetteer implements Feature {
 	private Set<String> killWords = new HashSet<>();
 	
 	public Gazetteer() {
-		WordLists.englishDictionary().forEach(dictionaryWords::add);
-		WordLists.citiesAndStatesUS().forEach(citiesAndStates::add);
-		WordLists.countriesAndTerritories().forEach(countries::add);
-		WordLists.places().forEach(places::add);
-		WordLists.firstNames().forEach(dticFirstNames::add);
-		WordLists.lastNames().forEach(dticLastNames::add);
-		WordLists.commonFirstNames().forEach(commonFirstNames::add);
-		WordLists.commonLastNames().forEach(commonLastNames::add);
-		WordLists.honorifics().forEach(honorifics::add);
-		WordLists.lastNamePrefixes().forEach(prefixes::add);
-		WordLists.lastNameSuffixes().forEach(suffixes::add);
-		WordLists.nonPersonalIdentifierCues().forEach(killWords::add);
+//		WordLists.englishDictionary().forEach(dictionaryWords::add);
+//		WordLists.citiesAndStatesUS().forEach(citiesAndStates::add);
+//		WordLists.countriesAndTerritories().forEach(countries::add);
+//		WordLists.places().forEach(places::add);
+//		WordLists.firstNames().forEach(dticFirstNames::add);
+//		WordLists.lastNames().forEach(dticLastNames::add);
+//		WordLists.commonFirstNames().forEach(commonFirstNames::add);
+//		WordLists.commonLastNames().forEach(commonLastNames::add);
+//		WordLists.honorifics().forEach(honorifics::add);
+//		WordLists.lastNamePrefixes().forEach(prefixes::add);
+//		WordLists.lastNameSuffixes().forEach(suffixes::add);
+//		WordLists.nonPersonalIdentifierCues().forEach(killWords::add);
 	}
 	
 	
