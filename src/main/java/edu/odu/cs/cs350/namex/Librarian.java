@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class Librarian {
 	
-	
-	
 	private ArrayList<String> outBlock = new ArrayList<String>();
 	private PersonalNameExtractor PNE = new PersonalNameExtractor();
 
@@ -24,9 +22,9 @@ public class Librarian {
 	
 	/*
 	 * Read text files from the CLI one line at a time.
-	 * Note this used to take files. This 
+	 * Note this used to take files.  
 	 */
-	public void readInput(String line ) throws Exception {
+	public void readCLIInput(String line )  {
 		String addToLine;
 		if (line.contains("<NER>") && line.contains("</NER>")) {
 			line= line.replace("</NER>","");
@@ -46,27 +44,25 @@ public class Librarian {
 				// Might as well guard against one liners with <NER>s
 				line = line.replace("</NER>","");
 				outBlock.add(line.replace("<NER>", ""));
-
-
 			}
 			else
 			{
-				if (outBlock.isEmpty())
-				{
-					throw new Exception("Inputed string must be marked in <NER>... </NER> tags");
-				}
-				else
-				{
+				if(outBlock.size()>0){
 					addToLine = outBlock.get(outBlock.size()-1)+ line;
 					line = line.replace("</NER>", "");
 					outBlock.set(outBlock.size()-1, addToLine.replace("<NER>", ""));
 				}
-				
-
+				else{
+					line = line.replace("</NER>", "");
+					outBlock.add(line.replace("<NER>", ""));
+				}
 			}
 		}
 	
-	
+	public void readAPIInput(String text)
+	{
+		outBlock.add(text);
+	}
 	
 	public ArrayList<String> getBlocks(){
 		return outBlock;
@@ -81,14 +77,20 @@ public class Librarian {
 	 * The processing of the blocks is calling each block 
 	 * to the PNE system.
 	 */
-	public ArrayList<String> processBlocks(){
+	public void processCLIBlocks(){
 		
 		
 		for(String line: outBlock ) {
-		 PNE.addToCollection(line);
+		 PNE.CLIextract(line);
 		}
-		return PNE.getExtractedBlocks();
+		outBlock = PNE.getExtractedCLIBlocks();
 	}
 	
+	public void processAPIBlocks(){
+		for(String line: outBlock ) {
+			PNE.APIextract(line);
+		}
+		outBlock = PNE.getExtractedCLIBlocks();
+	}
 
 }

@@ -1,0 +1,13 @@
+stages:
+  - build
+
+build-job:
+  tags:
+    - blue2
+  stage: build
+  script:
+    - echo cool
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$WEBSITE_KEY")
+  only:
+    - master
