@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class Librarian {
 	
-	
-	
 	private ArrayList<String> outBlock = new ArrayList<String>();
 	private PersonalNameExtractor PNE = new PersonalNameExtractor();
 
@@ -46,25 +44,20 @@ public class Librarian {
 				// Might as well guard against one liners with <NER>s
 				line = line.replace("</NER>","");
 				outBlock.add(line.replace("<NER>", ""));
-
-
 			}
 			else
 			{
-					if(outBlock.size()>0)
-					{
+				if(outBlock.size()>0){
 					addToLine = outBlock.get(outBlock.size()-1)+ line;
 					line = line.replace("</NER>", "");
 					outBlock.set(outBlock.size()-1, addToLine.replace("<NER>", ""));
-					}
-					else
-					{
-						;
-						line = line.replace("</NER>", "");
-						outBlock.add(line.replace("<NER>", ""));
-					}
+				}
+				else{
+					line = line.replace("</NER>", "");
+					outBlock.add(line.replace("<NER>", ""));
+				}
 			}
-}
+		}
 	
 	public void readAPIInput(String text)
 	{
@@ -93,11 +86,9 @@ public class Librarian {
 		outBlock = PNE.getExtractedCLIBlocks();
 	}
 	
-public void processAPIBlocks(){
-		
-		
+	public void processAPIBlocks(){
 		for(String line: outBlock ) {
-		 PNE.APIextract(line);
+			PNE.APIextract(line);
 		}
 		outBlock = PNE.getExtractedCLIBlocks();
 	}

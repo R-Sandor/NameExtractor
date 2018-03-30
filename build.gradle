@@ -49,6 +49,7 @@ task myJavadocs(type: Javadoc) {
  
 
  dependencies {
+ 	
  	 compile 'nz.ac.waikato.cms.weka:weka-stable:3.8.2'
  	 compile 'edu.odu.cs.extract:extract-wordlists:4.2'
      testCompile 'junit:junit:4.12'
@@ -74,4 +75,7 @@ jar {
     manifest {
         attributes 'Main-Class': 'edu.odu.cs.cs350.namex.Main'
     }
+   // from { configurations.compile.collect {
+   //      it.isDirectory() ? it : zipTree(it) }
+   //     }
 }
