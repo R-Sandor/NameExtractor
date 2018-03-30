@@ -1,0 +1,11 @@
+stages:
+  - build
+
+build-job:
+  tags:
+    - blue2
+  stage: build
+  script:
+    - echo hello
+only:
+    - master
