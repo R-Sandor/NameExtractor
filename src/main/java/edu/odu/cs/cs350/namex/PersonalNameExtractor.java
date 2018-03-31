@@ -147,7 +147,6 @@ public class PersonalNameExtractor {
 	        instance.setValue(15, values[15]); // PER
 
 	        training.add(instance); // Add new instance to training data
-
 		}
 	}
 	
@@ -208,16 +207,57 @@ public class PersonalNameExtractor {
 	  }
 	 
 	 
+	 
+	 // We need to consider if there will be other types of shingling that will 
+	 // require different types of returns 
+	 // if there are then we need to make shingling a inner class
+	 // with different methods.
 	 /**
 	  * @param block
 	  * The Shingling function receives a block as input and 
-	  * shift the words 2k+1 words to the right. Moving over 
-	  * Once a decision on the word in relation to the previous 
-	  * words
+	  * looks at 2k+1 words. Starting from the right and moving over
+	  * word at a time. 
+	  * This results in the words having relativity to each other.
 	  */
-	 public ArrayList<String> Shingling(ArrayList<String> block){
-		return null;
-		 
+	 public ArrayList<String> Shingling(String block){
+		 // We need a K constant for the 2k+1
+		 final int k = 3;
+		 //ArrayList to store the shingled lines
+		 ArrayList<String>  shingled = new ArrayList<>();
+		 int numberOfWords = block.split(" ").length;
+		 String[] words = block.split(" ");
+		// Length of the string we are breaking up. See bellow for more information
+		/*--------------------------------------------------------------------------
+		 * For some small integer k, we imagine a window consisting of the 
+		 * k words in front of the one we want to classify, the word we want 
+		 * to classify, and then the k words after the one we want to classify. 
+		 * We slide that window from the start of the input to the end, collecting 
+		 * all the 2k+1-length sequences that we can obtain
+		 *---------------------------------------------------------------------------*/
+		 int batch = 2*k+1;
+		 for (int i=0; i<numberOfWords; i++)
+		 {
+			String shingledLine="";
+			int nulls = i-k;
+			
+			int sub = 0;
+			while (nulls < 0)
+			{
+				shingledLine = shingledLine + " " + Character.toString('\0');
+				i++;
+				sub++;
+			}
+			for(int m=i; m< batch - sub; m++)
+			{
+				while (words.length < m + batch)
+				{
+				 shingledLine = shingledLine + " " +  Character.toString('\0');
+				}
+				shingledLine = shingledLine + " " + words[m];
+			}
+				shingled.add(shingledLine);
+		 }
+		 return shingled;
 	 }
 	 
 
