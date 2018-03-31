@@ -245,7 +245,6 @@ public class PersonalNameExtractor {
 			{
 				shingledLine = shingledLine + " " + Character.toString('\0');
 				i++;
-				sub++;
 			}
 			for(int m=i; m< batch - sub; m++)
 			{
