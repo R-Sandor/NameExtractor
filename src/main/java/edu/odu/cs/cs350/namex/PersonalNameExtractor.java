@@ -82,6 +82,8 @@ public class PersonalNameExtractor {
 		String[] prefix = {"0", "1"};
 		String[] suffix = {"0", "1"};
 		String[] kill = {"0", "1"};
+		String[] previous = {"BP", "CP", "other"};
+		String[] previous2 = {"BP", "CP", "other"};
 		String[] per = {"0", "1" };
 		
 		Attribute LexicalAtt = new Attribute("lexicalAtt", fastV(lexical));
@@ -204,5 +206,19 @@ public class PersonalNameExtractor {
 	      }
 	      return result;
 	  }
+	 
+	 
+	 /**
+	  * @param block
+	  * The Shingling function receives a block as input and 
+	  * shift the words 2k+1 words to the right. Moving over 
+	  * Once a decision on the word in relation to the previous 
+	  * words
+	  */
+	 public ArrayList<String> Shingling(ArrayList<String> block){
+		return null;
+		 
+	 }
+	 
 
 }
