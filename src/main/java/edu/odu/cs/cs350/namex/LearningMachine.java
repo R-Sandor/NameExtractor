@@ -58,7 +58,7 @@ public class LearningMachine {
 	 * Creates the tokens for each word in the line of the 
 	 * of the block. 
 	 */
-	private String parse(String inputedBlock) {
+	public String parse(String inputedBlock) {
 		// TODO Return a String analysis of the block such as CAP, Other, 1, 0, 1, etc.
 		Lexical lexical = new Lexical();
 		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();

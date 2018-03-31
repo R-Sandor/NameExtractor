@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //The interface for the extracting name. 
 
 public class PersonalNameExtractor {
-	
+	LearningMachine learningMac = new LearningMachine();
 	private ArrayList<String> extractedBlock = new ArrayList<String>();
 	/*
 	 * TODO We need incorporate WEKA in the training of the learning machine. 
@@ -55,9 +55,10 @@ public class PersonalNameExtractor {
 		try (BufferedReader br = new BufferedReader(new FileReader(trainingData))) {
 		    String line;
 		    while ((line = br.readLine()) != null) {
-		    	trainingLines.add(line);
+		    	trainingLines.add(learningMac.parse(line.replace("<NER>", "").replaceAll("</NER>", "")));
 		    }
 		}
+		
 	
 	}
 	
@@ -70,7 +71,6 @@ public class PersonalNameExtractor {
 	 * Will return a string with <PER> tags
 	 */
 	public String extract(String text) {
-		LearningMachine learningMac = new LearningMachine();
 		learningMac.judgeBlock(text);
 		/*
 		 * TODO 
