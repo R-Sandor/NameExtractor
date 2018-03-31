@@ -9,6 +9,9 @@ import edu.odu.cs.cs350.namex.features.PartsOfSpeech;
 
 public class LearningMachine {
 
+	
+	
+	
 	public char calculateWord(String text) {
 		char test = 0;
 		return test;
@@ -43,10 +46,50 @@ public class LearningMachine {
 		return allFeatures;
 	}
 	
-	public char judgeBlock(char inputedBlock) {
-		return inputedBlock; 
+	public String judgeBlock(String inputedBlock) {
+		String parsedBlock =parse(inputedBlock);
+		//TODO use the pre-trainned input to make a judgement.
+		return null;
 	}
 	
+	
+	/*
+	 * @param inputedBlock
+	 * Creates the tokens for each word in the line of the 
+	 * of the block. 
+	 */
+	public String parse(String inputedBlock) {
+		// TODO Return a String analysis of the block such as CAP, Other, 1, 0, 1, etc.
+		Lexical lexical = new Lexical();
+		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
+		Gazetteer gazetteer = new Gazetteer();
+		List<String> splitText = lexical.separateText(inputedBlock);
+		List<String> mappedFeatures = new ArrayList<>();
+		
+		for (String text :splitText) {
+			String currentText = lexical.doesApply(text);
+			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
+			currentText = currentText + ", " + gazetteer.doesApply(text);
+			// Testing whether line is returning what it should
+			mappedFeatures.add(currentText);
+		}
+		
+		String allFeatures = "";
+		boolean first = true;
+		for (String feature : mappedFeatures) {
+			if (first) {
+				allFeatures = feature;
+				first = false;
+				continue;
+			}
+			allFeatures += ", " + feature;
+		}
+		
+		return allFeatures;
+		//return null;
+		
+	}
+
 	public void addCharToList(char resultOfCalc) {
 		
 	}
@@ -59,36 +102,43 @@ public class LearningMachine {
 	
 	public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
-		
-        //String inputedBlock2 = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
-        //System.out.println(inputedBlock2);
-        //int beginName = 0;
-        //int continueName = 1;
-        //int singleName = 6;
-        
-		System.out.println("KEY: " + key);
-		
-        String words[] = inputedBlock.split("\\s+");
+		int wordCount = 0;
+		int wordB[];
+		wordB = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		int wordEnd[];
+		wordEnd = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-        for(int i = 0; i < words.length; i++)
-        {
-        	String word = words[i];
-        	if(i==key) {
-            if(type==1){
-            	System.out.println("inserting");
-                word = "<PER>" + word;
-            }
-            else if(type==2) {
-            	word = word + "<PER/>";
-            }
-            else if(type==3) {
-            	word = "<PER>" + word + "<PER/>";
-            }
-        	}
-            outputBlock += word;
-            outputBlock += " ";
-        }
-        //System.out.println(outputBlock);
+		int endOfLine = inputedBlock.length() - 1;
+		boolean word = false;
+
+
+		
+	    for (int i = 0; i < inputedBlock.length(); i++) {
+	    	if (Character.isLetter(inputedBlock.charAt(i)) && !word)
+	    		wordB[wordCount+1] = inputedBlock.length()-i;
+	        // if the char is a letter, word = true.
+	        if (Character.isLetter(inputedBlock.charAt(i)) && i != endOfLine) {
+	            word = true;
+	            
+	            // if char isn't a letter and there have been letters before,
+	            // counter goes up.
+	        } else if (!Character.isLetter(inputedBlock.charAt(i)) && word) {
+	            wordCount++;
+	            wordEnd[wordCount]=inputedBlock.length()-i;
+	            word = false;
+	            // last word of String; if it doesn't end with a non letter, it
+	            // wouldn't count without this.
+	        } else if (Character.isLetter(inputedBlock.charAt(i)) && i == endOfLine) {
+	            wordCount++;
+	        }
+	    }
+		
+		if(type==1){
+		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-wordB[key], "<PER>").toString();
+		}
+		if(type==2) {
+		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-wordEnd[key], "<PER/>").toString();	
+		}
 		return outputBlock;
 		
 	}
@@ -122,5 +172,4 @@ public class LearningMachine {
 		
 		return answer;
 	}
-	
 }
