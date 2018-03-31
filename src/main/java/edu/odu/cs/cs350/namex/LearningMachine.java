@@ -92,4 +92,35 @@ public class LearningMachine {
 		return outputBlock;
 		
 	}
+	
+	public String[][] shingling(String blockText, int shingleSize) {
+		Lexical lexical = new Lexical();
+		List<String> splitText = lexical.separateText(blockText);
+		String [][] answer = new String[splitText.size()][(2 * shingleSize) + 1];
+		for(int x=0;x<splitText.size();x++) {
+			int frontSpace = shingleSize - x;
+			if(frontSpace < 0) frontSpace = 0;
+			for(int a=0;a<frontSpace;a++) {
+				answer[x][a] = "null";
+			}
+			for(int b = frontSpace;b<shingleSize;b++) {
+				answer[x][b] = splitText.get(b - (shingleSize - x));
+			}
+			answer[x][shingleSize] =  splitText.get(x);
+				
+			int endSpace = shingleSize - (splitText.size() - (x+1));
+			if(endSpace < 0) endSpace = 0;
+			
+			for(int y=x+1;(y - (x+1))<(shingleSize - endSpace);y++) {
+				answer[x][shingleSize + (y - x)] = splitText.get(y);
+			}
+			
+			for(int z=0;z<endSpace;z++) {
+				answer[x][((shingleSize *2) + 1) - (z+1)] = "null";
+			}
+		}
+		
+		return answer;
+	}
+	
 }
