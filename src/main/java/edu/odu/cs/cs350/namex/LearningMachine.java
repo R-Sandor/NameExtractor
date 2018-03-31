@@ -58,7 +58,7 @@ public class LearningMachine {
 	 * Creates the tokens for each word in the line of the 
 	 * of the block. 
 	 */
-	private String parse(String inputedBlock) {
+	public String parse(String inputedBlock) {
 		// TODO Return a String analysis of the block such as CAP, Other, 1, 0, 1, etc.
 		Lexical lexical = new Lexical();
 		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
@@ -102,45 +102,74 @@ public class LearningMachine {
 	
 	public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
-		int keylength = 0;
+		int wordCount = 0;
+		int wordB[];
+		wordB = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+		int wordEnd[];
+		wordEnd = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+		int endOfLine = inputedBlock.length() - 1;
+		boolean word = false;
+
+
 		
+	    for (int i = 0; i < inputedBlock.length(); i++) {
+	    	if (Character.isLetter(inputedBlock.charAt(i)) && !word)
+	    		wordB[wordCount+1] = inputedBlock.length()-i;
+	        // if the char is a letter, word = true.
+	        if (Character.isLetter(inputedBlock.charAt(i)) && i != endOfLine) {
+	            word = true;
+	            
+	            // if char isn't a letter and there have been letters before,
+	            // counter goes up.
+	        } else if (!Character.isLetter(inputedBlock.charAt(i)) && word) {
+	            wordCount++;
+	            wordEnd[wordCount]=inputedBlock.length()-i;
+	            word = false;
+	            // last word of String; if it doesn't end with a non letter, it
+	            // wouldn't count without this.
+	        } else if (Character.isLetter(inputedBlock.charAt(i)) && i == endOfLine) {
+	            wordCount++;
+	        }
+	    }
 		
 		if(type==1){
-		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-keylength, "<PER>").toString();
+		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-wordB[key], "<PER>").toString();
 		}
 		if(type==2) {
-		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-keylength, "<PER/>").toString();	
+		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-wordEnd[key], "<PER/>").toString();	
 		}
-        //String inputedBlock2 = "Thorin Oakenshield is a character in Tolkein's book, The Hobbit.";
-        //System.out.println(inputedBlock2);
-        //int beginName = 0;
-        //int continueName = 1;
-        //int singleName = 6;
-        
-//		System.out.println("KEY: " + key);
-//		
-//        String words[] = inputedBlock.split("\\s+");
-//
-//        for(int i = 0; i < words.length; i++)
-//        {
-//        	String word = words[i];
-//        	if(i==key) {
-//            if(type==1){
-//            	System.out.println("inserting");
-//                word = "<PER>" + word;
-//            }
-//            else if(type==2) {
-//            	word = word + "<PER/>";
-//            }
-//            else if(type==3) {
-//            	word = "<PER>" + word + "<PER/>";
-//            }
-//        	}
-//            outputBlock += word;
-//            outputBlock += " ";
-//        }
-        //System.out.println(outputBlock);
 		return outputBlock;
 		
+	}
+	
+	public String[][] shingling(String blockText, int shingleSize) {
+		Lexical lexical = new Lexical();
+		List<String> splitText = lexical.separateText(blockText);
+		String [][] answer = new String[splitText.size()][(2 * shingleSize) + 1];
+		for(int x=0;x<splitText.size();x++) {
+			int frontSpace = shingleSize - x;
+			if(frontSpace < 0) frontSpace = 0;
+			for(int a=0;a<frontSpace;a++) {
+				answer[x][a] = "null";
+			}
+			for(int b = frontSpace;b<shingleSize;b++) {
+				answer[x][b] = splitText.get(b - (shingleSize - x));
+			}
+			answer[x][shingleSize] =  splitText.get(x);
+				
+			int endSpace = shingleSize - (splitText.size() - (x+1));
+			if(endSpace < 0) endSpace = 0;
+			
+			for(int y=x+1;(y - (x+1))<(shingleSize - endSpace);y++) {
+				answer[x][shingleSize + (y - x)] = splitText.get(y);
+			}
+			
+			for(int z=0;z<endSpace;z++) {
+				answer[x][((shingleSize *2) + 1) - (z+1)] = "null";
+			}
+		}
+		
+		return answer;
 	}
 }
