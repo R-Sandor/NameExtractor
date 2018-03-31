@@ -3,11 +3,14 @@ version '1.0'
 apply plugin: 'project-report'
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'java-library-distribution'
 
 mainClassName = "edu.odu.cs.cs350.namex.Main"
 
 run {
-  	args += '<NER>first_arg</NER>'
+  	  	
+standardInput = System.in
+  	
 }
 
 sourceCompatibility = 1.8
@@ -23,12 +26,12 @@ htmlDependencyReport {
     
 }
 
-
-
-
-task hello {
-   
+task deployReports(type:Exec) {
+	  workingDir '/home/raphael/cs350/Blue2'
+	  commandLine './deploy.sh'
 }
+
+
 repositories {
      mavenCentral()
      jcenter()
@@ -46,6 +49,7 @@ task myJavadocs(type: Javadoc) {
  
 
  dependencies {
+ 	
  	 compile 'nz.ac.waikato.cms.weka:weka-stable:3.8.2'
  	 compile 'edu.odu.cs.extract:extract-wordlists:4.2'
      testCompile 'junit:junit:4.12'
@@ -57,6 +61,21 @@ task reports(dependsOn:myJavadocs) {
 }
 
 
+
 test {
 	ignoreFailures = true
+}
+
+
+
+
+jar {
+	baseName = 'PNE'
+	version = ''
+    manifest {
+        attributes 'Main-Class': 'edu.odu.cs.cs350.namex.Main'
+    }
+   // from { configurations.compile.collect {
+   //      it.isDirectory() ? it : zipTree(it) }
+   //     }
 }

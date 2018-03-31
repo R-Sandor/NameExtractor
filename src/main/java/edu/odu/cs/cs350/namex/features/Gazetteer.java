@@ -1,6 +1,10 @@
 package edu.odu.cs.cs350.namex.features;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import edu.odu.cs.extract.wordlists.WordLists;
 
 /*
  * Determines whether a given piece of text is a common first name or last name based on a reference list
@@ -8,86 +12,99 @@ import java.util.List;
  * @return String: indicates whether the given text is a common first name or last name
  */
 public class Gazetteer implements Feature {
+		
+	private Set<String> dictionaryWords = new HashSet<>();
+	private Set<String> citiesAndStates = new HashSet<>();
+	private Set<String> countries = new HashSet<>();
+	private Set<String> places = new HashSet<>();
+	private Set<String> dticFirstNames = new HashSet<>();
+	private Set<String> dticLastNames = new HashSet<>();
+	private Set<String> commonFirstNames = new HashSet<>();
+	private Set<String> commonLastNames = new HashSet<>();
+	private Set<String> honorifics = new HashSet<>();
+	private Set<String> prefixes = new HashSet<>();
+	private Set<String> suffixes = new HashSet<>();
+	private Set<String> killWords = new HashSet<>();
 	
-	private String[] commonFirstNames = {
-		"Joseph"
-	};
+	public Gazetteer() {	
+		WordLists.englishDictionary().forEach(dictionaryWords::add);
+		WordLists.citiesAndStatesUS().forEach(citiesAndStates::add);
+		WordLists.countriesAndTerritories().forEach(countries::add);
+		WordLists.places().forEach(places::add);
+		WordLists.firstNames().forEach(dticFirstNames::add);
+		WordLists.lastNames().forEach(dticLastNames::add);
+		WordLists.commonFirstNames().forEach(commonFirstNames::add);
+		WordLists.commonLastNames().forEach(commonLastNames::add);
+		WordLists.honorifics().forEach(honorifics::add);
+		WordLists.lastNamePrefixes().forEach(prefixes::add);
+		WordLists.lastNameSuffixes().forEach(suffixes::add);
+		WordLists.nonPersonalIdentifierCues().forEach(killWords::add);
+	}
 	
-	private String[] commonLastNames = {
-		"Joseph"	
-	};
 	
 	@Override
 	public String doesApply(String text) {
-		String binaryString = "";
-		binaryString = isCommonFirstName(text) ? "1" : "0";
-		binaryString += isCommonLastName(text) ? ", 1" : ", 0";
-		return binaryString;
-	}
-	
-	public void performDatabaseFetching() {
+		StringBuilder binaryStringBuilder = new StringBuilder("");
+		binaryStringBuilder.append(isDictionaryWord(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append("0, ");
+		binaryStringBuilder.append("0, ");
+		binaryStringBuilder.append("0, ");
+		binaryStringBuilder.append(isDTICFirstName(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isDTICLastName(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isCommonFirstName(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append(isCommonLastName(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append("0, ");
+		binaryStringBuilder.append(isPrefix(text) ? "1" : "0").append(", ");
+		binaryStringBuilder.append("0, ");
+		binaryStringBuilder.append("0");
+		return binaryStringBuilder.toString();
 	}
 	
 	private boolean isCommonFirstName(String text) {
-		for (String name : commonFirstNames) {
-			if (name.equals(text)) return true;
-		}
-		return false;
+		return commonFirstNames.contains(text.toLowerCase());
 	}
 	
 	private boolean isCommonLastName(String text) {
-		for (String name : commonLastNames) {
-			if (name.equals(text)) return true;
-		}
-		return false;
+		return commonLastNames.contains(text.toLowerCase());
 	}
 	
-	@SuppressWarnings("unused")
+	private boolean isDTICFirstName(String text) {
+		return dticFirstNames.contains(text.toLowerCase());
+	}
+	
+	private boolean isDTICLastName(String text) {
+		return dticLastNames.contains(text.toLowerCase());
+	}
+	
 	private boolean isDictionaryWord(String text) {
-		return false;
+		return dictionaryWords.contains(text.toLowerCase());
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean hasSuffixes(String text) {
-		return false;
+	private boolean isPrefix(String text) {
+		return prefixes.contains(text);
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean isUsaCity(String text) {
-		return false;
+	public int isUsaCitiesAndStates(List<String> blockText, int startIndex) {
+		return -1;
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean isUsaState(String text) {
-		return false;
+	public int isPlace(List<String> blockText, int startIndex) {
+		return -1;
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean isTerritory(String text) {
-		return false;
+	public int isCountryOrTerritory(List<String> blockText, int startIndex) {
+		return -1;
 	}
 	
-	@SuppressWarnings("unused")
-	private boolean isCountry(String text) {
-		return false;
+	public int isHonorific(List<String> blockText, int startIndex) {
+		return -1;
 	}
 	
-	public List<String> getCommonFirstNamesDTIC() {
-		return null;
+	public int isSuffix(List<String> blockText, int startIndex) {
+		return -1;
 	}
 	
-	public List<String> getCommonLastNamesDTIC() {
-		return null;
+	public int isKillText(List<String> blockText, int startIndex) {
+		return -1;
 	}
-	
-	public List<String> getCommonFirstNamesCensus() {
-		return null;
-	}
-	
-	public List<String> getCommonLastNamesCensus() {
-		return null;
-	}
-	
-	
-	
 }
