@@ -62,4 +62,31 @@ public class TestLearningMachine {
 		}
 		
 	}
+	
+	@Test
+	public void testShingling() {
+		
+		LearningMachine learningMachine = new LearningMachine();
+		
+		String inputString = "I am John the programmer.";
+		int shingleSize = 3;
+		String[][] answerStrings = new String[][] {{"null","null","null","I","am","John","the"},{"null","null","I","am","John","the","programmer"},
+			{"null","I","am","John","the","programmer","."},{"I","am","John","the","programmer",".","null"},{"am","John","the","programmer",".","null","null"},
+			{"John","the","programmer",".","null","null","null"}};
+			
+		String [][] outputStrings = learningMachine.shingling(inputString, shingleSize);
+		
+		/*for(int x=0;x<6;x++) {
+			for(int y=0;y<7;y++) {
+				System.out.println(outputStrings[x][y]);
+			}
+		}*/
+		
+		for(int x=0;x<6;x++) {
+			for(int y=0;y<7;y++) {
+				assertEquals(answerStrings[x][y],outputStrings[x][y]);
+			}
+		}
+		
+	}
 }
