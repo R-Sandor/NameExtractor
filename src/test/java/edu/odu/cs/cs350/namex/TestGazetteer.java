@@ -12,7 +12,7 @@ import edu.odu.cs.cs350.namex.features.Gazetteer;
 
 public class TestGazetteer {
 	
-	Gazetteer gazetteer;
+	private Gazetteer gazetteer;
 	
 	@Before
 	public void init() {
@@ -91,7 +91,7 @@ public class TestGazetteer {
 		assertEquals("General", 0, gazetteer.isHonorific(createListOfStrings("General"), 0));
 		assertEquals("Sergeant", 0, gazetteer.isHonorific(createListOfStrings("Sergeant"), 0));
 		assertEquals("Recruit", 0, gazetteer.isHonorific(createListOfStrings("Recruit"), 0));
-		assertEquals("Mrs.", 1, gazetteer.isHonorific(createListOfStrings("Mrs", "."), 0));
+		assertEquals("Mrs.", 0, gazetteer.isHonorific(createListOfStrings("Mrs", "."), 0));
 	}
 	
 	@Test
@@ -99,7 +99,7 @@ public class TestGazetteer {
 		
 		assertEquals("III", 0, gazetteer.isSuffix(createListOfStrings("III"), 0));
 		assertEquals("IV", 0, gazetteer.isSuffix(createListOfStrings("IV"), 0));
-		assertEquals("Jr.", 1, gazetteer.isSuffix(createListOfStrings("Jr", "."), 0));
+		assertEquals("Jr.", 0, gazetteer.isSuffix(createListOfStrings("Jr", "."), 0));
 	}
 	
 	@Test

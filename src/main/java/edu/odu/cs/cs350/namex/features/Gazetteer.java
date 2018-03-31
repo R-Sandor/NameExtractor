@@ -85,26 +85,53 @@ public class Gazetteer implements Feature {
 	}
 	
 	public int isUsaCitiesAndStates(List<String> blockText, int startIndex) {
-		return -1;
+		return findMatchingStrings(blockText, startIndex, citiesAndStates);
 	}
 	
 	public int isPlace(List<String> blockText, int startIndex) {
-		return -1;
+		return findMatchingStrings(blockText, startIndex, places);
 	}
 	
 	public int isCountryOrTerritory(List<String> blockText, int startIndex) {
-		return -1;
+		return findMatchingStrings(blockText, startIndex, countries);
 	}
 	
 	public int isHonorific(List<String> blockText, int startIndex) {
-		return -1;
+		return findMatchingStrings(blockText, startIndex, honorifics);
 	}
 	
 	public int isSuffix(List<String> blockText, int startIndex) {
-		return -1;
+		return findMatchingStrings(blockText, startIndex, suffixes);
 	}
 	
 	public int isKillText(List<String> blockText, int startIndex) {
+		return findMatchingStrings(blockText, startIndex, killWords);
+	}
+	
+	private int findMatchingStrings(List<String> blockText, int startIndex, Set<String> set) {
+		boolean b = false;
+		if (set == honorifics) {
+			b = true;
+		}
+		String compareString = "";
+		int incrementIndex = startIndex;
+		while (incrementIndex != blockText.size()) {
+			String tempString = blockText.get(incrementIndex);
+			if (".,;\\\\:?!$%()/\\\"\"".contains(tempString)) {
+				compareString += tempString;
+			} else {
+				if (incrementIndex != startIndex) {
+					compareString = compareString + " " + tempString;	
+				} else {
+					compareString += tempString;
+				}
+			}
+			if (b) System.out.println(compareString);
+			if (set.contains(compareString)) {
+				return incrementIndex;
+			}
+			incrementIndex++;
+		}
 		return -1;
 	}
 }
