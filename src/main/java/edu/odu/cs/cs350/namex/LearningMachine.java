@@ -143,6 +143,10 @@ public class LearningMachine {
 		
 	}
 	
+	/*
+	 * Sample Input: "No John, no.", 1
+	 * Sample Output: {{"null","No","John"},{"No","John",","},{"John",",","no"},{",","no","."},{"no",".","null"}}
+	 */
 	public String[][] shingling(String blockText, int shingleSize) {
 		Lexical lexical = new Lexical();
 		List<String> splitText = lexical.separateText(blockText);
