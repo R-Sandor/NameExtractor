@@ -140,7 +140,6 @@ public class PersonalNameExtractor {
 		training.setClass(PerAtt);
 
 		for (String sdata: trainingLines) {
-			System.out.println(sdata);
 	        String[] values = sdata.split(", ");
 	        
 	        
