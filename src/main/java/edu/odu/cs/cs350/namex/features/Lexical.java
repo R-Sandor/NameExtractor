@@ -87,7 +87,13 @@ public class Lexical implements Feature {
 				continue;
 			}
 			String charAsString = String.valueOf(currentChar);
-			if (isPunctuation(charAsString) || charAsString.equals("\n")) {
+			
+			boolean partOfTag = false;
+			if(currentChar == '/' && ((i-4) >= 0 && (i+1 < blockText.length()))) {
+				partOfTag = (blockText.substring(i-4, i+2).equals("<PER/>"));
+			}
+			
+			if ((isPunctuation(charAsString) && (!partOfTag)) || charAsString.equals("\n")) {
 				if (currentTextBuilder.length() > 0) {
 					text.add(currentTextBuilder.toString());
 					currentTextBuilder = new StringBuilder("");
