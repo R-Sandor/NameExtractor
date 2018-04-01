@@ -176,4 +176,27 @@ public class LearningMachine {
 		
 		return answer;
 	}
+	
+	/*
+	 * Identifies PER tags in a shingled set, returns a String with coordinates
+	 * Output Format: if a PER tag is found at shingled[6][7], the return String will contain "Start: 6,7, "
+	 */
+	public String findPER(String[][] shingled) {
+		String answer = "";
+		
+		for(int x=0;x<shingled.length;x++) {
+			for(int y=0;y<shingled[x].length;y++) {
+				if(shingled[x][y] == "<PER>") {
+					answer += "Start: " + x + ", " + y + ", ";
+				}
+				else if(shingled[x][y] == "<PER/>") {
+					answer += "End: " + x + ", " + y + ", ";
+				}
+			}
+		}
+		
+		return answer;
+	}
+	
+	
 }
