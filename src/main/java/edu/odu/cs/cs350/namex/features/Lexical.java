@@ -66,7 +66,7 @@ public class Lexical implements Feature {
 	
 	private boolean isPunctuation(String text) {
 		if(text.length()==1) {
-		String punctutations = ".,;\\:?!$%()/\"";
+		String punctutations = ".,;\\:'?!$%()/\"";
 		return punctutations.contains(String.valueOf(text.charAt(0)));
 		}
 		return false;
