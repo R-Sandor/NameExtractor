@@ -83,4 +83,21 @@ public class TestLearningMachine {
 		}
 		
 	}
+	
+	@Test
+	public void testFindPER() {
+		LearningMachine learningMachine = new LearningMachine();
+		
+		String inputString = "I am <PER> John <PER/> the programmer.";
+		int shingleSize = 3;
+		String [][] shingleStrings = learningMachine.shingling(inputString, shingleSize);
+		
+		String output = learningMachine.findPER(shingleStrings);
+		
+		
+		String expected = "Start: 0, 5, Start: 1, 4, End: 1, 6, Start: 2, 3, End: 2, 5, Start: 3, 2, End: 3, 4, Start: 4, 1, End: 4, 3, Start: 5, 0, End: 5, 2, End: 6, 1, End: 7, 0, ";
+		
+		assertEquals(expected, output);
+	}
+	
 }

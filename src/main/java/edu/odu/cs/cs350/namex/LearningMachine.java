@@ -185,11 +185,11 @@ public class LearningMachine {
 		String answer = "";
 		
 		for(int x=0;x<shingled.length;x++) {
-			for(int y=0;y<shingled[x].length;y++) {
-				if(shingled[x][y] == "<PER>") {
+			for(int y=0;y<shingled[x].length;y++) {		
+				if(shingled[x][y].equals("<PER>")) {
 					answer += "Start: " + x + ", " + y + ", ";
 				}
-				else if(shingled[x][y] == "<PER/>") {
+				else if(shingled[x][y].equals("<PER/>")) {
 					answer += "End: " + x + ", " + y + ", ";
 				}
 			}
