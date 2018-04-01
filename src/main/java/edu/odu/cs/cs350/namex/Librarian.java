@@ -20,7 +20,7 @@ public class Librarian {
 	private PersonalNameExtractor PNE = new PersonalNameExtractor();
 
 	public Librarian(){
-		File file = new File("src/main/resources/TrainingData.txt");
+		File file = new File("src/main/resources/TrainingData2.txt");
 		if(file.exists())
 			try {
 				PNE.trainLearningMachine(file);

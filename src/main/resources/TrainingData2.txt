@@ -1,0 +1,12 @@
+<NER>! -- r 1 - (N- 1) + $2 N- 1)</NER>
+<NER>"*</NER>
+<NER>"China's Pursuit for World Power Status : Is the Transformation of the</NER>
+<NER>"Now, I'll manage better this time." Alice in 
+Wonderland</NER>
+<NER>"Program Evaluation of Outcomes Based Orthotic and Prosthetic Education</NER>
+<NER>"The PLA Navy's Build-up and ROK-USN Cooperation</NER>
+<NER>"This work was supported by the Air Force Office of Scientific Research (AFOSR</NER>
+<NER>"emergent"</NER>
+<NER>"lIlIlI. lIUIlIlIIlI"..</NER>
+<NER>"</NER>
+<NER># 2,</NER>

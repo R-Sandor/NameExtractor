@@ -1,17 +1,20 @@
 package edu.odu.cs.cs350.namex;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.Instances.*;
 
 //The interface for the extracting name. 
 
@@ -68,8 +71,17 @@ public class PersonalNameExtractor {
 		    	trainingLines.add(learningMac.parse(line.replace("<NER>", "").replaceAll("</NER>", "")));
 		    }    
 		}
-		String[] lexical = {"NewLine", "CapitalLetter","Punctuation", "Number","AllCaps", "Capitalized"};
-		String[] partsOfSpeach = {"Article", "Conjunction", "Period", "Comma", "Hyphen"}; 
+		ArrayList<String> my_nomials = new ArrayList<String>() {{
+			add("NewLine"); add("CapitalLetter");
+			add("Punctuation");
+			add("Number");
+			add("AllCaps");
+			add("Capitalized");
+			add("other");
+		}};
+
+		String[] lexical = {"NewLine", "CapitalLetter","Punctuation", "Number","AllCaps", "Capitalized", "other"};
+		String[] partsOfSpeach = {"Article", "Conjunction", "Period", "Comma", "Hyphen", "other"}; 
 		String[] dict = {"0", "1"};
 		String[] cities = {"0","1"};
 		String[] countries = {"0", "1"};
@@ -82,8 +94,8 @@ public class PersonalNameExtractor {
 		String[] prefix = {"0", "1"};
 		String[] suffix = {"0", "1"};
 		String[] kill = {"0", "1"};
-		String[] previous = {"BP", "CP", "other"};
-		String[] previous2 = {"BP", "CP", "other"};
+	//	String[] previous = {"BP", "CP", "other"};
+	//	String[] previous2 = {"BP", "CP", "other"};
 		String[] per = {"0", "1" };
 		
 		Attribute LexicalAtt = new Attribute("lexicalAtt", fastV(lexical));
@@ -102,13 +114,12 @@ public class PersonalNameExtractor {
 		Attribute KillAtt = new Attribute("Kill", fastV(kill));
 		Attribute PerAtt = new Attribute("PerAtt", fastV(per));
 
-		FastVector attrInfo = new FastVector();
+		ArrayList<Attribute> attrInfo = new ArrayList<Attribute>();
 		attrInfo.add(LexicalAtt);
 		attrInfo.add(PoSAtt);
 		attrInfo.add(DictAtt);
 		attrInfo.add(CitiesAtt);
 		attrInfo.add(CountriesAtt);
-		attrInfo.add(CitiesAtt);
 		attrInfo.add(PlacesAtt);
 		attrInfo.add(DTIC1stNameAtt);
 		attrInfo.add(DTICLastNameAtt);
@@ -118,33 +129,37 @@ public class PersonalNameExtractor {
 		attrInfo.add(PrefixAtt);
 		attrInfo.add(SuffixAtt);
 		attrInfo.add(KillAtt);
-		attrInfo.add(PerAtt);
-		final int numberOfAttributes = attrInfo.size();
-
-		Instances training = new Instances("trainingLines", attrInfo, trainingLines.size());
+		attrInfo.add(PerAtt); // TODO we still need to shingling
+							  // for this attribute to work
+		int numberOfAttributes = attrInfo.size();
+		int  size = trainingLines.size();
+		Instances training = new Instances("TrainingData", attrInfo, size);
 		// Which attribute holds the
         // class/category that we want
         // to predict?
-		training.setClass(PerAtt); 
+		training.setClass(PerAtt);
+
 		for (String sdata: trainingLines) {
-	        String[] values = sdata.split(",");
+			System.out.println(sdata);
+	        String[] values = sdata.split(", ");
+	        
+	        
 	        Instance instance = new DenseInstance(numberOfAttributes);
-	        instance.setValue(0, values[0]); // Lexical
-	        instance.setValue(1, Double.parseDouble(values[1])); // Parts Of Speech
-	        instance.setValue(2, Double.parseDouble(values[2])); // Dictionary 
-	        instance.setValue(3, values[3]); // Cities
-	        instance.setValue(4, values[4]); // Countries
-	        instance.setValue(5, values[5]); // Places
-	        instance.setValue(6, values[6]); // DTIC 1st Names
-	        instance.setValue(7, values[7]); // DTIC Last Names
-	        instance.setValue(8, values[8]); // Countries
-	        instance.setValue(9, values[9]); // Common 1st Names
-	        instance.setValue(10, values[10]); // Common Last Names
-	        instance.setValue(11, values[11]); // Honorific 
-	        instance.setValue(12, values[12]); // Prefix
-	        instance.setValue(13, values[13]); // Suffix
-	        instance.setValue(14, values[14]); // Kill
-	        instance.setValue(15, values[15]); // PER
+	        instance.setValue(LexicalAtt, values[0]);
+	        instance.setValue(PoSAtt, values[1]); // Parts Of Speech
+	        instance.setValue(DictAtt, values[2]); // Dictionary 
+	        instance.setValue(CitiesAtt, values[3]); // Cities
+	        instance.setValue(CountriesAtt, values[4]); // Countries
+	        instance.setValue(PlacesAtt, values[5]); // Places
+	        instance.setValue(DTIC1stNameAtt, values[6]); // DTIC 1st Names
+	        instance.setValue(DTICLastNameAtt, values[7]); // DTIC Last Names
+	        instance.setValue(Common1stNameAtt, values[8]); // Common 1st Names
+	        instance.setValue(CommonLastNameAtt, values[9]); // Common Last Names
+	        instance.setValue(HonorificAtt, values[10]); // Honorific 
+	        instance.setValue(PrefixAtt, values[11]); // Prefix
+	        instance.setValue(SuffixAtt, values[12]); // Suffix
+	        instance.setValue(KillAtt, values[13]); // Kill
+//	        instance.setValue(PerAtt, values[14]); // PER
 
 	        training.add(instance); // Add new instance to training data
 		}
@@ -189,15 +204,6 @@ public class PersonalNameExtractor {
 		//
 		return extractedBlock;
 	}
-
-	
-	 /**
-	   * Utility to build a FastVector from an array of Strings.
-	   * (This will be easier in later versions of WEKA where
-	   * FastVector will be a subclass of ArrayList.)  
-	   * @param data array of strings
-	   * @return a FastVector cotnaining those strings
-	   */
 	 private FastVector fastV(String[] data) {
 	      FastVector result = new FastVector(data.length);
 	      for (String s: data) {
@@ -205,59 +211,5 @@ public class PersonalNameExtractor {
 	      }
 	      return result;
 	  }
-	 
-	 
-	 
-	 // We need to consider if there will be other types of shingling that will 
-	 // require different types of returns 
-	 // if there are then we need to make shingling a inner class
-	 // with different methods.
-	 /**
-	  * @param block
-	  * The Shingling function receives a block as input and 
-	  * looks at 2k+1 words. Starting from the right and moving over
-	  * word at a time. 
-	  * This results in the words having relativity to each other.
-	  */
-	 public ArrayList<String> Shingling(String block){
-		 // We need a K constant for the 2k+1
-		 final int k = 3;
-		 //ArrayList to store the shingled lines
-		 ArrayList<String>  shingled = new ArrayList<>();
-		 int numberOfWords = block.split(" ").length;
-		 String[] words = block.split(" ");
-		// Length of the string we are breaking up. See bellow for more information
-		/*--------------------------------------------------------------------------
-		 * For some small integer k, we imagine a window consisting of the 
-		 * k words in front of the one we want to classify, the word we want 
-		 * to classify, and then the k words after the one we want to classify. 
-		 * We slide that window from the start of the input to the end, collecting 
-		 * all the 2k+1-length sequences that we can obtain
-		 *---------------------------------------------------------------------------*/
-		 int batch = 2*k+1;
-		 for (int i=0; i<numberOfWords; i++)
-		 {
-			String shingledLine="";
-			int nulls = i-k;
-			
-			int sub = 0;
-			while (nulls < 0)
-			{
-				shingledLine = shingledLine + " " + Character.toString('\0');
-				i++;
-			}
-			for(int m=i; m< batch - sub; m++)
-			{
-				while (words.length < m + batch)
-				{
-				 shingledLine = shingledLine + " " +  Character.toString('\0');
-				}
-				shingledLine = shingledLine + " " + words[m];
-			}
-				shingled.add(shingledLine);
-		 }
-		 return shingled;
-	 }
-	 
 
 }
