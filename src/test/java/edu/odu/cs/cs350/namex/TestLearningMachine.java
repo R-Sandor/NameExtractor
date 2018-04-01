@@ -76,12 +76,6 @@ public class TestLearningMachine {
 			
 		String [][] outputStrings = learningMachine.shingling(inputString, shingleSize);
 		
-		/*for(int x=0;x<6;x++) {
-			for(int y=0;y<7;y++) {
-				System.out.println(outputStrings[x][y]);
-			}
-		}*/
-		
 		for(int x=0;x<6;x++) {
 			for(int y=0;y<7;y++) {
 				assertEquals(answerStrings[x][y],outputStrings[x][y]);
