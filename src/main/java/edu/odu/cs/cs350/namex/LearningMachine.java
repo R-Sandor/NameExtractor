@@ -93,9 +93,9 @@ public class LearningMachine {
 	public void addCharToList(char resultOfCalc) {
 		
 	}
+	
 	// This is simply an interface to add a character to collection of results 
 	// for a given block.
-	
 	public void readFeatureList() {
 		
 	}
