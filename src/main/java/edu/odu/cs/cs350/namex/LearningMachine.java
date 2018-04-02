@@ -48,7 +48,7 @@ public class LearningMachine {
 	
 	public String judgeBlock(String inputedBlock) {
 		String parsedBlock =parse(inputedBlock);
-		//TODO use the pre-trainned input to make a judgement.
+		//TODO use the pre-trained input to make a judgement.
 		return null;
 	}
 	

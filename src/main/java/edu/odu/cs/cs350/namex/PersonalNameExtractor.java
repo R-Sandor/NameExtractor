@@ -13,7 +13,6 @@ import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.Instances.*;
 
 //The interface for the extracting name. 
 
@@ -39,9 +38,9 @@ public class PersonalNameExtractor {
 	 *		String suffix [] = {0,1}
 	 *		String kill[] = {0,1}
 	 *	
-	 *  3.Created Atributes for each of these
+	 *  3.Created Attributes for each of these
 	 *  	Attribute LexicalAtt = new Attribute("lexicalAtt", fastV(Lexical)); 
-	 *  	Attribure PoSAtt = new Attribute("PoSAtt", fastV(PoS));
+	 *  	Attribute PoSAtt = new Attribute("PoSAtt", fastV(PoS));
 	 *  	......
 	 *  	FastVector attrInfo = new FastVector();
 	 *		attrInfo.addElement(LexicalAtt);
@@ -194,7 +193,8 @@ public class PersonalNameExtractor {
 		//
 		return extractedBlock;
 	}
-	 private ArrayList<String> fastV(String[] data) {
+	
+	private ArrayList<String> fastV(String[] data) {
 	      ArrayList result = new ArrayList(data.length);
 	      for (String s: data) {
 	          result.add(s);
