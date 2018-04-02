@@ -194,7 +194,8 @@ public class PersonalNameExtractor {
 		//
 		return extractedBlock;
 	}
-	 private ArrayList<String> fastV(String[] data) {
+	
+	private ArrayList<String> fastV(String[] data) {
 	      ArrayList result = new ArrayList(data.length);
 	      for (String s: data) {
 	          result.add(s);
