@@ -12,7 +12,7 @@ build-job:
     - ls
     - ./gradlew build
     - ./gradlew javadoc
-    - ls
+    - ./gradlew reports
     
     
     

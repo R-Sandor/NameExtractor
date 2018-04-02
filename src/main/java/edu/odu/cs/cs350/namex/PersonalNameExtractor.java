@@ -11,10 +11,8 @@ import java.util.Arrays;
 
 import weka.core.Attribute;
 import weka.core.DenseInstance;
-import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.Instances.*;
 
 //The interface for the extracting name. 
 
@@ -40,9 +38,9 @@ public class PersonalNameExtractor {
 	 *		String suffix [] = {0,1}
 	 *		String kill[] = {0,1}
 	 *	
-	 *  3.Created Atributes for each of these
+	 *  3.Created Attributes for each of these
 	 *  	Attribute LexicalAtt = new Attribute("lexicalAtt", fastV(Lexical)); 
-	 *  	Attribure PoSAtt = new Attribute("PoSAtt", fastV(PoS));
+	 *  	Attribute PoSAtt = new Attribute("PoSAtt", fastV(PoS));
 	 *  	......
 	 *  	FastVector attrInfo = new FastVector();
 	 *		attrInfo.addElement(LexicalAtt);
@@ -53,9 +51,7 @@ public class PersonalNameExtractor {
 	 *  	Instances training = new Instances( "TrainingData", attrInfo, parsedData);
 	 *  5. 
 	 * 	 
-	 *  TODO 
-	 *  We still need shingling to be able determine where PER tag.
-	 * 
+	 *  
 	 */
 	
 	/**
@@ -71,15 +67,7 @@ public class PersonalNameExtractor {
 		    	trainingLines.add(learningMac.parse(line.replace("<NER>", "").replaceAll("</NER>", "")));
 		    }    
 		}
-		ArrayList<String> my_nomials = new ArrayList<String>() {{
-			add("NewLine"); 
-			add("CapLetter");
-			add("Punctuation");
-			add("Number");
-			add("AllCaps");
-			add("Capitalized");
-			add("other");
-		}};
+		
 
 		String[] lexical = {"NewLine", "CapLetter","Punctuation", "Number","AllCaps", "Capitalized", "other"};
 		String[] partsOfSpeach = {"Article", "Conjunction", "Period", "Comma", "Hyphen", "other"}; 
@@ -204,12 +192,18 @@ public class PersonalNameExtractor {
 		//
 		return extractedBlock;
 	}
-	 private FastVector fastV(String[] data) {
-	      FastVector result = new FastVector(data.length);
+	 private ArrayList<String> fastV(String[] data) {
+	      ArrayList result = new ArrayList(data.length);
 	      for (String s: data) {
-	          result.addElement(s);
+	          result.add(s);
 	      }
 	      return result;
 	  }
+	 
+	
+	 
+	 
+	
+	 
 
 }	

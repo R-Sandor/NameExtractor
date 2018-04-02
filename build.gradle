@@ -67,9 +67,14 @@ test {
 }
 
 
+task train(type:JavaExec) {
 
+  // main = 'edu.odu.cs.cs350.namex.Trainer'
+  // classpath = sourceSets.main.runtimeClasspath
+}
 
 jar {
+	//dependsOn 'train'
 	baseName = 'PNE'
 	version = ''
     manifest {
