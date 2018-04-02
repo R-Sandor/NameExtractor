@@ -72,7 +72,8 @@ public class PersonalNameExtractor {
 		    }    
 		}
 		ArrayList<String> my_nomials = new ArrayList<String>() {{
-			add("NewLine"); add("CapitalLetter");
+			add("NewLine"); 
+			add("CapLetter");
 			add("Punctuation");
 			add("Number");
 			add("AllCaps");
@@ -80,7 +81,7 @@ public class PersonalNameExtractor {
 			add("other");
 		}};
 
-		String[] lexical = {"NewLine", "CapitalLetter","Punctuation", "Number","AllCaps", "Capitalized", "other"};
+		String[] lexical = {"NewLine", "CapLetter","Punctuation", "Number","AllCaps", "Capitalized", "other"};
 		String[] partsOfSpeach = {"Article", "Conjunction", "Period", "Comma", "Hyphen", "other"}; 
 		String[] dict = {"0", "1"};
 		String[] cities = {"0","1"};
@@ -211,4 +212,4 @@ public class PersonalNameExtractor {
 	      return result;
 	  }
 
-}
+}	
