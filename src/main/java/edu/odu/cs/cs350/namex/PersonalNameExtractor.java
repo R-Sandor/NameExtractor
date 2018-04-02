@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 import weka.core.Attribute;
 import weka.core.DenseInstance;
-import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.Instances.*;
@@ -71,15 +70,6 @@ public class PersonalNameExtractor {
 		    	trainingLines.add(learningMac.parse(line.replace("<NER>", "").replaceAll("</NER>", "")));
 		    }    
 		}
-		ArrayList<String> my_nomials = new ArrayList<String>() {{
-			add("NewLine"); 
-			add("CapLetter");
-			add("Punctuation");
-			add("Number");
-			add("AllCaps");
-			add("Capitalized");
-			add("other");
-		}};
 
 		String[] lexical = {"NewLine", "CapLetter","Punctuation", "Number","AllCaps", "Capitalized", "other"};
 		String[] partsOfSpeach = {"Article", "Conjunction", "Period", "Comma", "Hyphen", "other"}; 
@@ -204,10 +194,10 @@ public class PersonalNameExtractor {
 		//
 		return extractedBlock;
 	}
-	 private FastVector fastV(String[] data) {
-	      FastVector result = new FastVector(data.length);
+	 private ArrayList<String> fastV(String[] data) {
+	      ArrayList result = new ArrayList(data.length);
 	      for (String s: data) {
-	          result.addElement(s);
+	          result.add(s);
 	      }
 	      return result;
 	  }
