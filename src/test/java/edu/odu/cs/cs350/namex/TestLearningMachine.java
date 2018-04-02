@@ -14,15 +14,15 @@ public class TestLearningMachine {
 		LearningMachine learning = new LearningMachine();
 		int a=7,b=2,c=1; //higher done first
 		int x=1,y=2; // x is <PER>; y is <PER/>; y should be done first
-		String exampleString = "Thorin Oakenshield$%$&*($@ is a. character,,,, in 		(		Tolkein's ) book, The Hobbit.";
-		String exampleString2 = "<PER>Thorin Oakenshield<PER/>$%$&*($@ is a. character,,,, in 		(		<PER>Tolkein<PER/>'s ) book, The Hobbit.";
-		String testString = "";
+		String exampleString = "Thorin Oakenshield$%$&*($@ is a. character,,,, in 	\"	(	\"	Tolkein's ) book, The Hobbit.";
+		String exampleString2 = "<PER>Thorin Oakenshield<PER/>$%$&*($@ is a. character,,,, in 	\"	(	\"	<PER>Tolkein<PER/>'s ) book, The Hobbit.";
+		String testString = ""; //initializes a test String
 		testString = learning.tagWrap(exampleString,a,y);
 		testString = learning.tagWrap(testString,a,x);
-		testString = learning.tagWrap(testString,b,y);
+		testString = learning.tagWrap(testString,b,y); 
 		testString = learning.tagWrap(testString,c,x);
 		
-		assertEquals(exampleString2,testString);
+		assertEquals(exampleString2,testString); //compares original string with properly marked up string text
 		
 	}
 	
