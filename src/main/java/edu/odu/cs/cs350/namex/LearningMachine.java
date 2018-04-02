@@ -103,12 +103,12 @@ public class LearningMachine {
 	public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
 		int wordCount = 0;
-		int wordB[];
-		wordB = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-		int wordEnd[];
+		int wordB[]; // Holds letter position of the beginning of words at the index of the words
+		wordB = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //initializes array for 20 words
+		int wordEnd[]; // Holds letter position of the beginning of words at the index of the words
 		wordEnd = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-		int endOfLine = inputedBlock.length() - 1;
+		int endOfLine = inputedBlock.length() - 1; //sets a value for the length of the string
 		boolean word = false;
 
 
