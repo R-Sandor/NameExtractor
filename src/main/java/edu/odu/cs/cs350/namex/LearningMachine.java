@@ -110,8 +110,6 @@ public class LearningMachine {
 
 		int endOfLine = inputedBlock.length() - 1; //sets a value for the length of the string
 		boolean word = false;
-
-
 		
 	    for (int i = 0; i < inputedBlock.length(); i++) {
 	    	if (Character.isLetter(inputedBlock.charAt(i)) && !word)
@@ -196,7 +194,5 @@ public class LearningMachine {
 		}
 		
 		return answer;
-	}
-	
-	
+	}	
 }
