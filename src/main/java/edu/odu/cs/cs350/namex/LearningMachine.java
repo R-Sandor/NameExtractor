@@ -111,17 +111,17 @@ public class LearningMachine {
 		int endOfLine = inputedBlock.length() - 1; //sets a value for the length of the string
 		boolean word = false;
 		
-	    for (int i = 0; i < inputedBlock.length(); i++) {
-	    	if (Character.isLetter(inputedBlock.charAt(i)) && !word)
-	    		wordB[wordCount+1] = inputedBlock.length()-i;
+	    for (int i = 0; i < inputedBlock.length(); i++) { //iterates along a string to find words
+	    	if (Character.isLetter(inputedBlock.charAt(i)) && !word) //tests a character in a string to see if it is a letter
+	    		wordB[wordCount+1] = inputedBlock.length()-i; //if the character is a letter then a word is beginning so the position at the index is collected
 	        // if the char is a letter, word = true.
-	        if (Character.isLetter(inputedBlock.charAt(i)) && i != endOfLine) {
+	        if (Character.isLetter(inputedBlock.charAt(i)) && i != endOfLine) { //if it isn't the end of a line then iterations continue
 	            word = true;
 	            
 	            // if char isn't a letter and there have been letters before,
 	            // counter goes up.
 	        } else if (!Character.isLetter(inputedBlock.charAt(i)) && word) {
-	            wordCount++;
+	            wordCount++;//
 	            wordEnd[wordCount]=inputedBlock.length()-i;
 	            word = false;
 	            // last word of String; if it doesn't end with a non letter, it
