@@ -67,10 +67,7 @@ public class PersonalNameExtractor {
 		    	trainingLines.add(learningMac.parse(line.replace("<NER>", "").replaceAll("</NER>", "")));
 		    }    
 		}
-<<<<<<< HEAD
-		
-=======
->>>>>>> branch 'master' of git@forge350.cs.odu.edu:Blue2/Blue2.git
+
 
 		String[] lexical = {"NewLine", "CapLetter","Punctuation", "Number","AllCaps", "Capitalized", "other"};
 		String[] partsOfSpeach = {"Article", "Conjunction", "Period", "Comma", "Hyphen", "other"}; 
@@ -195,12 +192,8 @@ public class PersonalNameExtractor {
 		//
 		return extractedBlock;
 	}
-<<<<<<< HEAD
-	 private ArrayList<String> fastV(String[] data) {
-=======
-	
+
 	private ArrayList<String> fastV(String[] data) {
->>>>>>> branch 'master' of git@forge350.cs.odu.edu:Blue2/Blue2.git
 	      ArrayList result = new ArrayList(data.length);
 	      for (String s: data) {
 	          result.add(s);
