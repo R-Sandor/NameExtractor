@@ -200,11 +200,4 @@ public class PersonalNameExtractor {
 	      }
 	      return result;
 	  }
-	 
-	
-	 
-	 
-	
-	 
-
 }	

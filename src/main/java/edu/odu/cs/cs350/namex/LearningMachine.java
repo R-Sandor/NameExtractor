@@ -52,7 +52,6 @@ public class LearningMachine {
 		return null;
 	}
 	
-	
 	/*
 	 * @param inputedBlock
 	 * Creates the tokens for each word in the line of the 
