@@ -20,23 +20,23 @@ public class Librarian {
 	private PersonalNameExtractor PNE = new PersonalNameExtractor();
 
 	public Librarian(){
-		File file = new File("src/main/resources/TrainingData2.txt");
-		if(file.exists())
-			try {
-				PNE.trainLearningMachine(file);
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		else
-			try {
-				throw new Exception("File not found");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//		File file = new File("src/main/resources/TrainingData2.txt");
+//		if(file.exists())
+//			try {
+//				PNE.trainLearningMachine(file);
+//			} catch (FileNotFoundException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//		else
+//			try {
+//				throw new Exception("File not found");
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 	}
 	/*
 	 * Read text files from the CLI one line at a time.

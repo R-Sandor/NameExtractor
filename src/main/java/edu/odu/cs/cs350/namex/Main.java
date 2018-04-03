@@ -14,7 +14,6 @@ public class Main {
 		{
 			while(!("".equals(line)))
 			{
-				System.out.println(line);
 				librarian.readCLIInput(line);
 				if (scan.hasNextLine())
 					line = scan.nextLine();
@@ -36,7 +35,6 @@ public class Main {
 		{
 			while(!("".equals(line)))
 			{
-				System.out.println(line);
 				librarian.readAPIInput(line);
 					line = scan.nextLine();
 			
@@ -50,20 +48,6 @@ public class Main {
 			for(String output:librarian.getBlocks())
 				System.out.println(output);
 		}
-		//System.out.println(args[0]);
-
-//		
-//		if (args.length > 0)
-//		{
-//			for (int i=0; i< args.length;i++)
-//			{
-//				librarian.readCLIInput(args[i]);	
-//			}
-//			for(String extractedLine:librarian.getBlocks())
-//			{
-//			System.out.println(extractedLine);
-//			}
-//
-//		}
+		
 	}
 }
