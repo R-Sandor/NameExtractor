@@ -12,7 +12,7 @@ public class Main {
 		line = scan.nextLine();
 		if (line.contains("<NER>"))
 		{
-			while(!("".equals(line)))
+			while(scan.hasNextLine())
 			{
 				librarian.readCLIInput(line);
 				if (scan.hasNextLine())
@@ -33,11 +33,13 @@ public class Main {
 		}
 		else
 		{
-			while(!("".equals(line)))
+			while(!("".equals(line) || line.equals(null)))
 			{
 				librarian.readAPIInput(line);
+				if(scan.hasNextLine())
 					line = scan.nextLine();
-			
+				else 
+					break;
 				if ("".equals(line))
 				{
 					scan.close();
