@@ -2,9 +2,12 @@ package edu.odu.cs.cs350.namex;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import edu.odu.cs.cs350.namex.features.Lexical;
 
 public class TestLearningMachine {
 
@@ -68,7 +71,14 @@ public class TestLearningMachine {
 		
 		LearningMachine learningMachine = new LearningMachine();
 		
-		String inputString = "I am John the programmer.";
+		List<String> inputString = new ArrayList<>();
+		inputString.add("I");
+		inputString.add("am");
+		inputString.add("John");
+		inputString.add("the");//
+		inputString.add("programmer");
+		inputString.add(".");
+		
 		int shingleSize = 3;
 		String[][] answerStrings = new String[][] {{"null","null","null","I","am","John","the"},{"null","null","I","am","John","the","programmer"},
 			{"null","I","am","John","the","programmer","."},{"I","am","John","the","programmer",".","null"},{"am","John","the","programmer",".","null","null"},
@@ -90,7 +100,9 @@ public class TestLearningMachine {
 	public void testFindPER() {
 		LearningMachine learningMachine = new LearningMachine();
 		
-		String inputString = "I am <PER>John</PER> the programmer.";
+		Lexical lexical = new Lexical();
+		List<String> inputString = lexical.separateText("I am <PER>John</PER> the programmer.");
+		
 		int shingleSize = 3;
 		String [][] shingleStrings = learningMachine.shingling(inputString, shingleSize);
 		

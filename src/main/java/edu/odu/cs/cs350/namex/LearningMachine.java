@@ -73,12 +73,13 @@ public class LearningMachine {
 		// Incremented as the enhanced for loop iterates.
 		int pos = 0;
 		
-		String[][] shingledBlock = shingling(block,shingleSize);
-		// TODO Return a String analysis of a given word such as " "CapLetter", Other, 1 , 0, 1, 0, 0 "... etc.
 		Lexical lexical = new Lexical();
+		List<String> splitText = lexical.separateText(block);
+		
+		String[][] shingledBlock = shingling(splitText,shingleSize);
+		// TODO Return a String analysis of a given word such as " "CapLetter", Other, 1 , 0, 1, 0, 0 "... etc.
 		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
 		Gazetteer gazetteer = new Gazetteer();
-		List<String> splitText = lexical.separateText(block);
 		List<String> mappedFeatures = new ArrayList<>();
 		for (String text :splitText) {
 			String currentText = lexical.doesApply(text);
@@ -162,10 +163,8 @@ public class LearningMachine {
 	 * Sample Input: "No <PER>John</PER>, no.", 1
 	 * Sample Output: {{"null","No","John"},{"No","John",","},{"John",",","no"},{",","no","."},{"no",".","null"}}
 	 */
-	public String[][] shingling(String blockText, int shingleSize) {
+	public String[][] shingling(List<String> splitText, int shingleSize) {
 		
-		Lexical lexical = new Lexical();
-		List<String> splitText = lexical.separateText(blockText);
 		String [][] answer = new String[splitText.size()][(2 * shingleSize) + 1];
 		for(int x=0;x<splitText.size();x++) {
 			int frontSpace = shingleSize - x;

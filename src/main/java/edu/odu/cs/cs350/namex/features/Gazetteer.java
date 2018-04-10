@@ -109,10 +109,6 @@ public class Gazetteer implements Feature {
 	}
 	
 	private int findMatchingStrings(List<String> blockText, int startIndex, Set<String> set) {
-		boolean b = false;
-		if (set == honorifics) {
-			b = true;
-		}
 		String compareString = "";
 		int incrementIndex = startIndex;
 		while (incrementIndex != blockText.size()) {
@@ -126,7 +122,6 @@ public class Gazetteer implements Feature {
 					compareString += tempString;
 				}
 			}
-			if (b) System.out.println(compareString);
 			if (set.contains(compareString)) {
 				return incrementIndex;
 			}
