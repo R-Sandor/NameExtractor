@@ -56,7 +56,7 @@ public class TestLearningMachine {
 			
 			if (testLearn) {
 				String testBlock = blockOfText.substring(0, blockOfText.length() - 7);
-				assertEquals(learnOutput, learningMachine.learn(testBlock));
+				assertEquals(learnOutput, learningMachine.tokenize(testBlock));
 				testLearn = false;
 			}
 		}
@@ -85,17 +85,19 @@ public class TestLearningMachine {
 	}
 	
 	@Test
+	//TODO the tests should fail because we need PER's to directly against the name 
+	// e.g. <PER>Jared Johansen</PER>
 	public void testFindPER() {
 		LearningMachine learningMachine = new LearningMachine();
 		
-		String inputString = "I am <PER> John <PER/> the programmer.";
+		String inputString = "I am <PER>John</PER> the programmer.";
 		int shingleSize = 3;
 		String [][] shingleStrings = learningMachine.shingling(inputString, shingleSize);
 		
-		String output = learningMachine.findPER(shingleStrings);
+		String output = learningMachine.isPER(shingleStrings,3,shingleSize);
+		System.out.println(output);
 		
-		
-		String expected = "Start: 0, 5, Start: 1, 4, End: 1, 6, Start: 2, 3, End: 2, 5, Start: 3, 2, End: 3, 4, Start: 4, 1, End: 4, 3, Start: 5, 0, End: 5, 2, End: 6, 1, End: 7, 0, ";
+		String expected = "1";
 		
 		assertEquals(expected, output);
 	}

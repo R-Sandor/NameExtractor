@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import weka.classifiers.Classifier;
+
 /**
  * 
  *
@@ -19,8 +21,19 @@ public class Librarian {
 	private ArrayList<String> outBlock = new ArrayList<String>();
 	private PersonalNameExtractor PNE = new PersonalNameExtractor();
 
+	
+	/* 
+	 * TODO The librarian needs to load the training data when a librarian object is created.
+	 * 
+	 */
 	public Librarian(){
-//		File file = new File("src/main/resources/TrainingData2.txt");
+		// This is the part where WEKA reads in the model. 
+		try {
+			Classifier cls = (Classifier) weka.core.SerializationHelper.read("/Location/to/some.model");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		if(file.exists())
 //			try {
 //				PNE.trainLearningMachine(file);

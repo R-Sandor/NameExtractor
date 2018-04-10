@@ -17,62 +17,79 @@ public class LearningMachine {
 		return test;
 	}
 	
-	public String learn(String blockText) {
-		
-		Lexical lexical = new Lexical();
-		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
-		Gazetteer gazetteer = new Gazetteer();
-		List<String> splitText = lexical.separateText(blockText);
-		List<String> mappedFeatures = new ArrayList<>();
-		
-		for (String text :splitText) {
-			String currentText = lexical.doesApply(text);
-			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
-			currentText = currentText + ", " + gazetteer.doesApply(text);
-			mappedFeatures.add(currentText);
-		}
-		
-		String allFeatures = "";
-		boolean first = true;
-		for (String feature : mappedFeatures) {
-			if (first) {
-				allFeatures = feature;
-				first = false;
-				continue;
-			}
-			allFeatures += ", " + feature;
-		}
-		
-		return allFeatures;
-	}
+	
+	/*
+	 * This is to be handled by the Trainer.
+	 */
+	
+//	public String learn(String blockText) {
+//		
+//		Lexical lexical = new Lexical();
+//		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
+//		Gazetteer gazetteer = new Gazetteer();
+//		List<String> splitText = lexical.separateText(blockText);
+//		List<String> mappedFeatures = new ArrayList<>();
+//		
+//		for (String text :splitText) {
+//			String currentText = lexical.doesApply(text);
+//			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
+//			currentText = currentText + ", " + gazetteer.doesApply(text);
+//			mappedFeatures.add(currentText);
+//		}
+//		
+//		String allFeatures = "";
+//		boolean first = true;
+//		for (String feature : mappedFeatures) {
+//			if (first) {
+//				allFeatures = feature;
+//				first = false;
+//				continue;
+//			}
+//			allFeatures += ", " + feature;
+//		}
+//		
+//		return allFeatures;
+//	}
 	
 	public String judgeBlock(String inputedBlock) {
-		String parsedBlock =parse(inputedBlock);
+		String parsedBlock =tokenize(inputedBlock);
 		//TODO use the pre-trained input to make a judgement.
 		return null;
 	}
 	
-	/*
-	 * @param inputedBlock
-	 * Creates the tokens for each word in the line of the 
-	 * of the block. 
+	
+	
+	/**
+	 * 
+	 * @param block
+	 * @return String of tokenized data about a work ex: "CapLetter, Other, 1, 0, 0, 0, ...
+	 * Where each value separated by a comma is a feature of the word.
 	 */
-	public String parse(String inputedBlock) {
-		// TODO Return a String analysis of the block such as CAP, Other, 1, 0, 1, etc.
+	
+	public String tokenize(String block) {
+		// The size of K
+		int shingleSize = 3;
+		// position is the position the word is in on the block 
+		// Incremented as the enhanced for loop iterates.
+		int pos = 0;
+		
+		String[][] shingledBlock = shingling(block,shingleSize);
+		// TODO Return a String analysis of a given word such as " "CapLetter", Other, 1 , 0, 1, 0, 0 "... etc.
 		Lexical lexical = new Lexical();
 		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
 		Gazetteer gazetteer = new Gazetteer();
-		List<String> splitText = lexical.separateText(inputedBlock);
+		List<String> splitText = lexical.separateText(block);
 		List<String> mappedFeatures = new ArrayList<>();
-		
 		for (String text :splitText) {
 			String currentText = lexical.doesApply(text);
 			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
 			currentText = currentText + ", " + gazetteer.doesApply(text);
-			// Testing whether line is returning what it should
+			currentText = currentText + ", " + isPER(shingledBlock, pos, shingleSize); 
 			mappedFeatures.add(currentText);
+			pos++;
+			
 		}
-		
+		// Concatenate all the features onto one String. 
 		String allFeatures = "";
 		boolean first = true;
 		for (String feature : mappedFeatures) {
@@ -83,11 +100,11 @@ public class LearningMachine {
 			}
 			allFeatures += ", " + feature;
 		}
-		
-		return allFeatures;
-		//return null;
-		
+		return allFeatures;		
 	}
+
+	
+
 
 	public void addCharToList(char resultOfCalc) {
 		
@@ -141,10 +158,12 @@ public class LearningMachine {
 	}
 	
 	/*
-	 * Sample Input: "No John, no.", 1
+	 * TODO this needs to be rewritten to count the PER's indexes
+	 * Sample Input: "No <PER>John</PER>, no.", 1
 	 * Sample Output: {{"null","No","John"},{"No","John",","},{"John",",","no"},{",","no","."},{"no",".","null"}}
 	 */
 	public String[][] shingling(String blockText, int shingleSize) {
+		
 		Lexical lexical = new Lexical();
 		List<String> splitText = lexical.separateText(blockText);
 		String [][] answer = new String[splitText.size()][(2 * shingleSize) + 1];
@@ -174,24 +193,35 @@ public class LearningMachine {
 		return answer;
 	}
 	
-	/*
-	 * Identifies PER tags in a shingled set, returns a String with coordinates
-	 * Output Format: if a PER tag is found at shingled[6][7], the return String will contain "Start: 6,7, "
+	/**
+	 * Determines whether a given word in a string is name.
+	 * @param shingled a previously shingled block of text.
+	 * @param pos is the position in the block of separated. 
+	 * 	Sample: "<PER>" "Raphael" "</PER> "wrote" "this" sample". 
+	 * 	Where Raphael is the second element in the separated text.
+	 * @param k is the shingle size 
+	 * @return a 1 for if the word is a part of name and 0 otherwise
+	 *	 
 	 */
-	public String findPER(String[][] shingled) {
+	public String isPER(String[][] shingled, int pos, int k) {
 		String answer = "";
-		
-		for(int x=0;x<shingled.length;x++) {
-			for(int y=0;y<shingled[x].length;y++) {		
-				if(shingled[x][y].equals("<PER>")) {
-					answer += "Start: " + x + ", " + y + ", ";
+		int[] perStartCordinates = new int[shingled.length];
+				if(shingled[pos][k-1].equals("<PER>")) {
+					return "1";
 				}
-				else if(shingled[x][y].equals("<PER/>")) {
-					answer += "End: " + x + ", " + y + ", ";
+				else if(shingled[pos][k-2].equals("<PER>") && !(shingled[pos][k].equals("</PER>"))) {
+					return "1";
 				}
-			}
-		}
+				if(shingled[pos][k+1].equals("<PER/>")) {
+					return "1";
+				}
+				
+			
 		
-		return answer;
+		
+		return "0";
 	}
+	
+	
+	
 }
