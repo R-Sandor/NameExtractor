@@ -2,6 +2,7 @@ package edu.odu.cs.cs350.namex;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import edu.odu.cs.cs350.namex.features.Gazetteer;
 import edu.odu.cs.cs350.namex.features.Lexical;
@@ -80,16 +81,24 @@ public class LearningMachine {
 		// TODO Return a String analysis of a given word such as " "CapLetter", Other, 1 , 0, 1, 0, 0 "... etc.
 		PartsOfSpeech partsOfSpeech = new PartsOfSpeech();
 		Gazetteer gazetteer = new Gazetteer();
-		List<String> mappedFeatures = new ArrayList<>();
+		ArrayList<String> mappedFeatures = new ArrayList<>();
 		for (String text :splitText) {
 			String currentText = lexical.doesApply(text);
 			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
 			currentText = currentText + ", " + gazetteer.doesApply(text);
-			currentText = currentText + ", " + isPER(shingledBlock, pos, shingleSize); 
+			currentText = currentText + ", " + isPER(shingledBlock, pos, shingleSize);
 			mappedFeatures.add(currentText);
 			pos++;
 			
 		}
+		
+		applyLongGazetteerFeature(splitText, gazetteer, mappedFeatures, 3, (blockText, i) -> gazetteer.isUsaCitiesAndStates(splitText, i));
+		applyLongGazetteerFeature(splitText, gazetteer, mappedFeatures, 5, (blockText, i) -> gazetteer.isPlace(splitText, i));
+		applyLongGazetteerFeature(splitText, gazetteer, mappedFeatures, 4, (blockText, i) -> gazetteer.isCountryOrTerritory(splitText, i));
+		applyLongGazetteerFeature(splitText, gazetteer, mappedFeatures, 10, (blockText, i) -> gazetteer.isHonorific(splitText, i));
+		applyLongGazetteerFeature(splitText, gazetteer, mappedFeatures, 12, (blockText, i) -> gazetteer.isSuffix(splitText, i));
+		applyLongGazetteerFeature(splitText, gazetteer, mappedFeatures, 13, (blockText, i) -> gazetteer.isKillText(splitText, i));
+		
 		// Concatenate all the features onto one String. 
 		String allFeatures = "";
 		boolean first = true;
@@ -104,7 +113,27 @@ public class LearningMachine {
 		return allFeatures;		
 	}
 
-	
+	private void applyLongGazetteerFeature(List<String> splitText, Gazetteer gazetteer, ArrayList<String> mappedFeatures, 
+			int replacementIndex, BiFunction<List<String>, Integer, Integer> isType) {
+		for (int i = 0; i < splitText.size(); i++) {
+			int coveredWords = isType.apply(splitText, i);
+			// No matches found
+			if (coveredWords == -1) {
+				continue;
+			}
+			
+			for (int j = i; j <= coveredWords; j++) {	
+				String current = mappedFeatures.get(j);
+				String[] pieces = current.split(", ");
+				StringBuilder newTokenBuilder = new StringBuilder("");
+				for (int l = 0; l < pieces.length; l++) {
+					if (l == replacementIndex) pieces[l] = "1";
+					newTokenBuilder.append(pieces[l] + ((l != pieces.length - 1) ? ", " : ""));
+				}
+				mappedFeatures.set(j, newTokenBuilder.toString());
+			}
+		}
+	}
 
 
 	public void addCharToList(char resultOfCalc) {
