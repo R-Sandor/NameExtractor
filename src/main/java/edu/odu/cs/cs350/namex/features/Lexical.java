@@ -79,7 +79,31 @@ public class Lexical implements Feature {
 		StringBuilder currentTextBuilder = new StringBuilder("");
 		for (int i = 0; i < blockText.length(); i++) {
 			char currentChar = blockText.charAt(i);
-			if (currentChar == ' ' || currentChar == '\t') {
+			
+			boolean edgeOfTag = false;
+			if(currentChar == '>' && ((i-5) >= 0)) {
+				edgeOfTag = (blockText.substring(i-5, i+1).equals("<PER/>"));
+			}
+			if(currentChar == '>' && ((i-4) >= 0) && !edgeOfTag) {
+				edgeOfTag = (blockText.substring(i-4, i+1).equals("<PER>"));
+			}
+			
+			char nextChar = ' ';
+			if(i < (blockText.length() - 1)) {
+				nextChar = blockText.charAt(i+1);
+			}
+			
+			if(currentChar != ' ' && nextChar == '<' && (i+5 < blockText.length())) {
+				edgeOfTag = (blockText.substring(i+1, i+6).equals("<PER>"));
+			}
+			if(currentChar != ' ' && nextChar == '<' && (i+6 < blockText.length()) && !edgeOfTag) {
+				edgeOfTag = (blockText.substring(i+1, i+7).equals("<PER/>"));
+			}
+			
+			if(edgeOfTag)
+				currentTextBuilder.append(String.valueOf(currentChar));
+			
+			if (currentChar == ' ' || currentChar == '\t' || edgeOfTag) {
 				if (currentTextBuilder.length() > 0) {
 					text.add(currentTextBuilder.toString());
 					currentTextBuilder = new StringBuilder("");
@@ -109,7 +133,6 @@ public class Lexical implements Feature {
 				text.add(currentTextBuilder.toString());
 			}
 		}
-		
 		
 		return text;
 	}

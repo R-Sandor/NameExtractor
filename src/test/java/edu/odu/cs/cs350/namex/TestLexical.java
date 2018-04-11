@@ -95,7 +95,8 @@ public class TestLexical {
 						assertTrue(!currentText.contains("%"));
 						assertTrue(!currentText.contains("$"));
 						assertTrue(!currentText.contains("\\"));
-						assertTrue(!currentText.contains("/"));
+						if(!currentText.contains("<PER/>"))
+							assertTrue(!currentText.contains("/"));
 					}
 				}
 				

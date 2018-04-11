@@ -32,3 +32,7 @@ weo;ilodkfslgh/jmwek;vgnhwerp
 oigvcmhw\dfopigv nwer$uopi gweru
 igvn hwermfjkcg,mqehcpruoitcgvhm2op--END--
 20
+My name is <PER>Jared<PER/> and I am writing a test.--END--
+13
+This is a test <PER> Jared <PER/> wrote just in case.--END--
+12
