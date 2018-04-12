@@ -225,8 +225,6 @@ public class LearningMachine {
 	 * Determines whether a given word in a string is name.
 	 * @param shingled a previously shingled block of text.
 	 * @param pos is the position in the block of separated. 
-	 * 	Sample: "<PER>" "Raphael" "</PER> "wrote" "this" sample". 
-	 * 	Where Raphael is the second element in the separated text.
 	 * @param k is the shingle size 
 	 * @return a 1 for if the word is a part of name and 0 otherwise
 	 *	 
