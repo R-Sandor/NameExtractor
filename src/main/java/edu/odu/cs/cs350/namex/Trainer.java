@@ -40,7 +40,7 @@ public class Trainer {
 	 *  @param trainingData
 	 *  Receives training data in a file and parse the data and provides this 
 	 *  to a WEKA learning machine.
-	 * 
+	 * @throws Exception File not found
 	 */
 	public void trainLearningMachine(File trainingData) throws Exception {
 		ArrayList<String> trainingLines = new ArrayList<String>();
