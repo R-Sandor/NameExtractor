@@ -16,7 +16,7 @@ build-job:
     
     
     
-    - rsync -auvz -e "ssh" build/reports/tests/ raphaelsandor@atria.cs.odu.edu
+    - rsync -auvz -e "ssh" build/reports/tests/ raphaelsandor@atria.cs.odu.edu:/home/rsandor/public_html/cs350
     - rsync -auvz -e "ssh" build/docs/ rsandor@atria.cs.odu.edu
     - ssh-agent -k
   only:
