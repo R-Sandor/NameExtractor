@@ -31,13 +31,22 @@ public class Gazetteer implements Feature {
 		WordLists.citiesAndStatesUS().forEach(citiesAndStates::add);
 		WordLists.countriesAndTerritories().forEach(countries::add);
 		WordLists.places().forEach(places::add);
-		WordLists.firstNames().forEach(dticFirstNames::add);
+		int ignore = 0;
+		for (String name : WordLists.firstNames()) {
+			// Ignore the first 37 names since they're not actually names.
+			if (ignore > 37) {
+				dticFirstNames.add(name);
+			} else {
+				ignore++;	
+			}
+		}
 		WordLists.lastNames().forEach(dticLastNames::add);
 		WordLists.commonFirstNames().forEach(commonFirstNames::add);
 		WordLists.commonLastNames().forEach(commonLastNames::add);
 		WordLists.honorifics().forEach(honorifics::add);
 		WordLists.lastNamePrefixes().forEach(prefixes::add);
 		WordLists.lastNameSuffixes().forEach(suffixes::add);
+		suffixes.add("I"); // Single roman number
 		WordLists.nonPersonalIdentifierCues().forEach(killWords::add);
 	}
 	
