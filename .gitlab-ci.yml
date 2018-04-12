@@ -6,7 +6,7 @@ build-job:
     - blue2
   stage: build
   script:
-    - echo cool
+    - echo build number is $CI_BUILD_REF
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$WEBSITE_KEY")
     - ls

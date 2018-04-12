@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import weka.classifiers.Classifier;
 
 /**
- * 
- *
  * The Librarian class should handle the input of the 
  * program this entails both type of users (CLI, and API).
  *

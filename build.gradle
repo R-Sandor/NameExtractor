@@ -4,12 +4,12 @@ apply plugin: 'project-report'
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'java-library-distribution'
+apply plugin: 'org.hidetake.ssh'  // required for deploying reports to remote servers
+
 mainClassName = "edu.odu.cs.cs350.namex.Main"
 
-run {
-  	  	
-standardInput = System.in
-  	
+run { 	  	
+	standardInput = System.in	
 }
 
 sourceCompatibility = 1.8
@@ -25,45 +25,53 @@ htmlDependencyReport {
     
 }
 
-task deployReports(type:Exec) {
-	  workingDir '/home/raphael/cs350/Blue2'
-	  commandLine './deploy.sh'
-}
+
 
 
 repositories {
   	mavenCentral()
     jcenter()
-
   	ivy {
   		url 'https://secweb.cs.odu.edu/~zeil/ivyrepo'
   	}
- 
-}
-
+ }
 
 task myJavadocs(type: Javadoc) {
   source = sourceSets.main.allJava
 }
  
-
- dependencies {
- 	 	 compile 'com.github.fommil.netlib:core:1.1.2'
- 	 	 compile('nz.ac.waikato.cms.weka:weka-stable:3.8.2')
- 	 	 {
- 	 	exclude group: 'com.github.fommil.netlib', module: 'all'
- 	 	}
- 	
- 	 compile 'edu.odu.cs.extract:extract-wordlists:4.2'
-     testCompile 'junit:junit:4.12'
-   
+buildscript {
+repositories {
+  	mavenCentral()
+    jcenter()
+  	ivy {
+  		url 'https://secweb.cs.odu.edu/~zeil/ivyrepo'
+  	}
+ 
+	}
+	dependencies {
+ 
+		
+   		 classpath 'org.hidetake:gradle-ssh-plugin:2.7.0+'
+     	 classpath 'edu.odu.cs.zeil:report_accumulator:1.2'
+	}
 }
+
+import edu.odu.cs.zeil.report_accumulator.ReportStats
+import edu.odu.cs.zeil.report_accumulator.ReportsDeploy
 
 task reports(dependsOn:myJavadocs) { 
   dependsOn 'test'	
 }
 
-
+dependencies {
+	compile 'com.github.fommil.netlib:core:1.1.2'
+	compile('nz.ac.waikato.cms.weka:weka-stable:3.8.2'){
+ 	exclude group: 'com.github.fommil.netlib', module: 'all'
+  	}
+ 	compile 'edu.odu.cs.extract:extract-wordlists:4.2'
+   testCompile 'junit:junit:4.12'
+}
 
 test {
 	ignoreFailures = true
@@ -89,3 +97,21 @@ jar {
     }
 
 }
+
+
+task collectStats (type: ReportStats, dependsOn: ['build']) {
+    reportsURL = 'http://http://www.cs.odu.edu/~rsandor/cs350/Blue2/stats.html'
+}
+
+
+task deployReports (type: ReportsDeploy, dependsOn: 'collectStats') {
+	dependsOn 'reports'
+    description 'Deploy reports and statistics to project website'
+   // deployDestination = 'http://www.cs.odu.edu/~rsandor/cs350/Blue2/'
+    // or
+    //deployDestination = 'ssh://yourName@hostAddr:path'
+    // or
+    deployDestination = 'rsync://build/reports/tests/ raphaelsandor@atria.cs.odu.edu'
+    //deploySshKey = 'path/to/ssh/key' // optional
+}
+
