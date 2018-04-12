@@ -62,8 +62,8 @@ public class LearningMachine {
 	
 	/**
 	 * 
-	 * @param block
-	 * @return String of tokenized data about a work ex: "CapLetter, Other, 1, 0, 0, 0, ...
+	 * @param block an inputed block to be tokenized
+	 * @return allfeatures of tokenized data about a work ex: "CapLetter, Other, 1, 0, 0, 0, ...
 	 * Where each value separated by a comma is a feature of the word.
 	 */
 	
