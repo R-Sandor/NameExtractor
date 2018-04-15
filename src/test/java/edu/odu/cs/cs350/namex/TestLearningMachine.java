@@ -106,7 +106,7 @@ public class TestLearningMachine {
 		int shingleSize = 3;
 		String [][] shingleStrings = learningMachine.shingling(inputString, shingleSize);
 		
-		String output = learningMachine.isPER(shingleStrings,3,shingleSize);
+		String output = learningMachine.isPER(shingleStrings,3);
 		System.out.println(output);
 		
 		String expected = "1";
@@ -120,7 +120,7 @@ public class TestLearningMachine {
 		
 		String IText = "CapLetter, other, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0";
 		String sawText = "other, other, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0";
-		String johnText = "Capitalized, other, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1";
+		String johnText = "Capitalized, other, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0";
 		String periodText = "Punctuation, Period, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0";
 		
 		assertEquals(IText + ", " + sawText + ", " + johnText + ", " + periodText, learningMachine.tokenize("I saw John."));

@@ -108,7 +108,7 @@ public class LearningMachine {
 			String currentText = lexical.doesApply(text);
 			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
 			currentText = currentText + ", " + gazetteer.doesApply(text);
-			currentText = currentText + ", " + isPER(shingledBlock, pos, shingleSize);
+			currentText = currentText + ", " + isPER(shingledBlock, pos);
 			mappedFeatures.add(currentText);
 			pos++;
 			
@@ -245,28 +245,22 @@ public class LearningMachine {
 	}
 	
 	/**
-	 * Determines whether a given word in a string is name.
+	 * Determines whether a given word in a string is part of a name.
 	 * @param shingled a previously shingled block of text.
-	 * @param pos is the position in the block of separated. 
+	 * @param pos is the position in the block of separated.
 	 * @param k is the shingle size 
 	 * @return a 1 for if the word is a part of name and 0 otherwise
-	 *	 
 	 */
-	public String isPER(String[][] shingled, int pos, int k) {
-		String answer = "";
-		int[] perStartCordinates = new int[shingled.length];
-				if(shingled[pos][k-1].equals("<PER>")) {
-					return "1";
-				}
-				else if(shingled[pos][k-2].equals("<PER>") && !(shingled[pos][k].equals("</PER>"))) {
-					return "1";
-				}
-				if(shingled[pos][k+1].equals("</PER>")) {
-					return "1";
-				}
+	public String isPER(String[][] shingled, int pos) {
+		int k = (shingled[0].length / 2);
+		boolean inPER = false;
+		for(int i=0;i<shingled.length;i++) {
+			if(shingled[i][k].equals("<PER>")) inPER = true;
+			else if(shingled[i][k].equals("</PER>")) inPER = false;
+			
+			if(i == pos && inPER)
+				return "1";
+		}
 		return "0";
 	}
-	
-	
-	
 }
