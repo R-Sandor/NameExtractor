@@ -135,11 +135,11 @@ if (project.hasProperty('buildNumber')) {
    }
 
 task collectStats (type: ReportStats, dependsOn: ['build', 'reports']) {
-    reportsURL = 'http://www.cs.odu.edu/~rsandor/cs350/Blue2' + project.name + '/reports'
+    reportsURL = 'http://www.cs.odu.edu/~rsandor/cs350/Blue2'/ + project.name + '/reports'
 }
 
 task deployReports (type: ReportsDeploy, dependsOn: 'collectStats') {
-    deployDestination = 'rsync://rsandor@atria.cs.odu.edu'
+    deployDestination = 'rsync://rsandor@atria.cs.odu.edu:/home/rsandor/public_html/cs350/Blue2'
 }
 
 
