@@ -16,7 +16,7 @@ build-job:
     
     
     
-    - rsync -auvz -e "ssh" build/reports/ raphaelsandor@atria.cs.odu.edu:/home/rsandor/public_html/cs350/Blue2/
+    - rsync -auvz -e "ssh" build/reports/ raphaelsandor@atria.cs.odu.edu
     - ssh-agent -k
   only:
     - master
