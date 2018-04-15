@@ -23,7 +23,6 @@ public class Trainer {
 	public static void main(String args[]) {
 		Trainer trainer = new Trainer();
 		trainer.processTrainingData();
-		new Librarian();
 	}
 	
 	/**
@@ -54,7 +53,6 @@ public class Trainer {
 	 */
 	public void trainLearningMachine(File trainingData) throws Exception {
 		
-		System.out.println("Reading in lines");
 		ArrayList<String> trainingLines = new ArrayList<String>();
 		try (BufferedReader br = new BufferedReader(new FileReader(trainingData))) {
 		    String line;
@@ -114,9 +112,6 @@ public class Trainer {
 		attrInfo.add(KillAtt);
 		attrInfo.add(PerAtt); // TODO we still need to shingling
 							  // for this attribute to work
-		
-		System.out.println("Creating instances");
-		
 		int numberOfAttributes = attrInfo.size();
 		Instances training = new Instances("TrainingData", attrInfo, trainingLines.size());
 		// Which attribute holds the
@@ -127,32 +122,34 @@ public class Trainer {
 		for (String sdata: trainingLines) {
 	        String[] values = sdata.split(", ");
 	        
-	        
-	        Instance instance = new DenseInstance(numberOfAttributes);
-	        instance.setValue(LexicalAtt, values[0]);
-	        instance.setValue(PoSAtt, values[1]); // Parts Of Speech
-	        instance.setValue(DictAtt, values[2]); // Dictionary 
-	        instance.setValue(CitiesAtt, values[3]); // Cities
-	        instance.setValue(CountriesAtt, values[4]); // Countries
-	        instance.setValue(PlacesAtt, values[5]); // Places
-	        instance.setValue(DTIC1stNameAtt, values[6]); // DTIC 1st Names
-	        instance.setValue(DTICLastNameAtt, values[7]); // DTIC Last Names
-	        instance.setValue(Common1stNameAtt, values[8]); // Common 1st Names
-	        instance.setValue(CommonLastNameAtt, values[9]); // Common Last Names
-	        instance.setValue(HonorificAtt, values[10]); // Honorific 
-	        instance.setValue(PrefixAtt, values[11]); // Prefix
-	        instance.setValue(SuffixAtt, values[12]); // Suffix
-	        instance.setValue(KillAtt, values[13]); // Kill
-	        instance.setValue(PerAtt, values[14]); // PER
-
-	        training.add(instance); // Add new instance to training data
+	        int numWords = values.length / 15;
+	        for (int i = 0; i < numWords; i++) {
+	        	int offset = i * 15;
+	        	
+	        	Instance instance = new DenseInstance(numberOfAttributes);
+		        instance.setValue(LexicalAtt, values[offset]);
+		        instance.setValue(PoSAtt, values[offset + 1]); // Parts Of Speech
+		        instance.setValue(DictAtt, values[offset + 2]); // Dictionary 
+		        instance.setValue(CitiesAtt, values[offset + 3]); // Cities
+		        instance.setValue(CountriesAtt, values[offset + 4]); // Countries
+		        instance.setValue(PlacesAtt, values[offset + 5]); // Places
+		        instance.setValue(DTIC1stNameAtt, values[offset + 6]); // DTIC 1st Names
+		        instance.setValue(DTICLastNameAtt, values[offset + 7]); // DTIC Last Names
+		        instance.setValue(Common1stNameAtt, values[offset + 8]); // Common 1st Names
+		        instance.setValue(CommonLastNameAtt, values[offset + 9]); // Common Last Names
+		        instance.setValue(HonorificAtt, values[offset + 10]); // Honorific 
+		        instance.setValue(PrefixAtt, values[offset + 11]); // Prefix
+		        instance.setValue(SuffixAtt, values[offset + 12]); // Suffix
+		        instance.setValue(KillAtt, values[offset + 13]); // Kill
+		        instance.setValue(PerAtt, values[offset + 14]); // PER
+		        
+		        training.add(instance); // Add new instance to training data
+	        }
 		}
 		
 		final double gamma = 0.01; // initial guess
 		final double C = 1.0;      // initial guess
 		String[] options = {"-N", "0", "-V", "-1"};
-		
-		System.out.println("Serializing instances");
 		
 		serializeInstances(training, new J48(), "trainingData.model");
 		

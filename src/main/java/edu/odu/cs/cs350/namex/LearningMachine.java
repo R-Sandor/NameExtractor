@@ -89,6 +89,7 @@ public class LearningMachine {
 	 * Where each value separated by a comma is a feature of the word.
 	 */
 	public String tokenize(String block) {
+		
 		// The size of K
 		int shingleSize = 3;
 		// position is the position the word is in on the block 
@@ -131,6 +132,7 @@ public class LearningMachine {
 			}
 			allFeatures += ", " + feature;
 		}
+		
 		return allFeatures;		
 	}
 
