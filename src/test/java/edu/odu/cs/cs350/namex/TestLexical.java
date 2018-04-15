@@ -99,7 +99,6 @@ public class TestLexical {
 							assertTrue(!currentText.contains("/"));
 					}
 				}
-				
 				testSeperation = false;
 			}
 		}
