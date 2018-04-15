@@ -75,6 +75,13 @@ repositories {
 task myJavadocs(type: Javadoc) {
   source = sourceSets.main.allJava
 }
+
+task copyWebPages (type: Copy) {
+    from 'src/main/html'
+    into 'build/reports'
+}
+
+ 
  
 task copyDocs (type: Copy) {
     from 'build/docs'
@@ -128,7 +135,7 @@ if (project.hasProperty('buildNumber')) {
    }
 
 task collectStats (type: ReportStats, dependsOn: ['build', 'reports']) {
-    reportsURL = 'http://www.cs.odu.edu/~rsandor/cs350/Blue2' + project.name + '/reports'
+    reportsURL = 'http://www.cs.odu.edu/~rsandor/cs350/Blue2'/ + project.name + '/reports'
 }
 
 task deployReports (type: ReportsDeploy, dependsOn: 'collectStats') {
