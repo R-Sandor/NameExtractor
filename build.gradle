@@ -4,9 +4,43 @@ apply plugin: 'project-report'
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'java-library-distribution'
+apply plugin: 'checkstyle' // and/or pmd, jacoco, findbugs
 apply plugin: 'org.hidetake.ssh'  // required for deploying reports to remote servers
 
+buildscript {
+	repositories {
+  		mavenCentral()
+    	jcenter()
+  		ivy {
+  			url 'https://secweb.cs.odu.edu/~zeil/ivyrepo'
+  		}
+	}
+	dependencies {
+ 		 classpath 'org.hidetake:gradle-ssh-plugin:2.7.0+'
+     	 classpath 'edu.odu.cs.zeil:report_accumulator:1.2'
+	}
+}
+import edu.odu.cs.zeil.report_accumulator.ReportStats
+import edu.odu.cs.zeil.report_accumulator.ReportsDeploy
+
 mainClassName = "edu.odu.cs.cs350.namex.Main"
+
+checkstyle {
+	toolVersion "7.6.1"
+	  configFile rootProject.file('/checkstyle.xml')
+	
+}
+
+ task checkstyle(type: Checkstyle) {
+
+        ignoreFailures false
+        showViolations true
+
+        source 'src'
+        include '**/*.java'
+
+        classpath = files()
+    }
 
 run { 	  	
 	standardInput = System.in	
@@ -40,32 +74,20 @@ task myJavadocs(type: Javadoc) {
   source = sourceSets.main.allJava
 }
  
-buildscript {
-repositories {
-  	mavenCentral()
-    jcenter()
-  	ivy {
-  		url 'https://secweb.cs.odu.edu/~zeil/ivyrepo'
-  	}
- 
-	}
-	dependencies {
- 
-		
-   		 classpath 'org.hidetake:gradle-ssh-plugin:2.7.0+'
-     	 classpath 'edu.odu.cs.zeil:report_accumulator:1.2'
-	}
+task copyDocs (type: Copy) {
+    from 'build/docs'
+    into 'build/reports/docs'
+    dependsOn 'javadoc'
 }
 
-import edu.odu.cs.zeil.report_accumulator.ReportStats
-import edu.odu.cs.zeil.report_accumulator.ReportsDeploy
-
-task reports(dependsOn:myJavadocs) { 
-  dependsOn 'test'	
+task reports (dependsOn: ['htmlDependencyReport', 'javadoc', 'check', 
+                          'copyWebPages', 'copyDocs']) {
+    description 'Generate all reports for this project'
 }
+
 
 dependencies {
-	compile 'com.github.fommil.netlib:core:1.1.2'
+	compile 'com.github.fommil.netlib:all:1.1.2'	
 	compile('nz.ac.waikato.cms.weka:weka-stable:3.8.2'){
  	exclude group: 'com.github.fommil.netlib', module: 'all'
   	}
@@ -98,20 +120,17 @@ jar {
 
 }
 
+def theBuildNumber = '';
+if (project.hasProperty('buildNumber')) {
+   theBuildNumber = project.buildNumber
+   }
 
-task collectStats (type: ReportStats, dependsOn: ['build']) {
-    reportsURL = 'http://http://www.cs.odu.edu/~rsandor/cs350/Blue2/stats.html'
+task collectStats (type: ReportStats, dependsOn: ['build', 'reports']) {
+    reportsURL = 'http://www.cs.odu.edu/~rsandor/cs350/Blue2' + project.name + '/reports'
 }
-
 
 task deployReports (type: ReportsDeploy, dependsOn: 'collectStats') {
-	dependsOn 'reports'
-    description 'Deploy reports and statistics to project website'
-   // deployDestination = 'http://www.cs.odu.edu/~rsandor/cs350/Blue2/'
-    // or
-    //deployDestination = 'ssh://yourName@hostAddr:path'
-    // or
-    deployDestination = 'rsync://build/reports/tests/ raphaelsandor@atria.cs.odu.edu'
-    //deploySshKey = 'path/to/ssh/key' // optional
+    deployDestination = 'rsync://rsandor@atria.cs.odu.edu:/home/zeil/public_html/cs350/Blue2'
 }
+
 
