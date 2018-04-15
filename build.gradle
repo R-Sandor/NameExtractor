@@ -139,7 +139,7 @@ task collectStats (type: ReportStats, dependsOn: ['build', 'reports']) {
 }
 
 task deployReports (type: ReportsDeploy, dependsOn: 'collectStats') {
-    deployDestination = 'rsync://rsandor@atria.cs.odu.edu:/home/rsandor/public_html/cs350/Blue2'
+    deployDestination = 'rsync://rsandor@atria.cs.odu.edu'
 }
 
 
