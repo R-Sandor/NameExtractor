@@ -52,21 +52,36 @@ public class LearningMachine {
 //		return allFeatures;
 //	}
 	
+	/**
+	 * Makes a judgment about the inputed block of text and
+	 * places PER tags around the places where personal names
+	 * are found.
+	 * 
+	 * @param inputedBlock the block of text read from the user.
+	 * @return the processed block of text containing PER tags.
+	 */
 	public String judgeBlock(String inputedBlock) {
-		String parsedBlock =tokenize(inputedBlock);
-		//TODO use the pre-trained input to make a judgement.
+		String parsedBlock = tokenize(inputedBlock);
+		
+		// TODO call weka training
+		
+		//TODO use the pre-trained input to make a judgement (WEKA).
+		// Reads from a file containing previous data judgements
+		
 		return null;
 	}
 	
 	
 	
 	/**
+	 * Tokenizes a block of data by using parts of speech, gazetteer,
+	 * and lexical features.
 	 * 
 	 * @param block an inputed block to be tokenized
-	 * @return allfeatures of tokenized data about a work ex: "CapLetter, Other, 1, 0, 0, 0, ...
+	 * 
+	 * @return allfeatures of tokenized data about a word. example: "CapLetter, Other, 1, 0, 0, 0, ...
 	 * Where each value separated by a comma is a feature of the word.
 	 */
-	
 	public String tokenize(String block) {
 		// The size of K
 		int shingleSize = 3;

@@ -1,9 +1,6 @@
 package edu.odu.cs.cs350.namex;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import weka.classifiers.Classifier;
@@ -51,11 +48,13 @@ public class Librarian {
 //				e.printStackTrace();
 //			}
 	}
-	/*
-	 * Read text files from the CLI one line at a time.
-	 * Note this used to take files.  
+	
+	/**
+	 * Splits the lines of a file up by NER tags.
+	 * 
+	 * @param line of a file.
 	 */
-	public void readCLIInput(String line )  {
+	public void readCLIInput(String line) {
 		String addToLine;
 		if (line.contains("<NER>") && line.contains("</NER>")) {
 			line= line.replace("</NER>","");
@@ -104,15 +103,15 @@ public class Librarian {
 		return outBlock.size();
 	}
 	
-	/*
+	/**
 	 * The processing of the blocks is calling each block 
 	 * to the PNE system.
 	 */
-	public void processCLIBlocks(){
+	public void processCLIBlocks() {
 		
 		
 		for(String line: outBlock ) {
-		 PNE.CLIextract(line);
+		   PNE.CLIextract(line);
 		}
 		outBlock = PNE.getExtractedCLIBlocks();
 	}
