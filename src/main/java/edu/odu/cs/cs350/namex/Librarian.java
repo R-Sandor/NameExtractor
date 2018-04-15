@@ -3,7 +3,7 @@ package edu.odu.cs.cs350.namex;
 
 import java.util.ArrayList;
 
-import weka.classifiers.Classifier;
+import weka.classifiers.functions.SMO;
 import weka.core.SerializationHelper;
 
 /**
@@ -27,7 +27,8 @@ public class Librarian {
 	public Librarian(){
 		// This is the part where WEKA reads in the model. 
 		try {
-			Classifier cls = (Classifier) SerializationHelper.read("src/main/resources/trainingData.model");
+			SMO cls = (SMO) SerializationHelper.read("src/main/resources/trainingData.model");
+			System.out.println(cls);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

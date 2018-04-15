@@ -108,6 +108,7 @@ public class LearningMachine {
 			String currentText = lexical.doesApply(text);
 			currentText = currentText + ", " + partsOfSpeech.doesApply(text);
 			currentText = currentText + ", " + gazetteer.doesApply(text);
+			
 			currentText = currentText + ", " + isPER(shingledBlock, pos, shingleSize);
 			mappedFeatures.add(currentText);
 			pos++;
@@ -253,17 +254,15 @@ public class LearningMachine {
 	 *	 
 	 */
 	public String isPER(String[][] shingled, int pos, int k) {
-		String answer = "";
-		int[] perStartCordinates = new int[shingled.length];
-				if(shingled[pos][k-1].equals("<PER>")) {
-					return "1";
-				}
-				else if(shingled[pos][k-2].equals("<PER>") && !(shingled[pos][k].equals("</PER>"))) {
-					return "1";
-				}
-				if(shingled[pos][k+1].equals("</PER>")) {
-					return "1";
-				}
+		if(shingled[pos][k-1].equals("<PER>")) {
+			return "1";
+		}
+		else if(shingled[pos][k-2].equals("<PER>") && !(shingled[pos][k].equals("</PER>"))) {
+			return "1";
+		}
+		if(shingled[pos][k+1].equals("</PER>")) {
+			return "1";
+		}
 		return "0";
 	}
 	

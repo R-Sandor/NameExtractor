@@ -10,3 +10,6 @@ Wonderland</NER>
 <NER>"lIlIlI. lIUIlIlIIlI"..</NER>
 <NER>"</NER>
 <NER># 2,</NER>
+<NER>by <PER>David Barber</PER></NER>
+<NER>by <PER>Derek A. Randall, Jr.</PER> <PER>Charles M. Seaberry</PER></NER>
+<NER>by <PER>Dilawar Khan</PER></NER>

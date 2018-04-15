@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import weka.classifiers.Classifier;
 import weka.classifiers.functions.SMO;
 import weka.classifiers.functions.supportVector.RBFKernel;
-import weka.classifiers.trees.J48;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
@@ -23,6 +22,7 @@ public class Trainer {
 	public static void main(String args[]) {
 		Trainer trainer = new Trainer();
 		trainer.processTrainingData();
+		new Librarian();
 	}
 	
 	/**
@@ -119,6 +119,17 @@ public class Trainer {
         // to predict?
 		training.setClass(PerAtt);
 
+		final double gamma = 0.01; // initial guess
+		final double C = 1.0;      // initial guess
+		String[] options = {"-N", "0", "-V", "-1"};
+		
+		// Create the classifier
+		SMO svm = new SMO();         // new instance of classifier
+		svm.setOptions(options);
+		svm.setKernel(new RBFKernel(training, 25007, gamma));
+
+		svm.setC(C);
+		
 		for (String sdata: trainingLines) {
 	        String[] values = sdata.split(", ");
 	        
@@ -147,21 +158,16 @@ public class Trainer {
 	        }
 		}
 		
-		final double gamma = 0.01; // initial guess
-		final double C = 1.0;      // initial guess
-		String[] options = {"-N", "0", "-V", "-1"};
-		
-		serializeInstances(training, new J48(), "trainingData.model");
-		
-		// Create the classifier
-		SMO svm = new SMO();         // new instance of classifier
-		svm.setOptions(options);
-		svm.setKernel(new RBFKernel(training, 25007, gamma));
-
-		svm.setC(C);
-
 		// Train it
 		svm.buildClassifier(training);
+
+		for (int i = 0; i < training.size(); i++) {
+			double norm = svm.classifyInstance(training.get(i));
+			System.out.println(norm);
+		}
+		
+		serializeInstances(training, svm, "trainingData.model");
+		
 		//To use the trained classifier, we need to supply an Instance with all of the
 		//same attributes except the predicted class.
 		//We can re-use the attribute info we set up for the training data.
@@ -198,7 +204,7 @@ public class Trainer {
 	}
 	
 	private ArrayList<String> fastV(String[] data) {
-	      ArrayList result = new ArrayList(data.length);
+	      ArrayList<String> result = new ArrayList<>(data.length);
 	      for (String s: data) {
 	          result.add(s);
 	      }
