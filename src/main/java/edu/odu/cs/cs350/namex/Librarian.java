@@ -4,6 +4,7 @@ package edu.odu.cs.cs350.namex;
 import java.util.ArrayList;
 
 import weka.classifiers.Classifier;
+import weka.core.SerializationHelper;
 
 /**
  * 
@@ -26,7 +27,8 @@ public class Librarian {
 	public Librarian(){
 		// This is the part where WEKA reads in the model. 
 		try {
-			Classifier cls = (Classifier) weka.core.SerializationHelper.read("/Location/to/some.model");
+			Classifier cls = (Classifier) SerializationHelper.read("src/main/resources/trainingData.model");
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

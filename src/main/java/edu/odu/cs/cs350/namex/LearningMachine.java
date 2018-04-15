@@ -63,10 +63,16 @@ public class LearningMachine {
 	public String judgeBlock(String inputedBlock) {
 		String parsedBlock = tokenize(inputedBlock);
 		
+		
+		// punct,0,0,0,0,1,...,0 (IS PER)
+		
 		// TODO call weka training
 		
 		//TODO use the pre-trained input to make a judgement (WEKA).
 		// Reads from a file containing previous data judgements
+		
+		// inputedBlock = "my name is John."
+		// return -> "my name is <PER>John</PER>."
 		
 		return null;
 	}
@@ -256,10 +262,6 @@ public class LearningMachine {
 				if(shingled[pos][k+1].equals("</PER>")) {
 					return "1";
 				}
-				
-			
-		
-		
 		return "0";
 	}
 	

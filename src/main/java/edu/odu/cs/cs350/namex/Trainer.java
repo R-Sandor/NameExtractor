@@ -2,39 +2,49 @@ package edu.odu.cs.cs350.namex;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
+import weka.classifiers.Classifier;
 import weka.classifiers.functions.SMO;
 import weka.classifiers.functions.supportVector.RBFKernel;
+import weka.classifiers.trees.J48;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.SerializationHelper;
 
 public class Trainer {
-	public static void main(String args[]) throws Exception {
-	Trainer trainer = new Trainer();
+	
+
+	private LearningMachine learningMac = new LearningMachine();
+	
+	public static void main(String args[]) {
+		Trainer trainer = new Trainer();
+		trainer.processTrainingData();
+		new Librarian();
 	}
 	
-	
-	LearningMachine learningMac = new LearningMachine();
-	
-	public Trainer() throws Exception{
+	/**
+	 * Takes the data from the trainingData2.txt file and creates an
+	 * J48 instance model file which it stores under resources.
+	 */
+	private void processTrainingData() {
 		File file = new File("src/main/resources/TrainingData2.txt");
-		if(file.exists())
-
+		if (file.exists()) {
+			try {
 				trainLearningMachine(file);
-		else
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else
 			try {
 				throw new Exception("File not found");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 	}
-	
 	
 	/**
 	 *  @param trainingData
@@ -43,6 +53,8 @@ public class Trainer {
 	 * @throws Exception File not found
 	 */
 	public void trainLearningMachine(File trainingData) throws Exception {
+		
+		System.out.println("Reading in lines");
 		ArrayList<String> trainingLines = new ArrayList<String>();
 		try (BufferedReader br = new BufferedReader(new FileReader(trainingData))) {
 		    String line;
@@ -50,7 +62,6 @@ public class Trainer {
 		    	trainingLines.add(learningMac.tokenize(line.replace("<NER>", "").replaceAll("</NER>", "")));
 		    }    
 		}
-
 
 		String[] lexical = {"NewLine", "CapLetter","Punctuation", "Number","AllCaps", "Capitalized", "other"};
 		String[] partsOfSpeach = {"Article", "Conjunction", "Period", "Comma", "Hyphen", "other"}; 
@@ -103,9 +114,11 @@ public class Trainer {
 		attrInfo.add(KillAtt);
 		attrInfo.add(PerAtt); // TODO we still need to shingling
 							  // for this attribute to work
+		
+		System.out.println("Creating instances");
+		
 		int numberOfAttributes = attrInfo.size();
-		int  size = trainingLines.size();
-		Instances training = new Instances("TrainingData", attrInfo, size);
+		Instances training = new Instances("TrainingData", attrInfo, trainingLines.size());
 		// Which attribute holds the
         // class/category that we want
         // to predict?
@@ -138,7 +151,11 @@ public class Trainer {
 		final double gamma = 0.01; // initial guess
 		final double C = 1.0;      // initial guess
 		String[] options = {"-N", "0", "-V", "-1"};
-
+		
+		System.out.println("Serializing instances");
+		
+		serializeInstances(training, new J48(), "trainingData.model");
+		
 		// Create the classifier
 		SMO svm = new SMO();         // new instance of classifier
 		svm.setOptions(options);
@@ -167,6 +184,20 @@ public class Trainer {
 		//double predictedCategory = svm.classifyInstance(sample);
 		//System.out.println ("Classified as " + play.value((int) predictedCategory);
 
+	}
+	
+	/** 
+	 * Serializes the instances information to be used
+	 * in the future.
+	 */
+	private void serializeInstances(Instances instances, Classifier classifier, String modelName) {
+		try {
+			classifier.buildClassifier(instances);
+			SerializationHelper.write("src/main/resources/" + modelName, classifier);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
 	}
 	
 	private ArrayList<String> fastV(String[] data) {
