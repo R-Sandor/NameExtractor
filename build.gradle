@@ -75,6 +75,13 @@ repositories {
 task myJavadocs(type: Javadoc) {
   source = sourceSets.main.allJava
 }
+
+task copyWebPages (type: Copy) {
+    from 'src/main/html'
+    into 'build/reports'
+}
+
+ 
  
 task copyDocs (type: Copy) {
     from 'build/docs'
