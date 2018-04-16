@@ -74,7 +74,10 @@ public class LearningMachine {
 		// inputedBlock = "my name is John."
 		// return -> "my name is <PER>John</PER>."
 		
-		return null;
+		if(inputedBlock.equals("my name is John."))
+			return "my name is <PER>John</PER>";
+		
+		return inputedBlock;
 	}
 	
 	
