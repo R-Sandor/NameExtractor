@@ -75,20 +75,22 @@ public class LearningMachine {
 		// inputedBlock = "My name is John."
 		// return -> "My name is <PER>John</PER>."
 		
-		int index = -1;
-		int tracker = 0;
+		int tracker = -1;
+		int[] index = new int[0];
 		
 		List <String> words = myLex.separateText(inputedBlock);
 		for(String i: words) {
 			tracker++;
-			if(i.equals("John"))index = tracker;
+			if(i.equals("John")) {
+				index = new int[index.length + 1];
+				index[index.length - 1] = tracker;
+			}
 		}
 		
 		String sentence = inputedBlock;
 		
-		if(index != -1) {
-			sentence = tagWrap(inputedBlock,index,1);
-			sentence = tagWrap(sentence, index + 1, 2);
+		for(int x=0;x<index.length;x++) {
+			sentence = tagWrap(inputedBlock,index[x],1);
 		}
 		
 		return sentence;
