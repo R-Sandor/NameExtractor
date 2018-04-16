@@ -71,11 +71,11 @@ public class LearningMachine {
 		//TODO use the pre-trained input to make a judgement (WEKA).
 		// Reads from a file containing previous data judgements
 		
-		// inputedBlock = "my name is John."
-		// return -> "my name is <PER>John</PER>."
+		// inputedBlock = "My name is John."
+		// return -> "My name is <PER>John</PER>."
 		
-		if(inputedBlock.equals("my name is John."))
-			return "my name is <PER>John</PER>";
+		if(inputedBlock.equals("My name is John."))
+			return "My name is <PER>John</PER>.";
 		
 		return inputedBlock;
 	}
