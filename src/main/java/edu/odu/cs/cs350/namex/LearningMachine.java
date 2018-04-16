@@ -63,6 +63,7 @@ public class LearningMachine {
 	public String judgeBlock(String inputedBlock) {
 		String parsedBlock = tokenize(inputedBlock);
 		
+		Lexical myLex = new Lexical();
 		
 		// punct,0,0,0,0,1,...,0 (IS PER)
 		
@@ -74,10 +75,23 @@ public class LearningMachine {
 		// inputedBlock = "My name is John."
 		// return -> "My name is <PER>John</PER>."
 		
-		if(inputedBlock.equals("My name is John."))
-			return "My name is <PER>John</PER>.";
+		int index = -1;
+		int tracker = 0;
 		
-		return inputedBlock;
+		List <String> words = myLex.separateText(inputedBlock);
+		for(String i: words) {
+			tracker++;
+			if(i.equals("John"))index = tracker;
+		}
+		
+		String sentence = inputedBlock;
+		
+		if(index != -1) {
+			sentence = tagWrap(inputedBlock,index,1);
+			sentence = tagWrap(sentence, index + 1, 2);
+		}
+		
+		return sentence;
 	}
 	
 	
