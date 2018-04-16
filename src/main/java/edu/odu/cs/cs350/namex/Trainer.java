@@ -186,6 +186,8 @@ public class Trainer {
 		// Classify it
 		//double predictedCategory = svm.classifyInstance(sample);
 		//System.out.println ("Classified as " + play.value((int) predictedCategory);
+		
+		//TODO Save data to file
 
 	}
 	
