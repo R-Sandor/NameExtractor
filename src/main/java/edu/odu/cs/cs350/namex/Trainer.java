@@ -22,7 +22,6 @@ public class Trainer {
 	public static void main(String args[]) {
 		Trainer trainer = new Trainer();
 		trainer.processTrainingData();
-		new Librarian();
 	}
 	
 	/**

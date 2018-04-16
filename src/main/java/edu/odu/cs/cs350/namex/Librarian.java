@@ -34,22 +34,6 @@ public class Librarian {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		if(file.exists())
-//			try {
-//				PNE.trainLearningMachine(file);
-//			} catch (FileNotFoundException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//		else
-//			try {
-//				throw new Exception("File not found");
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
 	}
 	
 	/**

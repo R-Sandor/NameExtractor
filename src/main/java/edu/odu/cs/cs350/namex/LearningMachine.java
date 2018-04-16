@@ -1,6 +1,7 @@
 package edu.odu.cs.cs350.namex;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -64,32 +65,30 @@ public class LearningMachine {
 		String parsedBlock = tokenize(inputedBlock);
 		
 		Lexical myLex = new Lexical();
-		
-		// punct,0,0,0,0,1,...,0 (IS PER)
-		
-		// TODO call weka training
-		
-		//TODO use the pre-trained input to make a judgement (WEKA).
-		// Reads from a file containing previous data judgements
-		
-		// inputedBlock = "My name is John."
-		// return -> "My name is <PER>John</PER>."
-		
-		int index = -1;
-		int tracker = 0;
-		
-		List <String> words = myLex.separateText(inputedBlock);
-		for(String i: words) {
-			tracker++;
-			if(i.equals("John"))index = tracker;
-		}
-		
+	
+	    
+		 ArrayList <String> words = (ArrayList<String>) myLex.separateText(inputedBlock);
+	
 		String sentence = inputedBlock;
-		
-		if(index != -1) {
-			sentence = tagWrap(inputedBlock,index,1);
-			sentence = tagWrap(sentence, index + 1, 2);
-		}
+		String[] values = parsedBlock.split(", ");
+        int numWords = values.length / 15;
+        List<Integer> collectedIndexes = new ArrayList<>();
+        for (int i = 0; i < numWords; i++) {
+        	int offset = i * 15;
+        	
+        	if (values[offset + 8].equals("1") || values[offset + 9].equals("1")) {
+        		if (words.get(i).length() >= 4 && values[offset + 2].equals("0")) {
+        			collectedIndexes.add(i);
+        		}
+        	}
+        }
+        
+        Collections.reverse(collectedIndexes);
+        
+        for (int index : collectedIndexes) {
+        	sentence = tagWrap(sentence, index + 1, 1);
+			sentence = tagWrap(sentence, index + 2, 2);
+        }
 		
 		return sentence;
 	}
@@ -186,6 +185,17 @@ public class LearningMachine {
 	public void readFeatureList() {
 		
 	}
+	
+	/*public String tagWrap(String inputedBlock, int key, int type) {
+		
+		String gatherString = "";
+		for (int i = 0; i < inputedBlock.length(); i++) {
+			char curCh = inputedBlock.charAt(i);
+			
+		}
+		
+		return "";
+	}*/
 	
 	public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
