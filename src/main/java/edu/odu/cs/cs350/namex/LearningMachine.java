@@ -189,7 +189,7 @@ public class LearningMachine {
 		
 	}
 	
-	public String tagWrap(String inputedBlock, int key, int type) {
+	/*public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
 		int wordCount = 0;
 		int wordB[]; // Holds letter position of the beginning of words at the index of the words
@@ -228,6 +228,33 @@ public class LearningMachine {
 		}
 		return outputBlock;
 		
+	}*/
+	
+	public String tagWrap(String inputedBlock, int key, int length) {
+		String result = "";
+		
+		Lexical myLex = new Lexical();
+		List<String> myWords = myLex.separateText(inputedBlock);
+		
+		myWords.add(key, "<PER>");
+		myWords.add(key + 1 + length, "</PER>");
+		
+		for(int y=0;y<myWords.size();y++) {
+			result += myWords.get(y);
+			String punctutations = ".,;\\:'?!$%()/\"";
+			Boolean checker =  (myWords.get(y).length() == 1) && (y < (myWords.size() - 1));
+			if(checker)
+				checker = (punctutations.contains(String.valueOf(myWords.get(y + 1).charAt(0))));
+			checker = checker || myWords.get(y).equals("<PER>");
+			if(y < (myWords.size() - 1))
+				checker = checker || myWords.get(y+1).equals("</PER>");
+			
+			if(!checker)
+				result += " ";
+			
+		}
+		
+		return result;
 	}
 	
 	/*
