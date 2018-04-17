@@ -254,7 +254,6 @@ public class LearningMachine {
 	 * Determines whether a given word in a string is part of a name.
 	 * @param shingled a previously shingled block of text.
 	 * @param pos is the position in the block of separated.
-	 * @param k is the shingle size 
 	 * @return a 1 for if the word is a part of name and 0 otherwise
 	 */
 	public String isPER(String[][] shingled, int pos) {
