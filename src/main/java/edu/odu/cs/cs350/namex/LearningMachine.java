@@ -186,7 +186,7 @@ public class LearningMachine {
 	}
 		//tagWrap adjusted to run with simple strings and not ignore punctuation
 	public String tagWrap(String inputedBlock, int key, int length) {
-		String result = "";//initiate string for holding result
+		String result = "";//initiate string for holding result for later
 		
 		Lexical myLex = new Lexical();
 		List<String> myWords = myLex.separateText(inputedBlock);
