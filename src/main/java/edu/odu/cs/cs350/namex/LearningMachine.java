@@ -65,11 +65,9 @@ public class LearningMachine {
 		String parsedBlock = tokenize(inputedBlock);
 		
 		Lexical myLex = new Lexical();
-	
-	    
-		 ArrayList <String> words = (ArrayList<String>) myLex.separateText(inputedBlock);
-	
-		String sentence = inputedBlock;
+		
+		List <String> words = myLex.separateText(inputedBlock);
+		
 		String[] values = parsedBlock.split(", ");
         int numWords = values.length / 15;
         List<Integer> collectedIndexes = new ArrayList<>();
@@ -85,11 +83,12 @@ public class LearningMachine {
         
         Collections.reverse(collectedIndexes);
         
+        String sentence = inputedBlock;
         for (int index : collectedIndexes) {
         	sentence = tagWrap(sentence, index + 1, 1);
 			sentence = tagWrap(sentence, index + 2, 2);
         }
-		
+        
 		return sentence;
 	}
 	
@@ -185,17 +184,7 @@ public class LearningMachine {
 	public void readFeatureList() {
 		
 	}
-	
-	/*public String tagWrap(String inputedBlock, int key, int type) {
-		
-		String gatherString = "";
-		for (int i = 0; i < inputedBlock.length(); i++) {
-			char curCh = inputedBlock.charAt(i);
-			
-		}
-		
-		return "";
-	}*/
+
 	
 	public String tagWrap(String inputedBlock, int key, int type) {
 		String outputBlock = "";
@@ -237,6 +226,33 @@ public class LearningMachine {
 		return outputBlock;
 		
 	}
+	
+	/*public String tagWrap(String inputedBlock, int key, int length) {
+		String result = "";
+		
+		Lexical myLex = new Lexical();
+		List<String> myWords = myLex.separateText(inputedBlock);
+		
+		myWords.add(key, "<PER>");
+		myWords.add(key + 1 + length, "</PER>");
+		
+		for(int y=0;y<myWords.size();y++) {
+			result += myWords.get(y);
+			String punctutations = ".,;\\:'?!$%()/\"";
+			Boolean checker =  (myWords.get(y).length() == 1) && (y < (myWords.size() - 1));
+			if(checker)
+				checker = (punctutations.contains(String.valueOf(myWords.get(y + 1).charAt(0))));
+			checker = checker || myWords.get(y).equals("<PER>");
+			if(y < (myWords.size() - 1))
+				checker = checker || myWords.get(y+1).equals("</PER>");
+			
+			if(!checker)
+				result += " ";
+			
+		}
+		
+		return result;
+	}*/
 	
 	/*
 	 * TODO this needs to be rewritten to count the PER's indexes
