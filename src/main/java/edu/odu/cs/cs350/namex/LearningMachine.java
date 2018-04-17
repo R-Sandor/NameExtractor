@@ -191,12 +191,12 @@ public class LearningMachine {
 		Lexical myLex = new Lexical();
 		List<String> myWords = myLex.separateText(inputedBlock);
 		
-		myWords.add(key, "<PER>");
-		myWords.add(key + 1 + length, "<PER/>");
+		myWords.add(key, "<PER>"); //If it is the beginning of a word add <PER>
+		myWords.add(key + 1 + length, "<PER/>"); //If it is the end of the word add <PER/>
 		
 		for(int y=0;y<myWords.size();y++) {
 			result += myWords.get(y);
-			String punctutations = ".,;\\:'?!$%()/\""; 
+			String punctutations = ".,;\\:'?!$%()/\""; //Punctuation to check against separated text
 			String spaceAfter = ".,;:?!\"";
 			
 			Boolean checker =  (myWords.get(y).length() == 1) && (y < (myWords.size() - 1));
