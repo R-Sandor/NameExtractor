@@ -12,10 +12,11 @@ build-job:
     - ls
     - ./gradlew build
     - ./gradlew javadoc
-    - ./gradlew deployReports
+    - ./gradlew reports
     
     
     
+    - rsync -auvz -e "ssh" build/reports/ raphaelsandor@atria.cs.odu.edu
     - ssh-agent -k
   only:
     - master
