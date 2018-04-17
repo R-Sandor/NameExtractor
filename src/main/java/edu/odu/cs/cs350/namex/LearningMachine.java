@@ -186,7 +186,7 @@ public class LearningMachine {
 	}
 		//tagWrap adjusted to run with simple strings and not ignore punctuation
 	public String tagWrap(String inputedBlock, int key, int length) {
-		String result = "";
+		String result = "";//initiate string for holding result for later
 		
 		Lexical myLex = new Lexical();
 		List<String> myWords = myLex.separateText(inputedBlock);
@@ -194,8 +194,8 @@ public class LearningMachine {
 		myWords.add(key, "<PER>"); //If it is the beginning of a word add <PER>
 		myWords.add(key + 1 + length, "<PER/>"); //If it is the end of the word add <PER/>
 		
-		for(int y=0;y<myWords.size();y++) {
-			result += myWords.get(y);
+		for(int y=0;y<myWords.size();y++) { 
+			result += myWords.get(y); 
 			String punctutations = ".,;\\:'?!$%()/\""; //Punctuation to check against separated text
 			String spaceAfter = ".,;:?!\"";
 			
