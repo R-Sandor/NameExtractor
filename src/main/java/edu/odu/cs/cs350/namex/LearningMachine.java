@@ -234,17 +234,21 @@ public class LearningMachine {
 		List<String> myWords = myLex.separateText(inputedBlock);
 		
 		myWords.add(key, "<PER>");
-		myWords.add(key + 1 + length, "</PER>");
+		myWords.add(key + 1 + length, "<PER/>");
 		
 		for(int y=0;y<myWords.size();y++) {
 			result += myWords.get(y);
 			String punctutations = ".,;\\:'?!$%()/\"";
+			String spaceAfter = ".,;:?!\"";
+			
 			Boolean checker =  (myWords.get(y).length() == 1) && (y < (myWords.size() - 1));
 			if(checker)
-				checker = (punctutations.contains(String.valueOf(myWords.get(y + 1).charAt(0))));
+				checker = (punctutations.contains(String.valueOf(myWords.get(y).charAt(0)))) && !(spaceAfter.contains(String.valueOf(myWords.get(y).charAt(0))));
 			checker = checker || myWords.get(y).equals("<PER>");
 			if(y < (myWords.size() - 1))
-				checker = checker || myWords.get(y+1).equals("</PER>");
+				checker = checker || myWords.get(y+1).equals("<PER/>") || (punctutations.contains(String.valueOf(myWords.get(y+1).charAt(0))));
+			
+			checker = checker || (y == myWords.size() - 1);
 			
 			if(!checker)
 				result += " ";
