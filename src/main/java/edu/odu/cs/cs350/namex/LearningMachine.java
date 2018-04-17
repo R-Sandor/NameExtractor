@@ -184,7 +184,7 @@ public class LearningMachine {
 	public void readFeatureList() {
 		
 	}
-		
+		//tagWrap adjusted to run with simple strings and not ignore punctuation
 	public String tagWrap(String inputedBlock, int key, int length) {
 		String result = "";
 		
@@ -196,7 +196,7 @@ public class LearningMachine {
 		
 		for(int y=0;y<myWords.size();y++) {
 			result += myWords.get(y);
-			String punctutations = ".,;\\:'?!$%()/\"";
+			String punctutations = ".,;\\:'?!$%()/\""; 
 			String spaceAfter = ".,;:?!\"";
 			
 			Boolean checker =  (myWords.get(y).length() == 1) && (y < (myWords.size() - 1));
