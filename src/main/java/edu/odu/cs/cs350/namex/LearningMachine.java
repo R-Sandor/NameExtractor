@@ -202,14 +202,14 @@ public class LearningMachine {
 			Boolean checker =  (myWords.get(y).length() == 1) && (y < (myWords.size() - 1));
 			if(checker)
 				checker = (punctutations.contains(String.valueOf(myWords.get(y).charAt(0)))) && !(spaceAfter.contains(String.valueOf(myWords.get(y).charAt(0))));
-			checker = checker || myWords.get(y).equals("<PER>");
+			checker = checker || myWords.get(y).equals("<PER>"); //Makes sure placed tags are not counted as words
 			if(y < (myWords.size() - 1))
-				checker = checker || myWords.get(y+1).equals("<PER/>") || (punctutations.contains(String.valueOf(myWords.get(y+1).charAt(0))));
+				checker = checker || myWords.get(y+1).equals("<PER/>") || (punctutations.contains(String.valueOf(myWords.get(y+1).charAt(0))));//Makes sure placed tags are not counted as words
 			
 			checker = checker || (y == myWords.size() - 1);
 			
 			if(!checker)
-				result += " ";
+				result += " "; //Adds spaces between words
 			
 		}
 		
