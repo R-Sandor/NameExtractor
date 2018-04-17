@@ -138,7 +138,12 @@ task collectStats (type: ReportStats, dependsOn: ['build', 'reports']) {
     reportsURL = 'http://www.cs.odu.edu/~rsandor/cs350/' + project.name + '/reports'
 }
 
-task deployReports (type: ReportsDeploy, dependsOn: 'collectStats') {
+task updateSite (type: Exec){
+		commandLine 'sh', '././src/main/resources/deploy.sh' 	
+}
+
+task deployReports (type: ReportsDeploy, dependsOn: ['collectStats', 'updateSite']) {
+	//rsync -auvz -e "ssh" /home/raphael/it325/ rsandor@atria.cs.odu.edu:/home/rsandor/public_html/
     //deployDestination = 'rsync://rsandor@atria.cs.odu.edu:/home/rsandor/public_html/cs350/Blue2/reports'
 }
 
