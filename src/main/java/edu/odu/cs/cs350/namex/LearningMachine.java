@@ -81,12 +81,12 @@ public class LearningMachine {
         	}
         }
         
-        Collections.reverse(collectedIndexes);
         
         String sentence = inputedBlock;
+        int numItrs = 0;
         for (int index : collectedIndexes) {
-        	sentence = tagWrap(sentence, index + 1, 1);
-			sentence = tagWrap(sentence, index + 2, 2);
+        	sentence = tagWrap(sentence, index + (2 * numItrs), 1);
+        	numItrs++;
         }
         
 		return sentence;
@@ -184,50 +184,8 @@ public class LearningMachine {
 	public void readFeatureList() {
 		
 	}
-
-	
-	public String tagWrap(String inputedBlock, int key, int type) {
-		String outputBlock = "";
-		int wordCount = 0;
-		int wordB[]; // Holds letter position of the beginning of words at the index of the words
-		wordB = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //initializes array for 20 words
-		int wordEnd[]; // Holds letter position of the beginning of words at the index of the words
-		wordEnd = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-		int endOfLine = inputedBlock.length() - 1; //sets a value for the length of the string
-		boolean word = false;
 		
-	    for (int i = 0; i < inputedBlock.length(); i++) { //iterates along a string to find words
-	    	if (Character.isLetter(inputedBlock.charAt(i)) && !word) //tests a character in a string to see if it is a letter
-	    		wordB[wordCount+1] = inputedBlock.length()-i; //if the character is a letter then a word is beginning so the position at the index is collected
-	        // if the char is a letter, word = true.
-	        if (Character.isLetter(inputedBlock.charAt(i)) && i != endOfLine) { //if it isn't the end of a line then iterations continue
-	            word = true;
-	            
-	            // if char isn't a letter and there have been letters before,
-	            // counter goes up.
-	        } else if (!Character.isLetter(inputedBlock.charAt(i)) && word) {
-	            wordCount++;//
-	            wordEnd[wordCount]=inputedBlock.length()-i;
-	            word = false;
-	            // last word of String; if it doesn't end with a non letter, it
-	            // wouldn't count without this.
-	        } else if (Character.isLetter(inputedBlock.charAt(i)) && i == endOfLine) {
-	            wordCount++;
-	        }
-	    }
-		
-		if(type==1){
-		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-wordB[key], "<PER>").toString();
-		}
-		if(type==2) {
-		outputBlock = new StringBuilder(inputedBlock).insert(inputedBlock.length()-wordEnd[key], "<PER/>").toString();	
-		}
-		return outputBlock;
-		
-	}
-	
-	/*public String tagWrap(String inputedBlock, int key, int length) {
+	public String tagWrap(String inputedBlock, int key, int length) {
 		String result = "";
 		
 		Lexical myLex = new Lexical();
@@ -256,7 +214,7 @@ public class LearningMachine {
 		}
 		
 		return result;
-	}*/
+	}
 	
 	/*
 	 * TODO this needs to be rewritten to count the PER's indexes
